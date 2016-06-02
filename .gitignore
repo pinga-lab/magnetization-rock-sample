@@ -5,3 +5,18 @@
 manuscript/output/*
 .env
 code/.ipynb_checkpoints/
+
+.ipynb_checkpoints
+
+# Tex files
+*.synctex.gz
+*.fls
+*.bbl
+*.blg
+*.fff
+*.log
+*.lof
+*.aux
+*.pyc
+*.out
+*~

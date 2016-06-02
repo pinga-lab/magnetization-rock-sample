@@ -1,0 +1,5 @@
+New spatial domain method for inverting scanning magnetic microscopy data
+New acquisition scheme for scanning magnetic microscopy
+New nondestructive diagnostic tool of geological samples
+
+

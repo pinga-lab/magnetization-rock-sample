@@ -1,0 +1,16 @@
+.ipynb_checkpoints
+#.png
+
+
+# Exemplos
+*.synctex.gz
+*.fls
+*.bbl
+*.blg
+*.fff
+*.log
+*.lof
+*.aux
+*.pyc
+*.out
+*~

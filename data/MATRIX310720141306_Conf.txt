@@ -1,0 +1,10 @@
+Sensitivity: 0,200
+Time Constant: 0,300
+Início X: 11600,000
+Step X: 100,000
+Fim X: 25600,000
+Início Y: 13300,000
+Step Y: 200,000
+Fim Y: 18300,000
+----------------------
+sdsdd
