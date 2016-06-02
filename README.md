@@ -17,9 +17,7 @@ been increasingly used in paleomagnetism and rock magnetism.
 Different from standard paleomagnetic magnetometers, scanning 
 magnetic microscopes produce high-resolution maps of the vertical 
 component of the magnetic induction field on a plane located over 
-the sample. 
-
-These high-resolution magnetic maps can be used for estimating the 
+the sample. These high-resolution magnetic maps can be used for estimating the 
 magnetization distribution within a rock sample by inversion.
 Previous studies have estimated the magnetization distribution 
 within rock samples by inverting the magnetic data measured on a 
@@ -30,9 +28,7 @@ magnetization distribution. We have presumed that the internal
 magnetization distribution of the sample varies along one of
 its axes. Our method approximates the sample geometry
 by an interpretation model composed of a one-dimensional 
-array of juxtaposed rectangular prisms with uniform magnetization. 
-
-The Cartesian components of the magnetization vector within each rectangular prism 
+array of juxtaposed rectangular prisms with uniform magnetization. The Cartesian components of the magnetization vector within each rectangular prism 
 are the parameters to be estimated by solving a linear inverse problem. 
 Tests with synthetic data show the performance of our method in 
 retrieving complex magnetization distributions even in 
