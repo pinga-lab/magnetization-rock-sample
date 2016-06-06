@@ -364,7 +364,7 @@ def coordplane(h,L,Nx,Ny,area,alpha,theta):
     shape = (Nx, Ny)
     areaxy = area
     dist = h*0.000001
-    size = L*0.001
+    size = L
     voo = dist + 0.5*size
     ang = np.deg2rad(theta)
     cos = np.cos(ang)
