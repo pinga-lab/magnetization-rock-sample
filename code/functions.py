@@ -6,7 +6,7 @@ from fatiando.utils import ang2vec, vec2ang
 from fatiando.vis import mpl, myv
 from fatiando.constants import CM, T2NT
 
-def magnetic_data(x, y, z, model, alpha, eff_area = None):
+def magnetic_data(x, y, z, model, alpha, eff_area = None, grains = None):
     '''
     Calculates the magnetic indution on the plane alpha
     located around the sample.
@@ -17,6 +17,8 @@ def magnetic_data(x, y, z, model, alpha, eff_area = None):
              the points on which the magnetic field is calculated.
     model: list - geometrical elements of the Fatiando a Terra 
            class mesher - interpretation model.
+    grains: None or list - if not None, is a list of geometrical elements 
+            of the Fatiando a Terra class mesher - randomly magnetized grains.
     alpha: int - index of the plane on which the data are calculated.
     eff_area: None or tuple of floats - effective area of the simulated sensor.
               If None, calculates the field at the points x, y, z.
@@ -52,23 +54,42 @@ def magnetic_data(x, y, z, model, alpha, eff_area = None):
             
         if (alpha == 0) or (alpha == 2):
             ymin = y - ns2*dy
-            for i in range(ns):
-                for j in range(ns):
-                    B += prism.bz(xmin + i*dx, ymin + j*dy, z, model)
+            if grains is None:
+                for i in range(ns):
+                    for j in range(ns):
+                        B += prism.bz(xmin + i*dx, ymin + j*dy, z, model)
+            else:
+                for i in range(ns):
+                    for j in range(ns):
+                        B += prism.bz(xmin + i*dx, ymin + j*dy, z, model)
+                        B += sphere.bz(xmin + i*dx, ymin + j*dy, z, grains)
         if (alpha == 1) or (alpha == 3):
-            zmin = z - ns2*dz
-            for i in range(ns):
-                for j in range(ns):
-                    B += prism.by(xmin + i*dx, y, zmin + j*dz, model)
-
+            #zmin = z - ns2*dz
+            zmin = z - ns2*dy
+            if grains is None:
+                for i in range(ns):
+                    for j in range(ns):
+                        #B += prism.by(xmin + i*dx, y, zmin + j*dz, model)
+                        B += prism.by(xmin + i*dx, y, zmin + j*dy, model)
+            else:
+                for i in range(ns):
+                    for j in range(ns):
+                        #B += prism.by(xmin + i*dx, y, zmin + j*dz, model)
+                        B += prism.by(xmin + i*dx, y, zmin + j*dy, model)
+                        #B += sphere.by(xmin + i*dx, y, zmin + j*dz, grains)
+                        B += sphere.by(xmin + i*dx, y, zmin + j*dy, grains)
         B /= ns*ns
         
     else:
         if (alpha == 0) or (alpha == 2):
             B = prism.bz(x, y, z, model)
+            if grains is not None:
+                B += sphere.bz(x, y, z, grains)
         if (alpha == 1) or (alpha == 3):
             B = prism.by(x, y, z, model)
-    
+            if grains is not None:
+                B += sphere.by(x, y, z, grains)
+
     return B
 
 def sample(Lx,Ly,Lz,N,m=None,inc=None,dec=None):
