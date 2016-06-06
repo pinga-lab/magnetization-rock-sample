@@ -265,20 +265,20 @@ def dipolesrand(N, seed,n,deg_dec,deg_inc,std,mag,raio,Lx,Ly,Lz):
     
     mag: float - intensidade de magnetizacao (A/m) em cada esfera
     
-    raio: float - raio (micrometro) de cada esfera 
+    raio: float - raio (m) de cada esfera 
     
-    Lx,Ly,Lz: int - dimensoes do prisma (mm)
+    Lx,Ly,Lz: int - dimensoes do prisma (m)
     
     return
     
     modelrand: list de elementos geometricos da classe mesher da biblioteca Fatiando a Terra.
     '''
     np.random.seed(seed=seed)
-    sizex = Lx*0.001
-    sizey = Ly*0.001
-    sizez = Lz*0.001
+    sizex = Lx
+    sizey = Ly
+    sizez = Lz
     L = N*sizex
-    R = raio*0.000001
+    R = raio
     Coordx = np.random.uniform(-0.5*L+R,+0.5*L-R,n) 
     Coordy = np.random.uniform(-0.5*sizey+R,+0.5*sizey-R,n) 
     Coordz = np.random.uniform(-0.5*sizez+R,+0.5*sizez-R,n)
