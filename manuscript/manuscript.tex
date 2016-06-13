@@ -710,7 +710,36 @@ where $\mathbf{M}$ is the partitioned matrix defined in equation
 \ref{eq:sensitivity-matrix}.
 We consider that the estimated parameter vector $\mathbf{m}^{\dagger}$
 given by equation \ref{eq:estimate} approximates the real magnetization 
-distribution within the rectangular rock sample.
+distribution within the rectangular rock sample. However, solutions given by the equation \ref{eq:estimate} can present non-uniqueness and instability. To overcome this ill- conditioning problem we need to impose a \textit{priori} information. As mentioned before, this procedure is generally called regularization. Here we imposed a constraint using ''Smoothness" regularization, generally called first-order Tikhonov regularization. Then equation \ref{eq:estimate} is now equal to 
+\begin{equation}
+\mathbf{m}^{\dagger} = \left( \mathbf{M}^{\top}\mathbf{M} + \mu_0 \,  \mathbf{R}^T \mathbf{R}\right)^{-1}
+\mathbf{M}^{\top}\mathbf{d} \: ,
+\label{eq:estimate_regul}
+\end{equation}
+where $\mu_0$ is a positive number called parameter regularization and $\mathbf{R}$ is a matrix with elements $-1$ and $1$. For example, if we have a sample formed by two prisms ($P=2$), the matrix $\mathbf{R}$ can be written as
+
+\begin{equation}
+\mathbf{R} =\begin{bmatrix}
+ 1& 0 & 0 & -1 & 0 & 0\\ 
+0& 1 & 0 & 0 & -1 & 0\\
+ 0& 0 & 1 & 0 & 0 & -1\\
+\end{bmatrix}_{3P-3 \times 3P}.
+\label{eq:matrix_smoothness}
+\end{equation} 
+
+Generally, the matrix $\mathbf{R}$ is composed by $3P = 3$ rows and $3P$ columns. Each element of the matrix can be described as 
+
+\begin{equation}
+\left[ \mathbf{R} \right]_{ij} = 
+\begin{cases}
+1 \: , \quad i = j \\
+-1 \: , \quad j = i+3
+\end{cases} \: ,
+\label{eq:elements_matrix}
+\end{equation}
+where the others elements of the matrix are zero.
+
+
 
 \subsection{Pre-processing}
 \label{subsec:Pre-processing}
