@@ -47,8 +47,8 @@
 % (If you are submitting to a journal other than jgrga,
 % substitute the initials of the journal for "jgrga" below.)
 
-\documentclass[draft,gc]{agutex}
-%\documentclass[galley,gc]{agutex}
+%\documentclass[draft,gc]{agutex}
+\documentclass[galley,gc]{agutex}
 
 % To create numbered lines:
 
@@ -244,7 +244,7 @@ in several paleomagnetic studies \citep{gattacceca2006,weiss2007b, oda2011, fu20
 To avoid the problems related with the SQUID complexity, numerous studies have been 
 attempted to develop alternative low-cost high-performance SMM instruments based on 
 magneto-impedance (MI) \citep{uehara2007, uehara2008}, giant magnetoresistance (GMR) 
-\citep{hankard2009} and magnetic tunnel junction (MTJ)\citep{lima2014} sensors. 
+\citep{hankard2009} and magnetic tunnel junction (MTJ) \citep{lima2014} sensors. 
 Compared with SQUID's, these alternative sensors are less sensitive. On the other 
 hand, they are generally easier to operate, operate at room temperature, 
 may achieve higher spatial resolution and also a reduction in the sensor-to-sample 
@@ -710,7 +710,7 @@ where $\mathbf{M}$ is the partitioned matrix defined in equation
 \ref{eq:sensitivity-matrix}.
 We consider that the estimated parameter vector $\mathbf{m}^{\dagger}$
 given by equation \ref{eq:estimate} approximates the real magnetization 
-distribution within the rectangular rock sample. However, solutions given by the equation \ref{eq:estimate} can present non-uniqueness and instability. To overcome this ill- conditioning problem we need to impose a \textit{priori} information. As mentioned before, this procedure is generally called regularization. Here we imposed a constraint using ''Smoothness" regularization, generally called first-order Tikhonov regularization. Then equation \ref{eq:estimate} is now equal to 
+distribution within the rectangular rock sample. However, solutions given by the equation \ref{eq:estimate} can present non-uniqueness and instability. To overcome this ill- conditioning problem we need to impose a \textit{priori} information. As mentioned before, this procedure is generally called regularization. Here we imposed a constraint using ``Smoothness" regularization, generally called first-order Tikhonov regularization. Then equation \ref{eq:estimate} is now equal to 
 \begin{equation}
 \mathbf{m}^{\dagger} = \left( \mathbf{M}^{\top}\mathbf{M} + \mu_0 \,  \mathbf{R}^T \mathbf{R}\right)^{-1}
 \mathbf{M}^{\top}\mathbf{d} \: ,
@@ -830,6 +830,106 @@ estimated by trial-and-error.
 Finally, on each observation plane, the magnetic data are
 subtracted from its mean value in order to remove the effect of
 a possible (weak) interfering field.
+
+\subsection{Sensor active area}
+\label{subsec:Sensor active area}
+
+Magnetic sensors do not measure the magnetic induction 
+field at a point. They measure instead the field averaged 
+over the sensor active area (or volume), which is equivalent to a 
+convolution of the magnetic induction field with 
+the sensor answer function \citep{roth1989, egli2000, lima2013}.
+The sensor-to-sample distance and the effective area (or volume) 
+are important limiting factors determining the spatial resolution 
+of magnetic sensors.
+
+The magnetic sensors used in paleomagnetic applications have
+different active area (or volume). 
+\citet{uehara2007, uehara2008} presented a magneto-impedance (MI) 
+sensor whose cylindrical active volume has $36\mu$m in diameter and 
+$5500\mu$m in length, which limits its spatial resolution
+if compared with the giant magnetoresistance 
+(GMR) sensor presented by \citet{hankard2009} and the magnetic 
+tunnel junction (MTJ) sensor presented by \citet{lima2014}, for example.
+These two sensors are considered planar and have active areas
+of, respectively, $9\mu$m~$\times$~$36\mu$m and 
+$\approx 4\mu$m~$\times$~$2\mu$m.
+Finally, \citet{fong2005} presented a low-transition-temperature 
+superconducting quantum interference device (low T$_{c}$ SQUID) sensor
+which is also considered planar and has an active area with
+diameter of $80\mu$m.
+This is currently one of the most powerful magnetic sensors.
+
+In the following, we present an analysis of the averaging effect produced
+by the finite size of sensors. We limit our study to squared-planar 
+sensors which are parallel to the sample surface.
+Let us first consider the magnetic induction component $\tilde{b}(x,y)$ that is 
+parallel to the sample surface and is threaded
+through a planar sensing area parallel to the sample
+as the following two-dimensional convolution
+\begin{equation}
+\tilde{b}(x, y) = \int \limits_{-\infty}^{\infty} \int \limits_{-\infty}^{\infty}
+w(\eta, \zeta) \; b(x - \eta, y - \zeta) \, d\eta d\zeta \: ,
+\label{eq:b-mag-flux}
+\end{equation}
+where $w(\eta, \zeta)$ is the sensor answer function \citep{egli2000}. 
+Here, we do not consider the
+dependence with the sensor-to-sample distance $h$ 
+(Figure \ref{fig:b-mag-flux-approx}a).
+For convenience, we consider a square sensor having an active area $A$
+(light grey square in Figure \ref{fig:b-mag-flux-approx}a).
+In this case, the sensor answer function $w(\eta, \zeta)$ 
+is given by \citep{egli2000}
+\begin{equation}
+w(x, y) = \begin{cases}
+\begin{split}
+1/A &\: , \quad (x, y) \in A \\
+0 &\: , \quad (x, y) \notin A
+\end{split}
+\end{cases} \: .
+\label{eq:w-function}
+\end{equation}
+By substituting this sensor answer function into the
+magnetic flux integral (equation \ref{eq:b-mag-flux})
+we obtain
+\begin{equation}
+\tilde{b}(x, y) = \frac{1}{A} 
+\int \limits_{-\infty}^{\infty} \int \limits_{-\infty}^{\infty}
+b(x - \eta, y - \zeta) \, d\eta d\zeta \: .
+\label{eq:b-mag-flux2}
+\end{equation}
+Equation \ref{eq:b-mag-flux2} has an analytical solution
+in the wavenumber domain \citep{egli2000}.
+However, we opted for using an approximated solution in the
+space domain. This approximation consists in discretizing the 
+integral \ref{eq:b-mag-flux2} by using a midpoint rule on 
+a regular grid of $Q_{x} \times Q_{y}$ points $(x_{j}, y_{j}) \in A$,
+$j = 1, ..., n$, where $Q = Q_{x} \, Q_{y}$.
+The approximated integral is given by
+\begin{equation}
+\tilde{b}_{i} \approx \frac{\Delta A}{A} \sum \limits_{j = 1}^{Q} b_{j} \: ,
+\label{eq:b-mag-flux-approx}
+\end{equation}
+where $\tilde{b}_{i} \equiv \tilde{b}(x_{i}, y_{i})$, $(x_{i}, y_{i})$ is
+the point located at the center of the sensor active area $A$
+(black circle in Figure \ref{fig:b-mag-flux-approx}b) and 
+$b_{j}$ is the magnetic induction component parallel to the
+sample surface and evaluated at the point $(x_{j}, y_{j})$
+(open circle in Figure \ref{fig:b-mag-flux-approx}c),
+$j = 1, ..., Q$.
+According to the discretization represented in Figure 
+\ref{fig:b-mag-flux-approx}b, the active sensor area is
+divided into a regular grid of square cells with area
+$\Delta A$ (Figure \ref{fig:b-mag-flux-approx}c). 
+Hence, by noting that $A = Q \, \Delta A$, we get
+\begin{equation}
+\tilde{b}_{i} \approx \frac{1}{Q} \sum \limits_{j = 1}^{Q} b_{j} \: .
+\label{eq:b-mag-flux-approx2}
+\end{equation}
+Equation \ref{eq:b-mag-flux-approx2} shows that the magnetic induction
+$\tilde{b}_{i}$ at the observation point $(x_{i}, y_{i})$ is 
+approximately given by the magnetic induction
+averaged over the active area $A$ of the sensor.
 
 \section{Numerical simulations}
 \label{sec:Numerical simulations}
@@ -1378,7 +1478,7 @@ de Desenvolvimento Cient\'{i}fico e Tecnol\'{o}gico (CNPq).
 %
 % AGU does not want a .bib or a .bbl file. Please copy in the contents of your .bbl file here.
 
-\begin{thebibliography}{39}
+\begin{thebibliography}{40}
 \providecommand{\natexlab}[1]{#1}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
@@ -1563,6 +1663,12 @@ Oliveira~Jr., V.~C., V.~C.~F. Barbosa, and L.~Uieda (2013), Polynomial
   equivalent layer, \textit{GEOPHYSICS}, \textit{78}(1), G1--G13,
   \doi{10.1190/geo2012-0196.1}.
 
+\bibitem[{\textit{Roth et~al.}(1989)\textit{Roth, Sepulveda, and
+  Wikswo}}]{roth1989}
+Roth, B.~J., N.~G. Sepulveda, and J.~P. Wikswo (1989), Using a magnetometer to
+  image a two-dimensional current distribution, \textit{J. Appl. Phys.
+  (Melville, NY, U. S.)}, \textit{65}(1), 361--372, \doi{10.1063/1.342549}.
+
 \bibitem[{\textit{Silva}(1986)}]{silva1986}
 Silva, J. B.~C. (1986), Reduction to the pole as an inverse problem and its
   application to low-latitude anomalies, \textit{GEOPHYSICS}, \textit{51}(2),
@@ -1725,6 +1831,19 @@ Weiss, B.~P., E.~A. Lima, L.~E. Fong, and F.~J. Baudenbacher
  axes of the LCS. (c) Corrected position of the sample with respect to the
  magnetic data obtained on the observation plane.}
  \label{fig:acquisition_errors}
+ \end{figure} 
+ 
+ \begin{figure}
+ \noindent \includegraphics[width=20pc]{Figs/Fig4b_HQ.pdf}
+ \caption{Schematic representation of the integral \ref{eq:Phi-mag-flux2}.
+ (a) Magnetic sensor with active area $A$ (light grey square) located at
+ a distance $h$ of the sample (grey prism). (b) Detailed representation
+ of the sensor active area, which is centered at the observation point
+ $(x_{i}, y_{i})$ (black circle). The square active area is discretized into 
+ a regular grid of $Q$ square cells (limited by the dashed lines). 
+ (c) jth cell with area $\Delta A$ and center at the point $(x_{j}, y_{j})$
+ (open circle), $j = 1, ..., Q$.}
+ \label{fig:b-mag-flux-approx}
  \end{figure} 
  
  \begin{figure}
