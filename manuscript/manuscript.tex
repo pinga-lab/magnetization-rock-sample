@@ -1089,11 +1089,47 @@ are shown in Table \ref{tab:ARM-real-sample}.
 \subsection{Data acquisition}
 \label{subsec:Data acquisition and pre-processing}
 
-The magnetic induction data on the four observation planes around our synthetic sample were measured by a scanning Hall magnetic microscope, developed at Pontifical Catholic University of Rio de Janeiro (PUC-Rio), in Brazil. It is based on a commercial GaAs Hall-effect sensor (HG-176A, AKM Inc.) that detects the remanent magnetic field normal to the scanning plane. The sensor has an active area size of $300 \, \mu m$, which is $250 \, \mu m$ distant from the top of the encapsulation. The maximum spatial resolution achieved is about the size of the sensor’s active area. The magnetic field sensitivity measured is $350 \, nT/Hz^{1/2}$ in the white noise region. The sensor is current biased and pre-amplified by a custom-made electronics at $1.0 \, kHz$, and the output Hall voltage is detected by a lock-in amplifier. In our microscope, two independent linear micropositioners (T-LLS260, Zaber Technologies) were oriented perpendicularly and stacked, making up an $x-y$ stage with a maximum travel range of $50 \, mm$ in each direction. An acrylic pedestal, $15 \, mm$ long, is fixed to the stage, serving two purposes, providing a flat surface for the sample to be mounted to and increasing the distance from the sample to the micropositioners’ motors minimizing inductive effects. The sensor is mounted on another acrylic rod that can be raised or lowered using a linear actuator (T-LA60A, Zaber Technologies), allowing for the adjustment of the sensor to sample distance with micrometer accuracy. The scanning of the sample is made in a stop-and-go system, meaning that when the sample is moved to a scanning position, it stops for the magnetic field measurement and only then, it goes to the next position. In order to reduce environmental magnetic noise present at the laboratory, the experimental measurements were made inside a small 3 layer open-end magnetic shielded chamber (TLM S-0100, Bartington Instruments). We used for scanning a step of $200 \, \ mu m$ in both $x$ and $y$ directions. On each plane $\alpha = 0, 1, 2, 3$, the magnetic data were measured at a constant distance $h \approx 500$~$\mu$m, on a regular grid of $102 \times 42$ points along the $x$ and $y$/$z$ axes, respectively (Figures \ref{fig:datafit-real}a, d, g and j).
+The magnetic induction data on the four observation planes around our 
+synthetic sample were measured by a scanning Hall magnetic microscope, 
+developed at Pontifical Catholic University of Rio de Janeiro (PUC-Rio), 
+in Brazil. It is based on a commercial GaAs Hall-effect sensor 
+(HG-176A, AKM Inc.) that detects the remanent magnetic field normal 
+to the scanning plane. The sensor has an active area size of $300 \, \mu m$, 
+which is $250 \, \mu m$ distant from the top of the encapsulation. The 
+maximum spatial resolution achieved is about the size of the sensor’s 
+active area. The magnetic field sensitivity measured is $350 \, nT/Hz^{1/2}$ 
+in the white noise region. The sensor is current biased and pre-amplified 
+by a custom-made electronics at $1.0 \, kHz$, and the output Hall voltage 
+is detected by a lock-in amplifier. In our microscope, two independent 
+linear micropositioners (T-LLS260, Zaber Technologies) were oriented 
+perpendicularly and stacked, making up an $x-y$ stage with a maximum travel 
+range of $50 \, mm$ in each direction. An acrylic pedestal, $15 \, mm$ long, 
+is fixed to the stage, serving two purposes, providing a flat surface for 
+the sample to be mounted to and increasing the distance from the sample to 
+the micropositioners’ motors minimizing inductive effects. The sensor is 
+mounted on another acrylic rod that can be raised or lowered using a linear 
+actuator (T-LA60A, Zaber Technologies), allowing for the adjustment of the 
+sensor to sample distance with micrometer accuracy. The scanning of the 
+sample is made in a stop-and-go system, meaning that when the sample is 
+moved to a scanning position, it stops for the magnetic field measurement 
+and only then, it goes to the next position. In order to reduce 
+environmental magnetic noise present at the laboratory, the experimental 
+measurements were made inside a small 3 layer open-end magnetic shielded 
+chamber (TLM S-0100, Bartington Instruments). We used for scanning a step 
+of $200 \, \mu m$ in both $x$ and $y$ directions. On each plane 
+$\alpha = 0, 1, 2, 3$, the magnetic data were measured at a constant 
+distance $h \approx 500$~$\mu$m, on a regular grid of $102 \times 42$ 
+points along the $x$ and $y$/$z$ axes, respectively 
+(Figures \ref{fig:datafit-real}a, d, g and j).
 
-
-The observed magnetic data were corrected from the apparent misalignment problems by testing different combinations of parameters $\theta$, $\Delta x^{\prime}$ and $\Delta y^{\prime}$ (Figure \ref{fig:acquisition_errors}b and equations \ref{eq:pre-processing} and \ref{eq:pre-processing-R}). The best parameters are very close to those ones
-shown in Table \ref{tab:misalignment-parameters}. After that, the magnetic data sets obtained on each plane were subtracted from their respective mean values.
+The observed magnetic data were corrected from the apparent misalignment 
+problems by testing different combinations of parameters $\theta$, 
+$\Delta x^{\prime}$ and $\Delta y^{\prime}$ 
+(Figure \ref{fig:acquisition_errors}b and equations \ref{eq:pre-processing} 
+and \ref{eq:pre-processing-R}). The best parameters are very close to 
+those ones shown in Table \ref{tab:misalignment-parameters}. After that, 
+the magnetic data sets obtained on each plane were subtracted from their 
+respective mean values.
 
 \subsection{Results and comments}
 \label{subsec:Results and comments}
@@ -1163,9 +1199,12 @@ there must be superimposed by those ones produced by the
 high-concentration zones, which makes the correct estimation 
 of the magnetization direction in these low-concentration zones 
 very difficult.
-Due to this possible precipitation effect, we considered spurious values of estimates coinciding with the low-concentration zones
-(black triangles in Figure \ref{fig:estimate-real}) and, consequently,
-based our interpretation on the other (non-spurious) estimates.
+Due to this possible precipitation effect, 
+we did not take into consideration the estimated values that coincides
+with the low-concentration zones 
+(black triangles in Figure \ref{fig:estimate-real}). Consequently,
+we based our interpretation on the estimated values that are 
+not located at the low-concentration zones.
 
 The second interesting characteristic of the estimated magnetization
 distribution along the synthetic sample is about the estimated
