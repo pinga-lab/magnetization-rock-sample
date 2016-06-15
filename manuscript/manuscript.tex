@@ -47,8 +47,8 @@
 % (If you are submitting to a journal other than jgrga,
 % substitute the initials of the journal for "jgrga" below.)
 
-\documentclass[draft,gc]{agutex}
-%\documentclass[galley,gc]{agutex}
+%\documentclass[draft,gc]{agutex}
+\documentclass[galley,gc]{agutex}
 
 % To create numbered lines:
 
@@ -194,9 +194,9 @@ retrieving complex magnetization distributions even in
 the presence of magnetization heterogeneities. 
 We have also applied our method to invert experimentally measured 
 magnetic data produced by a highly-magnetized synthetic sample 
-that was manufactured in laboratory.
+that was manufactured in the laboratory.
 The results show that, even in the presence of apparent position
-noise, our method was able to retrieve magnetization distribution
+noise, our method was able to retrieve the magnetization distribution
 consistent with the anhysteric remanance magnetization
 induced in the sample.
 
@@ -244,7 +244,7 @@ in several paleomagnetic studies \citep{gattacceca2006,weiss2007b, oda2011, fu20
 To avoid the problems related with the SQUID complexity, numerous studies have been 
 attempted to develop alternative low-cost high-performance SMM instruments based on 
 magneto-impedance (MI) \citep{uehara2007, uehara2008}, giant magnetoresistance (GMR) 
-\citep{hankard2009} and magnetic tunnel junction (MTJ)\citep{lima2014} sensors. 
+\citep{hankard2009} and magnetic tunnel junction (MTJ) \citep{lima2014} sensors. 
 Compared with SQUID's, these alternative sensors are less sensitive. On the other 
 hand, they are generally easier to operate, operate at room temperature, 
 may achieve higher spatial resolution and also a reduction in the sensor-to-sample 
@@ -273,9 +273,7 @@ contributing to the ill-conditioning of such inverse problems.
 The inherent ill-conditioning of such inverse 
 problems can be narrowed, for example, by introducing \textit{a priori} 
 information regarding the magnetization distribution and/or by 
-optimizing the geometry of the data acquisition.
-
-The introduction of \textit{a priori} information aiming at constraining 
+optimizing the geometry of the data acquisition. The introduction of \textit{a priori} information aiming at constraining 
 the possible estimated magnetization distributions and also 
 making them stable to small changes in the observed data is
 generally called regularization \citep{tikhonov1977, engl1996, 
@@ -306,6 +304,7 @@ The method developed by \citet{lima2013} also uses
 two-dimensional signal processing methods to regularize the 
 inverse problem, tame noise amplification and improve 
 non-negativity.
+
 A different approach proposed by \citep{weiss2007} in space domain
 approximates the sample by a discrete set of dipoles.
 The Cartesian components of the dipoles approximating the sample
@@ -318,7 +317,7 @@ cordell1992, mendonca1992, mendonca-silva1994, mendonca-silva1995,
 guspi-novara2009, li-oldenburg2010, barnes-lumley2011, 
 oliveirajr-etal2013, kara-etal2014, li-nabighian-oldenburg2014,
 barnes2014}.
-The study develop by \citep{weiss2007} represents the first
+The study developed by \citep{weiss2007} represents the first
 space-domain technique for inverting SMM data.
 \citet{usui2012} presented an hybrid method combining
 useful features of space- and wavenumber-domain techniques.
@@ -711,7 +710,36 @@ where $\mathbf{M}$ is the partitioned matrix defined in equation
 \ref{eq:sensitivity-matrix}.
 We consider that the estimated parameter vector $\mathbf{m}^{\dagger}$
 given by equation \ref{eq:estimate} approximates the real magnetization 
-distribution within the rectangular rock sample.
+distribution within the rectangular rock sample. However, solutions given by the equation \ref{eq:estimate} can present non-uniqueness and instability. To overcome this ill- conditioning problem we need to impose a \textit{priori} information. As mentioned before, this procedure is generally called regularization. Here we imposed a constraint using ``Smoothness" regularization, generally called first-order Tikhonov regularization. Then equation \ref{eq:estimate} is now equal to 
+\begin{equation}
+\mathbf{m}^{\dagger} = \left( \mathbf{M}^{\top}\mathbf{M} + \mu_0 \,  \mathbf{R}^T \mathbf{R}\right)^{-1}
+\mathbf{M}^{\top}\mathbf{d} \: ,
+\label{eq:estimate_regul}
+\end{equation}
+where $\mu_0$ is a positive number called parameter regularization and $\mathbf{R}$ is a matrix with elements $-1$ and $1$. For example, if we have a sample formed by two prisms ($P=2$), the matrix $\mathbf{R}$ can be written as
+
+\begin{equation}
+\mathbf{R} =\begin{bmatrix}
+ 1& 0 & 0 & -1 & 0 & 0\\ 
+0& 1 & 0 & 0 & -1 & 0\\
+ 0& 0 & 1 & 0 & 0 & -1\\
+\end{bmatrix}_{3P-3 \times 3P}.
+\label{eq:matrix_smoothness}
+\end{equation} 
+
+Generally, the matrix $\mathbf{R}$ is composed by $3P = 3$ rows and $3P$ columns. Each element of the matrix can be described as 
+
+\begin{equation}
+\left[ \mathbf{R} \right]_{ij} = 
+\begin{cases}
+1 \: , \quad i = j \\
+-1 \: , \quad j = i+3
+\end{cases} \: ,
+\label{eq:elements_matrix}
+\end{equation}
+where the others elements of the matrix are zero.
+
+
 
 \subsection{Pre-processing}
 \label{subsec:Pre-processing}
@@ -802,6 +830,106 @@ estimated by trial-and-error.
 Finally, on each observation plane, the magnetic data are
 subtracted from its mean value in order to remove the effect of
 a possible (weak) interfering field.
+
+\subsection{Sensor active area}
+\label{subsec:Sensor active area}
+
+Magnetic sensors do not measure the magnetic induction 
+field at a point. They measure instead the field averaged 
+over the sensor active area (or volume), which is equivalent to a 
+convolution of the magnetic induction field with 
+the sensor answer function \citep{roth1989, egli2000, lima2013}.
+The sensor-to-sample distance and the effective area (or volume) 
+are important limiting factors determining the spatial resolution 
+of magnetic sensors.
+
+The magnetic sensors used in paleomagnetic applications have
+different active area (or volume). 
+\citet{uehara2007, uehara2008} presented a magneto-impedance (MI) 
+sensor whose cylindrical active volume has $36\mu$m in diameter and 
+$5500\mu$m in length, which limits its spatial resolution
+if compared with the giant magnetoresistance 
+(GMR) sensor presented by \citet{hankard2009} and the magnetic 
+tunnel junction (MTJ) sensor presented by \citet{lima2014}, for example.
+These two sensors are considered planar and have active areas
+of, respectively, $9\mu$m~$\times$~$36\mu$m and 
+$\approx 4\mu$m~$\times$~$2\mu$m.
+Finally, \citet{fong2005} presented a low-transition-temperature 
+superconducting quantum interference device (low T$_{c}$ SQUID) sensor
+which is also considered planar and has an active area with
+diameter of $80\mu$m.
+This is currently one of the most powerful magnetic sensors.
+
+In the following, we present an analysis of the averaging effect produced
+by the finite size of sensors. We limit our study to squared-planar 
+sensors which are parallel to the sample surface.
+Let us first consider the magnetic induction component $\tilde{b}(x,y)$ that is 
+parallel to the sample surface and is threaded
+through a planar sensing area parallel to the sample
+as the following two-dimensional convolution
+\begin{equation}
+\tilde{b}(x, y) = \int \limits_{-\infty}^{\infty} \int \limits_{-\infty}^{\infty}
+w(\eta, \zeta) \; b(x - \eta, y - \zeta) \, d\eta d\zeta \: ,
+\label{eq:b-mag-flux}
+\end{equation}
+where $w(\eta, \zeta)$ is the sensor answer function \citep{egli2000}. 
+Here, we do not consider the
+dependence with the sensor-to-sample distance $h$ 
+(Figure \ref{fig:b-mag-flux-approx}a).
+For convenience, we consider a square sensor having an active area $A$
+(light grey square in Figure \ref{fig:b-mag-flux-approx}a).
+In this case, the sensor answer function $w(\eta, \zeta)$ 
+is given by \citep{egli2000}
+\begin{equation}
+w(x, y) = \begin{cases}
+\begin{split}
+1/A &\: , \quad (x, y) \in A \\
+0 &\: , \quad (x, y) \notin A
+\end{split}
+\end{cases} \: .
+\label{eq:w-function}
+\end{equation}
+By substituting this sensor answer function into the
+magnetic flux integral (equation \ref{eq:b-mag-flux})
+we obtain
+\begin{equation}
+\tilde{b}(x, y) = \frac{1}{A} 
+\int \limits_{-\infty}^{\infty} \int \limits_{-\infty}^{\infty}
+b(x - \eta, y - \zeta) \, d\eta d\zeta \: .
+\label{eq:b-mag-flux2}
+\end{equation}
+Equation \ref{eq:b-mag-flux2} has an analytical solution
+in the wavenumber domain \citep{egli2000}.
+However, we opted for using an approximated solution in the
+space domain. This approximation consists in discretizing the 
+integral \ref{eq:b-mag-flux2} by using a midpoint rule on 
+a regular grid of $Q_{x} \times Q_{y}$ points $(x_{j}, y_{j}) \in A$,
+$j = 1, ..., n$, where $Q = Q_{x} \, Q_{y}$.
+The approximated integral is given by
+\begin{equation}
+\tilde{b}_{i} \approx \frac{\Delta A}{A} \sum \limits_{j = 1}^{Q} b_{j} \: ,
+\label{eq:b-mag-flux-approx}
+\end{equation}
+where $\tilde{b}_{i} \equiv \tilde{b}(x_{i}, y_{i})$, $(x_{i}, y_{i})$ is
+the point located at the center of the sensor active area $A$
+(black circle in Figure \ref{fig:b-mag-flux-approx}b) and 
+$b_{j}$ is the magnetic induction component parallel to the
+sample surface and evaluated at the point $(x_{j}, y_{j})$
+(open circle in Figure \ref{fig:b-mag-flux-approx}c),
+$j = 1, ..., Q$.
+According to the discretization represented in Figure 
+\ref{fig:b-mag-flux-approx}b, the active sensor area is
+divided into a regular grid of square cells with area
+$\Delta A$ (Figure \ref{fig:b-mag-flux-approx}c). 
+Hence, by noting that $A = Q \, \Delta A$, we get
+\begin{equation}
+\tilde{b}_{i} \approx \frac{1}{Q} \sum \limits_{j = 1}^{Q} b_{j} \: .
+\label{eq:b-mag-flux-approx2}
+\end{equation}
+Equation \ref{eq:b-mag-flux-approx2} shows that the magnetic induction
+$\tilde{b}_{i}$ at the observation point $(x_{i}, y_{i})$ is 
+approximately given by the magnetic induction
+averaged over the active area $A$ of the sensor.
 
 \section{Numerical simulations}
 \label{sec:Numerical simulations}
@@ -966,7 +1094,7 @@ the sensor-to-sample distance than against misalignment errors.
 \label{subsec:Marine ferro-manganese crust sample}
 
 The method proposed by \citet{oda2011} 
-uses SQUID microscopy to identify the boundaries of ultra-fine magnetic stripes 
+uses SQUID microscopy to identify the boundaries of fine magnetic stripes 
 (smaller than $1$~mm) with approximately reversed magnetization. These magnetic stripes are 
 then correlated with a standard magneto-stratigraphic time scale, providing a tool for 
 estimating ages and growth rates for hydro-genetic ferro-manganese crusts with unprecedented 
@@ -1061,32 +1189,47 @@ are shown in Table \ref{tab:ARM-real-sample}.
 \subsection{Data acquisition}
 \label{subsec:Data acquisition and pre-processing}
 
-The magnetic induction data on the four observation planes
-around our synthetic sample were measured by a custom-made
-magnetometer based on a Hall sensor, whose circular
-effective area has a diameter of $\approx$~$300$~$\mu$m.
-The equipment is under development at the Pontifical Catholic 
-University of Rio de Janeiro (PUC-Rio), in Brazil, and
-the experimental measurements were made without any 
-magnetic shielding, then it is important to bear in mind 
-the possible bias in these data.
+The magnetic induction data on the four observation planes around our 
+synthetic sample were measured by a scanning Hall magnetic microscope, 
+developed at Pontifical Catholic University of Rio de Janeiro (PUC-Rio), 
+in Brazil. It is based on a commercial GaAs Hall-effect sensor 
+(HG-176A, AKM Inc.) that detects the remanent magnetic field normal 
+to the scanning plane. The sensor has an active area size of $300 \, \mu m$, 
+which is $250 \, \mu m$ distant from the top of the encapsulation. The 
+maximum spatial resolution achieved is about the size of the sensor’s 
+active area. The magnetic field sensitivity measured is $350 \, nT/Hz^{1/2}$ 
+in the white noise region. The sensor is current biased and pre-amplified 
+by a custom-made electronics at $1.0 \, kHz$, and the output Hall voltage 
+is detected by a lock-in amplifier. In our microscope, two independent 
+linear micropositioners (T-LLS260, Zaber Technologies) were oriented 
+perpendicularly and stacked, making up an $x-y$ stage with a maximum travel 
+range of $50 \, mm$ in each direction. An acrylic pedestal, $15 \, mm$ long, 
+is fixed to the stage, serving two purposes, providing a flat surface for 
+the sample to be mounted to and increasing the distance from the sample to 
+the micropositioners’ motors minimizing inductive effects. The sensor is 
+mounted on another acrylic rod that can be raised or lowered using a linear 
+actuator (T-LA60A, Zaber Technologies), allowing for the adjustment of the 
+sensor to sample distance with micrometer accuracy. The scanning of the 
+sample is made in a stop-and-go system, meaning that when the sample is 
+moved to a scanning position, it stops for the magnetic field measurement 
+and only then, it goes to the next position. In order to reduce 
+environmental magnetic noise present at the laboratory, the experimental 
+measurements were made inside a small 3 layer open-end magnetic shielded 
+chamber (TLM S-0100, Bartington Instruments). We used for scanning a step 
+of $200 \, \mu m$ in both $x$ and $y$ directions. On each plane 
+$\alpha = 0, 1, 2, 3$, the magnetic data were measured at a constant 
+distance $h \approx 500$~$\mu$m, on a regular grid of $102 \times 42$ 
+points along the $x$ and $y$/$z$ axes, respectively 
+(Figures \ref{fig:datafit-real}a, d, g and j).
 
-On each plane $\alpha = 0, 1, 2, 3$, the magnetic data were 
-measured at a constant distance $h \approx 500$~$\mu$m, on
-a regular grid of $102 \times 42$ points along the $x$ and 
-$y$/$z$ axes, respectively (Figures \ref{fig:datafit-real}a,
-d, g and j).
-
-The observed magnetic data were corrected from the 
-apparent misalignment 
-problems by testing different combinations of parameters
-$\theta$, $\Delta x^{\prime}$ and $\Delta y^{\prime}$
-(Figure \ref{fig:acquisition_errors}b and equations
-\ref{eq:pre-processing} and \ref{eq:pre-processing-R}).
-The best parameters are very close to those ones
-shown in Table \ref{tab:misalignment-parameters}.
-After that, the magnetic data sets obtained on each plane were
-subtracted from their respective mean values.
+The observed magnetic data were corrected from the apparent misalignment 
+problems by testing different combinations of parameters $\theta$, 
+$\Delta x^{\prime}$ and $\Delta y^{\prime}$ 
+(Figure \ref{fig:acquisition_errors}b and equations \ref{eq:pre-processing} 
+and \ref{eq:pre-processing-R}). The best parameters are very close to 
+those ones shown in Table \ref{tab:misalignment-parameters}. After that, 
+the magnetic data sets obtained on each plane were subtracted from their 
+respective mean values.
 
 \subsection{Results and comments}
 \label{subsec:Results and comments}
@@ -1156,10 +1299,12 @@ there must be superimposed by those ones produced by the
 high-concentration zones, which makes the correct estimation 
 of the magnetization direction in these low-concentration zones 
 very difficult.
-Due to this possible precipitation effect, we considered spurious
-the estimated values coincident with the low-concentration zones
-(black triangles in Figure \ref{fig:estimate-real}) and, consequently,
-based our interpretation on the other (non-spurious) estimates.
+Due to this possible precipitation effect, 
+we did not take into consideration the estimated values that coincides
+with the low-concentration zones 
+(black triangles in Figure \ref{fig:estimate-real}). Consequently,
+we based our interpretation on the estimated values that are 
+not located at the low-concentration zones.
 
 The second interesting characteristic of the estimated magnetization
 distribution along the synthetic sample is about the estimated
@@ -1333,7 +1478,7 @@ de Desenvolvimento Cient\'{i}fico e Tecnol\'{o}gico (CNPq).
 %
 % AGU does not want a .bib or a .bbl file. Please copy in the contents of your .bbl file here.
 
-\begin{thebibliography}{39}
+\begin{thebibliography}{40}
 \providecommand{\natexlab}[1]{#1}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
@@ -1518,6 +1663,12 @@ Oliveira~Jr., V.~C., V.~C.~F. Barbosa, and L.~Uieda (2013), Polynomial
   equivalent layer, \textit{GEOPHYSICS}, \textit{78}(1), G1--G13,
   \doi{10.1190/geo2012-0196.1}.
 
+\bibitem[{\textit{Roth et~al.}(1989)\textit{Roth, Sepulveda, and
+  Wikswo}}]{roth1989}
+Roth, B.~J., N.~G. Sepulveda, and J.~P. Wikswo (1989), Using a magnetometer to
+  image a two-dimensional current distribution, \textit{J. Appl. Phys.
+  (Melville, NY, U. S.)}, \textit{65}(1), 361--372, \doi{10.1063/1.342549}.
+
 \bibitem[{\textit{Silva}(1986)}]{silva1986}
 Silva, J. B.~C. (1986), Reduction to the pole as an inverse problem and its
   application to low-latitude anomalies, \textit{GEOPHYSICS}, \textit{51}(2),
@@ -1680,6 +1831,19 @@ Weiss, B.~P., E.~A. Lima, L.~E. Fong, and F.~J. Baudenbacher
  axes of the LCS. (c) Corrected position of the sample with respect to the
  magnetic data obtained on the observation plane.}
  \label{fig:acquisition_errors}
+ \end{figure} 
+ 
+ \begin{figure}
+ \noindent \includegraphics[width=20pc]{Figs/Fig4b_HQ.pdf}
+ \caption{Schematic representation of the integral \ref{eq:Phi-mag-flux2}.
+ (a) Magnetic sensor with active area $A$ (light grey square) located at
+ a distance $h$ of the sample (grey prism). (b) Detailed representation
+ of the sensor active area, which is centered at the observation point
+ $(x_{i}, y_{i})$ (black circle). The square active area is discretized into 
+ a regular grid of $Q$ square cells (limited by the dashed lines). 
+ (c) jth cell with area $\Delta A$ and center at the point $(x_{j}, y_{j})$
+ (open circle), $j = 1, ..., Q$.}
+ \label{fig:b-mag-flux-approx}
  \end{figure} 
  
  \begin{figure}
