@@ -748,35 +748,46 @@ For convenience, we limit our study to square-planar
 sensors which are parallel to the sample surface and have an
 active area $A$ (Figure \ref{fig:b-mag-flux-approx}a).
 Let us first assume that the sensor detects,
-at an observation point located on the observation plane $\alpha$, 
-the $z^{\prime}$-component of the magnetic induction (flux density) 
+at the $i$th observation point $(x^{\prime}_{i}, y^{\prime}_{i}, z^{\prime}_{i})$, 
+$i = 1, ..., N$, located on an observation plane $\alpha$,
+$\alpha = 0, ..., 3$ , the $z^{\prime}$-component of 
+the magnetic induction (flux density) 
 (Figure \ref{fig:sample-planes-cross}) that is 
 threaded through the active area $A$ 
 (light grey square in Figure \ref{fig:b-mag-flux-approx}a)
 of the sensor.
-The measured $z^{\prime}$-component at the point 
-$(x^{\prime}, y^{\prime}, z^{\prime})$ on the plane
-$\alpha$ (Figure \ref{fig:sample-planes-cross}) can be described as a 
+For convenience, let us denote this observed $z^{\prime}$-component
+as $\tilde{d}_{i} \equiv \tilde{d}^{\prime}(x^{\prime}_{i}, y^{\prime}_{i}, z^{\prime}_{i})$,
+which represents the $i$th element of a particular vector 
+$\mathbf{d}^{\alpha}_{z^{\prime}}$ (equation \ref{eq:obs-data-vec-LCS}),
+depending on the observation plane $\alpha$ on 
+which the measurement is done.
+This observed data $\tilde{d}_{i}$ can then be described as a 
 two-dimensional convolution given by
 \begin{equation}
-\tilde{d}^{\prime}(x^{\prime}, y^{\prime}, z^{\prime}) = 
+\tilde{d}_{i} = 
 \int \limits_{-\infty}^{\infty} \int \limits_{-\infty}^{\infty}
-w(\eta, \zeta) \; d^{\prime}(x^{\prime} - \eta, 
-                             y^{\prime} - \zeta,
-                             z^{\prime}) \, d\eta d\zeta \: ,
+w(\eta, \zeta) \; d^{\prime}(x^{\prime}_{i} - \eta, 
+                             y^{\prime}_{i} - \zeta,
+                             z^{\prime}_{i}) \, d\eta d\zeta \: ,
 \label{eq:b-mag-flux}
 \end{equation}
-where $w(\eta, \zeta)$ is the sensor answer function \citep{egli2000}. 
+where $w(\eta, \zeta)$ is the sensor answer function \citep{egli2000}
+and $d^{\prime}(x^{\prime}_{i} - \eta, y^{\prime}_{i} - \zeta, z^{\prime}_{i})$
+represents the theoretical values of the $z^{\prime}$-component of 
+the magnetic induction produced by the rock sample at the points located on 
+the observation plane $\alpha$ with constant 
+$z^{\prime}_{i}$ (Figure \ref{fig:sample-planes-cross}).
 Here, we do not consider the
 dependence with the sensor-to-sample distance $h$ 
 (Figure \ref{fig:b-mag-flux-approx}a).
 In this case, the sensor answer function 
 is given by \citep{egli2000}
 \begin{equation}
-w(x^{\prime}, y^{\prime}) = \begin{cases}
+w(x^{\prime}_{i}, y^{\prime}_{i}) = \begin{cases}
 \begin{split}
-1/A &\: , \quad (x^{\prime}, y^{\prime}) \in A \\
-0 &\: , \quad (x^{\prime}, y^{\prime}) \notin A
+1/A &\: , \quad (x^{\prime}_{i}, y^{\prime}_{i}) \in A \\
+0 &\: , \quad (x^{\prime}_{i}, y^{\prime}_{i}) \notin A
 \end{split}
 \end{cases} \: .
 \label{eq:w-function}
@@ -784,9 +795,9 @@ w(x^{\prime}, y^{\prime}) = \begin{cases}
 By substituting this sensor answer function into 
 equation \ref{eq:b-mag-flux}, we obtain
 \begin{equation}
-\tilde{d}^{\prime}(x^{\prime}, y^{\prime}, z^{\prime}) = \frac{1}{A} 
+\tilde{d}^{\prime}_{i} = \frac{1}{A} 
 \int \limits_{-\infty}^{\infty} \int \limits_{-\infty}^{\infty}
-d^{\prime}(x^{\prime} - \eta, y^{\prime} - \zeta, z^{\prime}) \, d\eta d\zeta \: .
+d^{\prime}(x^{\prime}_{i} - \eta, y^{\prime}_{i} - \zeta, z^{\prime}_{i}) \, d\eta d\zeta \: .
 \label{eq:b-mag-flux2}
 \end{equation}
 Equation \ref{eq:b-mag-flux2} has an analytical solution
@@ -800,33 +811,20 @@ $j = 1, ..., Q$, where $Q = Q_{x} \, Q_{y}$
 (open circles in Figure \ref{fig:b-mag-flux-approx}b).
 According to this discretization, the active sensor area $A$ is
 divided into a regular grid of square cells with area
-$\Delta A$ (Figure \ref{fig:b-mag-flux-approx}b).
+$\Delta A = A/Q$ (Figure \ref{fig:b-mag-flux-approx}b).
 The approximated integral is given by
 \begin{equation}
-\tilde{d}^{\prime}_{i} \approx \frac{\Delta A}{A} \sum \limits_{j = 1}^{Q} d^{\prime}_{j} \: ,
+\tilde{d}^{\prime}_{i} \approx \frac{1}{Q} \sum \limits_{j = 1}^{Q} d^{\prime}_{j} \: ,
 \label{eq:b-mag-flux-approx}
 \end{equation}
-where $\tilde{d}^{\prime}_{i}$ is the measured 
-$z^{\prime}$-component at the $i$th observation point
-located at the center of the sensor active area $A$
-(black circle in Figure \ref{fig:b-mag-flux-approx}b) and 
-$d^{\prime}_{j}$ is the $z^{\prime}$-component at the
-point $(x^{\prime}_{j}, y^{\prime}_{j})$, $j = 1, ..., Q$
+where $d^{\prime}_{j}$ is the theoretical value of the 
+$z^{\prime}$-component of the magnetic induction produced by the rock
+sample at the point $(x^{\prime}_{j}, y^{\prime}_{j})$, $j = 1, ..., Q$
 (open circles in Figure \ref{fig:b-mag-flux-approx}b).
-The $\tilde{d}^{\prime}_{i}$ measured on plane $\alpha$
-is the $i$th element of the vector $\mathbf{d}^{0}_{z^{\prime}}$
-(equation \ref{eq:obs-data-vec-LCS}).
-Hence, by substituting $\Delta A = A/Q$ in equation {eq:b-mag-flux-approx}, 
-we get
-\begin{equation}
-\tilde{d}^{\prime}_{i} \approx \frac{1}{Q} \sum \limits_{j = 1}^{Q} d^{\prime}_{j} \: .
-\label{eq:b-mag-flux-approx2}
-\end{equation}
-Equation \ref{eq:b-mag-flux-approx2} shows that the measured
-$z^{\prime}$-component $\tilde{d}^{\prime}_{i}$ 
-at the $i$th observation point on a plane $\alpha$ is
-approximately given by the magnetic induction
-averaged over the active area $A$ of the sensor.
+Equation \ref{eq:b-mag-flux-approx} shows that the measured
+$z^{\prime}$-component $\tilde{d}^{\prime}_{i}$ is
+approximately given by the averaged magnetic induction
+produced by the rock sample over the active area $A$ of the sensor.
 
 PAREI AQUI
 
@@ -1894,14 +1892,19 @@ Weiss, B.~P., E.~A. Lima, L.~E. Fong, and F.~J. Baudenbacher
  
  \begin{figure}
  \noindent \includegraphics[width=20pc]{Figs/Fig4b_HQ.pdf}
- \caption{Schematic representation of the integral \ref{eq:Phi-mag-flux2}.
+ \caption{Schematic representation of the discretization
+ used for approximating the integral \ref{eq:b-mag-flux2} by 
+ the summation \ref{eq:b-mag-flux-approx}.
  (a) Magnetic sensor with active area $A$ (light grey square) located at
- a distance $h$ of the sample (grey prism). (b) Detailed representation
+ a distance $h$ of the sample (grey prisms), on a particular observation
+ plane $\alpha$ (Figures \ref{fig:sample-planes} and 
+ \ref{fig:sample-planes-cross}). (b) Detailed representation
  of the sensor active area $A$, which is centered at the observation point
- $(x^{\prime}, y^{\prime})$ (black circle). The square active area is discretized into 
- a regular grid of $Q$ square cells (limited by the dashed lines). Each
- cell is centered at a point $(x^{\prime}_{j}, y^{\prime}_{j})$, 
- $j = 1, ..., Q$, (open circles) and has an area $\Delta A$ equal to $A/Q$.}
+ $(x^{\prime}_{i}, y^{\prime}_{i})$ (black circle). The square active area 
+ of the sensor is discretized into a regular grid of $Q$ square cells 
+ (limited by the dashed lines). Each cell is centered at a point 
+ $(x^{\prime}_{j}, y^{\prime}_{j})$, $j = 1, ..., Q$, (open circles) and 
+ has an area $\Delta A = A/Q$.}
  \label{fig:b-mag-flux-approx}
  \end{figure} 
  
