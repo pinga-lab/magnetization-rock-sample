@@ -411,8 +411,9 @@ element is the $\beta$-component of the magnetic
 induction which is measured at the observation
 point $(x^{\alpha}_{i}, y^{\alpha}_{i}, z^{\alpha}_{i})$,
 $i = 1, ..., N$, on the plane $\alpha$.
-For convenience, these vectors are all grouped into the observed 
-data vector $\mathbf{d}$ given below:
+For convenience, these vectors are all grouped into the 
+$4N \times 1$
+observed data vector $\mathbf{d}$ given below:
 \begin{equation}
 \mathbf{d} = \left[
 \begin{array}{c}
@@ -421,7 +422,7 @@ data vector $\mathbf{d}$ given below:
 \mathbf{d}^{2}_{z} \vspace{0.05in} \\
 \mathbf{d}^{3}_{y}
 \end{array}
-\right]_{4N \times 1} \: .
+\right] \: .
 \label{eq:obs-data-vec}
 \end{equation}
 
@@ -430,8 +431,8 @@ the magnetic induction produced by the sample at a point.
 Due to the finite size of the magnetic sensors, what is
 actually measured is the magnetic induction averaged on
 the area (or volume) of the magnetic sensor. In the 
-subsection \ref{subsec:Sensor active area}, we present how
-we deal with this averaging effect.
+subsection \ref{subsec:Sensor active area}, we present an
+analysis of this averaging effect.
 
 \subsection{Transformations from the local coordinate systems (LCS's) to the MCS}
 \label{subsec:Transformations from the local coordinate systems (LCS's) to the MCS}
@@ -462,7 +463,7 @@ Note that this rotating procedure provides, on each observation plane,
 the component of the magnetic induction along the $z^{\prime}$-axis
 of the respective LCS (Figure \ref{fig:sample-planes-cross}b-e).
 For convenience, let us denote the measured $z^{\prime}$-component
-data as follows
+data as a $4N \times 1$ vector given by
 \begin{equation}
 \mathbf{d}^{\prime} = \left[
 \begin{array}{c}
@@ -471,7 +472,7 @@ data as follows
 \mathbf{d}^{2}_{z^{\prime}} \vspace{0.05in} \\
 \mathbf{d}^{3}_{z^{\prime}}
 \end{array}
-\right]_{4N \times 1} \: ,
+\right] \: ,
 \label{eq:obs-data-vec-LCS}
 \end{equation}
 where $\mathbf{d}^{\alpha}_{z^{\prime}}$, 
@@ -503,215 +504,10 @@ Hereafter, it is implicit that all quantities with prime ($^{\prime}$)
 are referred to the LCS's while all the quantities without prime 
 ($^{\prime}$) are referred to the MCS.
 
-\subsection{Interpretation model and forward problem}
-\label{subsec:Interpretation model and forward problem}
-
-We consider that the rock sample can be approximated by an 
-interpretation model consisting of $P$ uniformly magnetized 
-prisms, which are juxtaposed along the $x$-axis  
-(Figure \ref{fig:sample}). The $k$-th prism, $k = 1, ..., P$, 
-has the same side lengths $L_{y}$ and $L_{z}$ of the sample along, 
-respectively, the $y$- and $z$-axes (Figure \ref{fig:sample}). 
-However, its side length along the $x$-axis is specified by the 
-interpreter, so that the total side length of the interpretation 
-model along this axis is equal to $L_{x}$ (Figure \ref{fig:sample}).
-
-Let's define the $3P \times 1$ parameter vector $\mathbf{m}$ 
-as follows:
-\begin{equation}
-\mathbf{m} = \left[
-\begin{array}{c}
-\vspace{0.05in}
-\mathbf{m}^{1} \vspace{0.05in} \\
-\vdots \vspace{0.05in} \\
-\mathbf{m}^{P} \vspace{0.05in} \\
-\end{array}
-\right]_{3P \times 1} \: ,
-\label{eq:param-vec}
-\end{equation}
-where
-\begin{equation}
-\mathbf{m}^{k} = \left[
-\begin{array}{c}
-m^{k}_{x} \vspace{0.05in} \\
-m^{k}_{y} \vspace{0.05in} \\
-m^{k}_{z}
-\end{array}
-\right]_{3 \times 1} \: ,
-\label{eq:vec-mk}
-\end{equation}
-is a $3 \times 1$ vector containing the Cartesian components
-$m^{k}_{x}$, $m^{k}_{y}$ and $m^{k}_{z}$ (in $A/m$) of the 
-magnetization vector of the $k$-prism, $k = 1, \dots, P$.
-
-The $\beta$-component data, $\beta = y, z$,
-of the magnetic induction produced by the $k$-prism (in $nT$), at 
-the observation points 
-$(x_{i}^{\alpha}, y_{i}^{\alpha}, z_{i}^{\alpha})$, $i = 1, ..., N$, 
-$\alpha = 0, 1, 2, 3$,
-are grouped into $N \times 1$ vectors given by
-\begin{equation}
-\mathbf{b}_{\beta}(\mathbf{x}^{\alpha},
-                   \mathbf{y}^{\alpha},
-                   \mathbf{z}^{\alpha},
-                   \mathbf{m}^{k})
-    = \mathbf{M}^{k}_{\beta}(\mathbf{x}^{\alpha}, 
-                             \mathbf{y}^{\alpha},
-                             \mathbf{z}^{\alpha}) \mathbf{m}^{k} \: ,
-\label{eq:pred-data-vec-k}
-\end{equation}
-where
-\begin{equation}
-\mathbf{M}_{\beta}^{k}(\mathbf{x}^{\alpha}, 
-                       \mathbf{y}^{\alpha},
-                       \mathbf{z}^{\alpha}) =
-\left[
-\begin{array}{ccc}
-\partial_{\beta x} \phi^{k}(x^{\alpha}_{1},
-                            y^{\alpha}_{1},
-                            z^{\alpha}_{1}) &
-\partial_{\beta y} \phi^{k}(x^{\alpha}_{1},
-                            y^{\alpha}_{1},
-                            z^{\alpha}_{1}) &
-\partial_{\beta z} \phi^{k}(x^{\alpha}_{1},
-                            y^{\alpha}_{1},
-                            z^{\alpha}_{1}) 
-                            \vspace{0.05in} \\
-
-\vdots & \vdots & \vdots \vspace{0.05in} \\
-
-\partial_{\beta x} \phi^{k}(x^{\alpha}_{N},
-                            y^{\alpha}_{N},
-                            z^{\alpha}_{N}) &
-\partial_{\beta y} \phi^{k}(x^{\alpha}_{N},
-                            y^{\alpha}_{N},
-                            z^{\alpha}_{N}) &
-\partial_{\beta z} \phi^{k}(x^{\alpha}_{N},
-                            y^{\alpha}_{N},
-                            z^{\alpha}_{N})
-\end{array}
-\right]_{N \times 3}
-\label{eq:matrix-k-beta}
-\end{equation}
-is a matrix whose elements are second derivatives of the function
-\begin{equation}
-\phi^{k}(x, y, z) = 
-    C_{m}
-    \iiint\limits_{\vartheta^{k}}
-    \frac{d\epsilon \, d\zeta \, d\eta}
-         {\sqrt{(x - \epsilon)^{2} +
-                (y - \zeta)^{2} +
-                (z - \eta)^{2}}}
-\label{eq:phi-k}
-\end{equation}
-with respect to the variables $x$, $y$ and $z$, 
-$C_{m}~=~10^{9}\mu_{0}/4\pi$ and $\mu_{0}$ is the 
-magnetic constant. In equations
-\ref{eq:pred-data-vec-k} and \ref{eq:matrix-k-beta}, 
-$\mathbf{x}^{\alpha}$, $\mathbf{y}^{\alpha}$ and
-$\mathbf{z}^{\alpha}$ are vectors containing, respectively, 
-the Cartesian coordinates $x^{\alpha}_{i}$, $y^{\alpha}_{i}$ 
-and $z^{\alpha}_{i}$, $i = 1, ..., N$, of the observation
-points on the plane $\alpha$, referred to the MCS. 
-In this work, the second derivatives in matrix 
-$\mathbf{M}_{\beta}^{k}(\mathbf{x}^{\alpha}, 
-                       \mathbf{y}^{\alpha},
-                       \mathbf{z}^{\alpha})$ 
-(equation \ref{eq:matrix-k-beta}) are calculated by using the formulas 
-presented by \citet{nagy2000}. In equation \ref{eq:phi-k}, the
-integral is evaluated over the volume $\vartheta^{k}$ of the 
-$k$-th prism. 
-
-From equation \ref{eq:pred-data-vec-k}, we defined the $N \times 1$ 
-vectors $\mathbf{B}_{\beta}^{\alpha}(\mathbf{m})$ containing the resultant 
-$\beta$-component of the magnetic induction produced by the interpretation 
-model on each plane $\alpha$ as follows:
-\begin{equation}
-\mathbf{B}_{\beta}^{\alpha}(\mathbf{m}) \equiv \sum_{k=1}^{P}
-    \mathbf{b}_{\beta}(\mathbf{x}^{\alpha},
-                           \mathbf{y}^{\alpha},
-                           \mathbf{z}^{\alpha},
-                           \mathbf{m}^{k}) \: .
-\label{eq:pred-data-vec-alphabeta}
-\end{equation}
-By grouping all these vectors $\mathbf{B}_{\beta}^{\alpha}(\mathbf{m})$, 
-we define the predicted data vector 
-\begin{equation}
-\mathbf{B}(\mathbf{m}) = \left[
-\begin{array}{c}
-\mathbf{B}^{0}_{z}(\mathbf{m}) \vspace{0.05in} \\
-\mathbf{B}^{1}_{y}(\mathbf{m}) \vspace{0.05in} \\
-\mathbf{B}^{2}_{z}(\mathbf{m}) \vspace{0.05in} \\
-\mathbf{B}^{3}_{y}(\mathbf{m})
-\end{array}
-\right]_{4N \times 1} \: .
-\label{eq:pred-data-vec}
-\end{equation}
-Finally, by substituting equation \ref{eq:pred-data-vec-k} into equation 
-\ref{eq:pred-data-vec-alphabeta}
-and rearranging the terms within the summation, we can conveniently rewrite the
-predicted data vector $\mathbf{B}(\mathbf{m})$ (equation \ref{eq:pred-data-vec})
-as follows:
-\begin{equation}
-\mathbf{B}(\mathbf{m}) = \mathbf{M} \mathbf{m}\: ,
-\label{eq:pred-data-vec-matrix}
-\end{equation}
-where $\mathbf{M}$ is a partitioned matrix given by
-\begin{equation}
-\mathbf{M} = \left[
-\begin{array}{ccc}
-\mathbf{M}^{1}_{z}(\mathbf{x}^{0}, 
-                   \mathbf{y}^{0},
-                   \mathbf{z}^{0}) & 
-\dots & 
-\mathbf{M}^{P}_{z}(\mathbf{x}^{0}, 
-                   \mathbf{y}^{0},
-                   \mathbf{z}^{0}) \vspace{0.05in} \\
-                   
-\mathbf{M}^{1}_{y}(\mathbf{x}^{1}, 
-                   \mathbf{y}^{1},
-                   \mathbf{z}^{1}) & 
-\dots & 
-\mathbf{M}^{P}_{y}(\mathbf{x}^{1}, 
-                   \mathbf{y}^{1},
-                   \mathbf{z}^{1}) \vspace{0.05in} \\
-                   
-\mathbf{M}^{1}_{z}(\mathbf{x}^{2}, 
-                   \mathbf{y}^{2},
-                   \mathbf{z}^{2}) & 
-\dots & 
-\mathbf{M}^{P}_{z}(\mathbf{x}^{2}, 
-                   \mathbf{y}^{2},
-                   \mathbf{z}^{2}) \vspace{0.05in} \\
-                   
-\mathbf{M}^{1}_{y}(\mathbf{x}^{3}, 
-                   \mathbf{y}^{3},
-                   \mathbf{z}^{3}) & 
-\dots & 
-\mathbf{M}^{P}_{y}(\mathbf{x}^{3}, 
-                   \mathbf{y}^{3},
-                   \mathbf{z}^{3}) \vspace{0.05in}
-\end{array}
-\right]_{4N \times 3P} \: ,
-\label{eq:sensitivity-matrix}
-\end{equation}
-which is formed by the matrices
-$\mathbf{M}_{\beta}^{k}(\mathbf{x}^{\alpha}, 
-\mathbf{y}^{\alpha}, \mathbf{z}^{\alpha})$, $\beta = y, z$,
-$\alpha = 0,1,2,3$, $k = 1, \dots, P$ (equation \ref{eq:matrix-k-beta}).
-
-Notice that the forward problem formulated in this subsection
-describes the magnetic induction produced by the sample at
-the observation points. However, as pointed out before, 
-we are not able to measure the magnetic induction at a point,
-but an averaged magnetic induction. In the following subsection,
-we present a strategy for incorporating this averaging effect
-into the forward problem described here.
-
 \subsection{Sensor active area}
 \label{subsec:Sensor active area}
 
-As pointed out at the final of the subsection 
+As pointed out at the end of the subsection 
 \ref{subsec:Observed data vector}, 
 magnetic sensors do not measure the magnetic induction 
 field at a point. They measure instead the field averaged 
@@ -740,10 +536,7 @@ diameter of $80$~$\mu$m.
 This is currently one of the most powerful magnetic sensors.
 
 In the following, we present an analysis of the averaging effect produced
-by the finite size of sensors and also a strategy
-for numerically incorporating this effect into the forward 
-problem described in the subsection 
-\ref{subsec:Interpretation model and forward problem}. 
+by the finite size of sensors. 
 For convenience, we limit our study to square-planar 
 sensors which are parallel to the sample surface and have an
 active area $A$ (Figure \ref{fig:b-mag-flux-approx}a).
@@ -757,15 +550,15 @@ threaded through the active area $A$
 (light grey square in Figure \ref{fig:b-mag-flux-approx}a)
 of the sensor.
 For convenience, let us denote this observed $z^{\prime}$-component
-as $\tilde{d}_{i} \equiv \tilde{d}^{\prime}(x^{\prime}_{i}, y^{\prime}_{i}, z^{\prime}_{i})$,
+as $\tilde{d}^{\prime}_{i} \equiv \tilde{d}^{\prime}(x^{\prime}_{i}, y^{\prime}_{i}, z^{\prime}_{i})$,
 which represents the $i$th element of a particular vector 
 $\mathbf{d}^{\alpha}_{z^{\prime}}$ (equation \ref{eq:obs-data-vec-LCS}),
 depending on the observation plane $\alpha$ on 
 which the measurement is done.
-This observed data $\tilde{d}_{i}$ can then be described as a 
+This observed data $\tilde{d}^{\prime}_{i}$ can then be described as a 
 two-dimensional convolution given by
 \begin{equation}
-\tilde{d}_{i} = 
+\tilde{d}^{\prime}_{i} = 
 \int \limits_{-\infty}^{\infty} \int \limits_{-\infty}^{\infty}
 w(\eta, \zeta) \; d^{\prime}(x^{\prime}_{i} - \eta, 
                              y^{\prime}_{i} - \zeta,
@@ -814,89 +607,27 @@ divided into a regular grid of square cells with area
 $\Delta A = A/Q$ (Figure \ref{fig:b-mag-flux-approx}b).
 The approximated integral is given by
 \begin{equation}
-\tilde{d}^{\prime}_{i} \approx \frac{1}{Q} \sum \limits_{j = 1}^{Q} d^{\prime}_{j} \: ,
+\begin{split}
+\tilde{d}^{\prime}_{i} 
+&\approx \frac{1}{A} \sum \limits_{j = 1}^{Q} d^{\prime}_{j} \, \Delta A \\
+&\approx \frac{1}{Q} \sum \limits_{j = 1}^{Q} d^{\prime}_{j}
+\end{split} \: ,
 \label{eq:b-mag-flux-approx}
 \end{equation}
 where $d^{\prime}_{j}$ is the theoretical value of the 
 $z^{\prime}$-component of the magnetic induction produced by the rock
 sample at the point $(x^{\prime}_{j}, y^{\prime}_{j})$, $j = 1, ..., Q$
 (open circles in Figure \ref{fig:b-mag-flux-approx}b).
-Equation \ref{eq:b-mag-flux-approx} shows that the measured
-$z^{\prime}$-component $\tilde{d}^{\prime}_{i}$ is
+
+Equation \ref{eq:b-mag-flux-approx} shows that the
+$z^{\prime}$-component $\tilde{d}^{\prime}_{i}$ measured at
+the $i$th observation point on a plane $\alpha$ is
 approximately given by the averaged magnetic induction
 produced by the rock sample over the active area $A$ of the sensor.
-
-PAREI AQUI
-
-\subsection{Inverse problem}
-\label{subsec:Inverse problem}
-
-By presuming that the rectangular rock sample can
-be approximated by our previously described 
-interpretation model, we define the linear inverse
-problem of estimating its internal magnetization
-distribution as a constrained optimization problem.
-This optimization problem consists in 
-estimating a specific parameter vector 
-$\mathbf{m} = \mathbf{m}^{\dagger}$ (equation \ref{eq:param-vec}) 
-that minimizes the goal function
-\begin{equation}
-\Gamma(\mathbf{m}) = \left[ 
-\mathbf{d} - \mathbf{B}(\mathbf{m})
-\right]^{\top}
-\left[ 
-\mathbf{d} - \mathbf{B}(\mathbf{m})
-\right] + 
-\mu_0 \, \mathbf{m}^{\top} \mathbf{R}^{\top}\mathbf{R} \mathbf{m} \: ,
-\label{eq:goal-function}
-\end{equation}
-where the superscript``$\top$" stands for transposition, 
-$\mathbf{d}$ and $\mathbf{B}(\mathbf{m})$ are,
-respectively, the observed and predicted data vectors
-(equations \ref{eq:obs-data-vec} and \ref{eq:pred-data-vec-matrix}),
-$\mu_0$ is a positive number called regularization parameter and
-$\mathbf{R}$ is a sparse matrix with some elements equal to $-1$ and $1$.
-For example, if the interpretation model is formed by 
-two prisms ($P=2$), the matrix $\mathbf{R}$ is given by
-\begin{equation}
-\mathbf{R} =\begin{bmatrix}
- 1& 0 & 0 & -1 & 0 & 0\\ 
-0& 1 & 0 & 0 & -1 & 0\\
- 0& 0 & 1 & 0 & 0 & -1\\
-\end{bmatrix}_{3 \times 6}.
-\label{eq:matrix_smoothness}
-\end{equation} 
-In a general case, $\mathbf{R}$ is a $3P-3 \times 3P$ matrix
-whose $ij$th-element is given by
-\begin{equation}
-\left[ \mathbf{R} \right]_{ij} = 
-\begin{cases}
-\begin{split}
-1 &\: , \quad i = j \\
--1 &\: , \quad j = i+3
-\end{split}
-\end{cases} \: .
-\label{eq:elements_matrix}
-\end{equation}
-In equation \ref{eq:goal-function}, the regularization parameter $\mu_0$ 
-controls the trade-off between 
-the first and second terms at the right side. 
-The first term represents the data fit
-and the second term is the well-known first-order Tikhonov regularization 
-function \citep{aster2005}, which imposes
-``smoothness" to the estimated parameters.
-The least-squares estimate of the parameter vector 
-$\mathbf{m} = \mathbf{m}^{\dagger}$ minimizing 
-the goal function (equation \ref{eq:goal-function}) is given by
-\begin{equation}
-\mathbf{m}^{\dagger} = \left( \mathbf{M}^{\top}\mathbf{M} + \mu_0 \,  
-\mathbf{R}^T \mathbf{R}\right)^{-1}
-\mathbf{M}^{\top}\mathbf{d} \: .
-\label{eq:estimate}
-\end{equation}
-We consider that the estimated parameter vector $\mathbf{m}^{\dagger}$
-given by equation \ref{eq:estimate} approximates the real magnetization 
-distribution within the rectangular rock sample.
+Consequently, the elements of the observed data vector 
+$\mathbf{d}$ (equation \ref{eq:obs-data-vec}) also represent
+averaged components of the magnetic induction over the
+active area $A$ of the magnetic sensor.
 
 \subsection{Pre-processing}
 \label{subsec:Pre-processing}
@@ -987,6 +718,360 @@ estimated by trial-and-error.
 Finally, on each observation plane, the magnetic data are
 subtracted from its mean value in order to remove the effect of
 a possible (weak) interfering field.
+
+\subsection{Interpretation model and forward problem}
+\label{subsec:Interpretation model and forward problem}
+
+We consider that the rock sample can be approximated by an 
+interpretation model consisting of $P$ uniformly magnetized 
+prisms, which are juxtaposed along the $x$-axis  
+(Figure \ref{fig:sample}). The $k$-th prism, $k = 1, ..., P$, 
+has the same side lengths $L_{y}$ and $L_{z}$ of the sample along, 
+respectively, the $y$- and $z$-axes (Figure \ref{fig:sample}). 
+However, its side length along the $x$-axis is specified by the 
+interpreter, so that the total side length of the interpretation 
+model along this axis is equal to $L_{x}$ (Figure \ref{fig:sample}).
+
+Let's define the $3P \times 1$ parameter vector $\mathbf{m}$ 
+as follows:
+\begin{equation}
+\mathbf{m} = \left[
+\begin{array}{c}
+\vspace{0.05in}
+\mathbf{m}^{1} \vspace{0.05in} \\
+\vdots \vspace{0.05in} \\
+\mathbf{m}^{P} \vspace{0.05in} \\
+\end{array}
+\right] \: ,
+\label{eq:param-vec}
+\end{equation}
+where
+\begin{equation}
+\mathbf{m}^{k} = \left[
+\begin{array}{c}
+m^{k}_{x} \vspace{0.05in} \\
+m^{k}_{y} \vspace{0.05in} \\
+m^{k}_{z}
+\end{array}
+\right] \: ,
+\label{eq:vec-mk}
+\end{equation}
+is a $3 \times 1$ vector containing the Cartesian components
+$m^{k}_{x}$, $m^{k}_{y}$ and $m^{k}_{z}$ (in $A/m$) of the 
+magnetization vector of the $k$-prism, $k = 1, \dots, P$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%This modification consists in calculating, on each observation plane
+%$\alpha$ (Figures \ref{fig:sample-planes} and \ref{fig:sample-planes-cross}), 
+%the theoretical $\beta$-component of the magnetic induction 
+%produced by each prism forming the interpretation model
+%not only at the observation points
+%$(x_{i}^{\alpha}, y_{i}^{\alpha}, z_{i}^{\alpha})$, $i = 1, ..., N$, 
+%$\alpha = 0, 1, 2, 3$, but at the regular grid 
+%of $Q$ points (open circles in Figure \ref{fig:b-mag-flux-approx}b) centered
+%at the $i$th observation point $(x_{i}^{\alpha}, y_{i}^{\alpha}, z_{i}^{\alpha})$
+%(black circle in Figure \ref{fig:b-mag-flux-approx}b).
+%This procedure increases the number of elements of the
+%vectors $\mathbf{b}_{\beta}(\mathbf{x}^{\alpha}, \mathbf{y}^{\alpha},
+%\mathbf{z}^{\alpha}, \mathbf{m}^{k})$ and matrices 
+%$\mathbf{M}_{\beta}^{k}(\mathbf{x}^{\alpha}, \mathbf{y}^{\alpha},
+%\mathbf{z}^{\alpha})$ (equation \ref{eq:pred-data-vec-k}),
+%so that they become $QN \times 1$ and $QN \times 3$,
+%respectively. Similarly, the vectors
+%$\mathbf{B}_{\beta}^{\alpha}(\mathbf{m})$ 
+%(equation \ref{eq:pred-data-vec-alphabeta})
+%become $QN \times 1$.
+%Consequently, the theoretical-predicted data vector 
+%$\mathbf{B}(\mathbf{m})$ (equation \ref{eq:theor-pred-data-vec-matrix})
+%become $4QN \times 1$ and the matrix 
+%$\mathbf{M}$ (equation \ref{eq:theor-pred-data-vec-matrix}) 
+%become a $4QN \times 3P$ matrix $\tilde{\mathbf{M}}$, respectively.
+%Additionally, consider that the first $Q$ elements
+%of each new vectors $\tilde{\mathbf{B}}_{\beta}^{\alpha}(\mathbf{m})$
+%represent the $\beta$-component of the magnetic induction
+%produced by the interpretation model at the regular grid of 
+%$Q$ points centered at the observation point 
+%$(x_{1}^{\alpha}, y_{1}^{\alpha}, z_{1}^{\alpha})$,
+%the next $Q$ elements represent the $\beta$-component
+%at the regular grid of 
+%$Q$ points centered at the observation point 
+%$(x_{2}^{\alpha}, y_{2}^{\alpha}, z_{2}^{\alpha})$ and
+%so on.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Let's also define $N \times 1$ coordinate vectors $\mathbf{x}^{\alpha}$,
+$\mathbf{y}^{\alpha}$ and $\mathbf{z}^{\alpha}$, whose
+$i$th elements are the coordinates $x_{i}^{\alpha}$,
+$y_{i}^{\alpha}$ and $z_{i}^{\alpha}$, respectively,
+of the $i$th observation point on the plane $\alpha$
+(black circle in Figure \ref{fig:b-mag-flux-approx}b).
+Additionally, consider the $QN \times 1$ coordinate vectors 
+$\tilde{\mathbf{x}}^{\alpha}$, $\tilde{\mathbf{y}}^{\alpha}$ and 
+$\tilde{\mathbf{z}}^{\alpha}$. The first $Q$ elements of these
+vectors are, respectively, the coordinates $x_{j}^{\alpha}$,
+$y_{j}^{\alpha}$ and $z_{j}^{\alpha}$ of a regular grid of points
+(open circles in Figure \ref{fig:b-mag-flux-approx}b) centered at 
+the observation point $(x_{1}^{\alpha}, y_{1}^{\alpha}, z_{1}^{\alpha})$
+(black circle in Figure \ref{fig:b-mag-flux-approx}b).
+Similarly, the next set of $Q$ elements of these vectors are
+the coordinates of the regular grid of $Q$ points centered
+at the observation point $(x_{2}^{\alpha}, y_{2}^{\alpha}, z_{2}^{\alpha})$
+and so on.
+The Cartesian coordinates forming the vectors $\mathbf{x}^{\alpha}$,
+$\mathbf{y}^{\alpha}$, $\mathbf{z}^{\alpha}$, 
+$\tilde{\mathbf{x}}^{\alpha}$, $\tilde{\mathbf{y}}^{\alpha}$ and 
+$\tilde{\mathbf{z}}^{\alpha}$ are referred to the MSC
+(Figure \ref{fig:sample-planes-cross}).
+
+The $\beta$-component, $\beta = y, z$,
+of the magnetic induction produced by the $k$-prism (in $nT$), at 
+the observation points defined by the $N \times 1$ vectors 
+$\mathbf{x}^{\alpha}$, $\mathbf{y}^{\alpha}$ and $\mathbf{z}^{\alpha}$,
+$\alpha = 0, 1, 2, 3$,
+are grouped into $N \times 1$ vectors given by
+\begin{equation}
+\mathbf{b}_{\beta}(\mathbf{x}^{\alpha},
+                   \mathbf{y}^{\alpha},
+                   \mathbf{z}^{\alpha},
+                   \mathbf{m}^{k})
+    = \mathbf{A}
+      \mathbf{M}^{k}_{\beta}(\tilde{\mathbf{x}}^{\alpha}, 
+                             \tilde{\mathbf{y}}^{\alpha},
+                             \tilde{\mathbf{z}}^{\alpha}) \mathbf{m}^{k} \: ,
+\label{eq:pred-data-vec-k}
+\end{equation}
+where $\mathbf{A}$ is a $QN \times QN$ matrix whose element $ij$ is given by
+\begin{equation}
+\left[\mathbf{A}\right]_{ij} = 
+\begin{cases}
+\begin{split}
+1 &, \quad i \le j \le i+Q \\
+0 &, \quad \text{otherwise}
+\end{split}
+\end{cases}
+\label{eq:Aij}
+\end{equation}
+and
+\begin{equation}
+\mathbf{M}_{\beta}^{k}(\tilde{\mathbf{x}}^{\alpha}, 
+                       \tilde{\mathbf{y}}^{\alpha},
+                       \tilde{\mathbf{z}}^{\alpha}) =
+\left[
+\begin{array}{ccc}
+\partial_{\beta x} \phi^{k}_{1} &
+\partial_{\beta y} \phi^{k}_{1}&
+\partial_{\beta z} \phi^{k}_{1} 
+\vspace{0.05in} \\
+\vdots & \vdots & \vdots \vspace{0.05in} \\
+\partial_{\beta x} \phi^{k}_{N} &
+\partial_{\beta y} \phi^{k}_{N} &
+\partial_{\beta z} \phi^{k}_{N}
+\end{array}
+\right]
+\label{eq:matrix-k-beta}
+\end{equation}
+is a $QN \times 3$ matrix whose elements $\partial_{\beta x} \phi^{k}_{j}$,
+$\partial_{\beta y} \phi^{k}_{j}$ and $\partial_{\beta z} \phi^{k}_{j}$,
+$j = 1, ..., QN$, 
+are second derivatives, evaluated at the points defined by
+the $QN \times 1$ vectors 
+$\tilde{\mathbf{x}}^{\alpha}$, $\tilde{\mathbf{y}}^{\alpha}$ and 
+$\tilde{\mathbf{z}}^{\alpha}$,
+of the function
+\begin{equation}
+\phi^{k}(x, y, z) = 
+    C_{m}
+    \iiint\limits_{\vartheta^{k}}
+    \frac{d\epsilon \, d\zeta \, d\eta}
+         {\sqrt{(x - \epsilon)^{2} +
+                (y - \zeta)^{2} +
+                (z - \eta)^{2}}}
+\label{eq:phi-k}
+\end{equation}
+with respect to the variables $x$, $y$ and $z$.
+In equation \ref{eq:phi-k},
+$C_{m}~=~10^{9}\mu_{0}/4\pi$ and $\mu_{0}$ is the 
+magnetic constant and the integral is evaluated over the 
+volume $\vartheta^{k}$ of the $k$th prism. 
+In this work, the second derivatives in the matrices
+$\mathbf{M}_{\beta}^{k}(\tilde{\mathbf{x}}^{\alpha}, 
+\tilde{\mathbf{y}}^{\alpha}, \tilde{\mathbf{z}}^{\alpha})$ 
+(equation \ref{eq:matrix-k-beta}) are calculated by using the formulas 
+presented by \citet{nagy2000}.
+Notice that the vectors $\mathbf{b}_{\beta}(\mathbf{x}^{\alpha},
+\mathbf{y}^{\alpha}, \mathbf{z}^{\alpha}, \mathbf{m}^{k})$
+(equation \ref{eq:pred-data-vec-k}) contain averaged values of
+the $\beta$-components of the magnetic induction produced by
+the interpretation model at the observation points located at
+the four planes $\alpha = 0, 1, 2, 3$. The averaging is imposed
+by the matrix $\mathbf{A}$ defined in equation \ref{eq:Aij}.
+
+From equation \ref{eq:pred-data-vec-k}, we define the $N \times 1$ 
+vectors $\mathbf{B}_{\beta}^{\alpha}(\mathbf{m})$ containing the theoretical 
+$\beta$-component of the magnetic induction produced by all prisms forming
+the interpretation model on each plane $\alpha$ as follows:
+\begin{equation}
+\mathbf{B}_{\beta}^{\alpha}(\mathbf{m}) \equiv \sum_{k=1}^{P}
+    \mathbf{b}_{\beta}(\mathbf{x}^{\alpha},
+                           \mathbf{y}^{\alpha},
+                           \mathbf{z}^{\alpha},
+                           \mathbf{m}^{k}) \: .
+\label{eq:pred-data-vec-alphabeta}
+\end{equation}
+By grouping all these vectors $\mathbf{B}_{\beta}^{\alpha}(\mathbf{m})$, 
+we define the $4N \times 1$ theoretical-predicted data vector 
+\begin{equation}
+\mathbf{B}(\mathbf{m}) = \left[
+\begin{array}{c}
+\mathbf{B}^{0}_{z}(\mathbf{m}) \vspace{0.05in} \\
+\mathbf{B}^{1}_{y}(\mathbf{m}) \vspace{0.05in} \\
+\mathbf{B}^{2}_{z}(\mathbf{m}) \vspace{0.05in} \\
+\mathbf{B}^{3}_{y}(\mathbf{m})
+\end{array}
+\right] \: .
+\label{eq:theor-pred-data-vec}
+\end{equation}
+Finally, by substituting equation \ref{eq:pred-data-vec-k} 
+into equation \ref{eq:pred-data-vec-alphabeta}
+and rearranging the terms within the summation, we can 
+conveniently rewrite the theoretical-predicted data vector 
+$\mathbf{B}(\mathbf{m})$ (equation \ref{eq:theor-pred-data-vec})
+as follows:
+\begin{equation}
+\mathbf{B}(\mathbf{m}) = \mathbf{M} \mathbf{m}\: ,
+\label{eq:theor-pred-data-vec-matrix}
+\end{equation}
+where $\mathbf{M}$ is a $4N \times 3P$ partitioned matrix given by
+\begin{equation}
+\mathbf{M} = \left[
+\begin{array}{ccc}
+\mathbf{A}
+\mathbf{M}^{1}_{z}(\tilde{\mathbf{x}}^{0}, 
+                   \tilde{\mathbf{y}}^{0},
+                   \tilde{\mathbf{z}}^{0}) & 
+\dots & 
+\mathbf{A}
+\mathbf{M}^{P}_{z}(\tilde{\mathbf{x}}^{0}, 
+                   \tilde{\mathbf{y}}^{0},
+                   \tilde{\mathbf{z}}^{0}) \vspace{0.05in} \\
+
+\mathbf{A}       
+\mathbf{M}^{1}_{y}(\tilde{\mathbf{x}}^{1}, 
+                   \tilde{\mathbf{y}}^{1},
+                   \tilde{\mathbf{z}}^{1}) & 
+\dots & 
+\mathbf{A}
+\mathbf{M}^{P}_{y}(\tilde{\mathbf{x}}^{1}, 
+                   \tilde{\mathbf{y}}^{1},
+                   \tilde{\mathbf{z}}^{1}) \vspace{0.05in} \\
+                   
+\mathbf{A}
+\mathbf{M}^{1}_{z}(\tilde{\mathbf{x}}^{2}, 
+                   \tilde{\mathbf{y}}^{2},
+                   \tilde{\mathbf{z}}^{2}) & 
+\dots & 
+\mathbf{A}
+\mathbf{M}^{P}_{z}(\tilde{\mathbf{x}}^{2}, 
+                   \tilde{\mathbf{y}}^{2},
+                   \tilde{\mathbf{z}}^{2}) \vspace{0.05in} \\
+                   
+\mathbf{A}
+\mathbf{M}^{1}_{y}(\tilde{\mathbf{x}}^{3}, 
+                   \tilde{\mathbf{y}}^{3},
+                   \tilde{\mathbf{z}}^{3}) & 
+\dots & 
+\mathbf{A}
+\mathbf{M}^{P}_{y}(\tilde{\mathbf{x}}^{3}, 
+                   \tilde{\mathbf{y}}^{3},
+                   \tilde{\mathbf{z}]^{3}) \vspace{0.05in}
+\end{array}
+\right] \: ,
+\label{eq:sensitivity-matrix}
+\end{equation}
+which is formed by the matrices
+$\mathbf{M}_{\beta}^{k}(\tilde{\mathbf{x}}^{\alpha}, 
+\tilde{\mathbf{y}}^{\alpha}, \tilde{\mathbf{z}}^{\alpha})$, $\beta = y, z$,
+$\alpha = 0,1,2,3$, $k = 1, \dots, P$ (equation \ref{eq:matrix-k-beta})
+and the matrix $\mathbf{A}$ defined in equation \ref{eq:Aij}.
+
+Notice that the forward problem presented in this subsection
+describes the averaged magnetic induction produced by the 
+interpretation model at the observation points. The averaging
+is calculated over a regular grid of $Q$ points on the
+active area $A$ of the magnetic sensor 
+(Figure \ref{fig:b-mag-flux-approx}).
+
+\subsection{Inverse problem}
+\label{subsec:Inverse problem}
+
+By presuming that the rectangular rock sample can
+be approximated by our previously described 
+interpretation model, we define the linear inverse
+problem of estimating its internal magnetization
+distribution as a constrained optimization problem.
+This optimization problem consists in 
+estimating a specific parameter vector 
+$\mathbf{m} = \mathbf{m}^{\dagger}$ (equation \ref{eq:param-vec}) 
+that minimizes the goal function
+\begin{equation}
+\Gamma(\mathbf{m}) = \left[ 
+\mathbf{d} - \mathbf{B}(\mathbf{m})
+\right]^{\top}
+\left[ 
+\mathbf{d} - \mathbf{B}(\mathbf{m})
+\right] + 
+\mu_0 \, \mathbf{m}^{\top} \mathbf{R}^{\top}\mathbf{R} \mathbf{m} \: ,
+\label{eq:goal-function}
+\end{equation}
+where the superscript``$\top$" stands for transposition, 
+$\mathbf{d}$ and $\mathbf{B}(\mathbf{m})$ are,
+respectively, the observed and predicted data vectors
+(equations \ref{eq:obs-data-vec} and \ref{eq:theor-pred-data-vec-matrix}),
+$\mu_0$ is a positive number called regularization parameter and
+$\mathbf{R}$ is a sparse matrix with some elements equal to $-1$ and $1$.
+For example, if the interpretation model is formed by 
+two prisms ($P=2$), the matrix $\mathbf{R}$ is given by
+\begin{equation}
+\mathbf{R} =\begin{bmatrix}
+ 1& 0 & 0 & -1 & 0 & 0\\ 
+0& 1 & 0 & 0 & -1 & 0\\
+ 0& 0 & 1 & 0 & 0 & -1\\
+\end{bmatrix}_{3 \times 6}.
+\label{eq:matrix_smoothness}
+\end{equation} 
+In a general case, $\mathbf{R}$ is a $3P-3 \times 3P$ matrix
+whose $ij$th-element is given by
+\begin{equation}
+\left[ \mathbf{R} \right]_{ij} = 
+\begin{cases}
+\begin{split}
+1 &\: , \quad i = j \\
+-1 &\: , \quad j = i+3
+\end{split}
+\end{cases} \: .
+\label{eq:elements_matrix}
+\end{equation}
+In equation \ref{eq:goal-function}, the regularization parameter $\mu_0$ 
+controls the trade-off between 
+the first and second terms at the right side. 
+The first term represents the data fit
+and the second term is the well-known first-order Tikhonov regularization 
+function \citep{aster2005}, which imposes
+``smoothness" to the estimated parameters.
+The least-squares estimate of the parameter vector 
+$\mathbf{m} = \mathbf{m}^{\dagger}$ minimizing 
+the goal function (equation \ref{eq:goal-function}) is given by
+\begin{equation}
+\mathbf{m}^{\dagger} = \left( \mathbf{M}^{\top}\mathbf{M} + \mu_0 \,  
+\mathbf{R}^T \mathbf{R}\right)^{-1}
+\mathbf{M}^{\top}\mathbf{d} \: .
+\label{eq:estimate}
+\end{equation}
+We consider that the estimated parameter vector $\mathbf{m}^{\dagger}$
+given by equation \ref{eq:estimate} approximates the real magnetization 
+distribution within the rectangular rock sample.
 
 \section{Numerical simulations}
 \label{sec:Numerical simulations}
@@ -1899,12 +1984,15 @@ Weiss, B.~P., E.~A. Lima, L.~E. Fong, and F.~J. Baudenbacher
  a distance $h$ of the sample (grey prisms), on a particular observation
  plane $\alpha$ (Figures \ref{fig:sample-planes} and 
  \ref{fig:sample-planes-cross}). (b) Detailed representation
- of the sensor active area $A$, which is centered at the observation point
- $(x^{\prime}_{i}, y^{\prime}_{i})$ (black circle). The square active area 
+ of the sensor active area $A$ centered at the observation point
+ $(x_{i}, y_{i})$ (black circle). 
+ The square active area 
  of the sensor is discretized into a regular grid of $Q$ square cells 
  (limited by the dashed lines). Each cell is centered at a point 
- $(x^{\prime}_{j}, y^{\prime}_{j})$, $j = 1, ..., Q$, (open circles) and 
- has an area $\Delta A = A/Q$.}
+ $(x_{j}, y_{j})$, $j = 1, ..., Q$, (open circles) and 
+ has an area $\Delta A = A/Q$. The points $(x_{i}, y_{i})$
+ and $(x_{j}, y_{j})$ can be either referred to a specific LCS or
+ to the MCS (Figure \ref{fig:sample-planes-cross}).}
  \label{fig:b-mag-flux-approx}
  \end{figure} 
  
