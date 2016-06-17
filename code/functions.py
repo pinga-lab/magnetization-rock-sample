@@ -142,26 +142,40 @@ def sample(Lx,Ly,Lz,N,m=None,inc=None,dec=None):
 
 
 
-def sensitivity(N,x,y,z,model,alpha):
+def sensitivity(N,x,y,z,model,alpha, eff_area = None):
     '''
-    Funcao que calcula a matriz de sensibilidade para a inversao
+    Calculates the Jacobian matrix of the iversion
     
     input
     
-    N: int - numero de prismas
+    N: int - number of prisms
     
-    x: list - coordenadas x (in meters)
+    x: list - coordinates x (in meters)
     
-    y: list - coordenadas y (in meters)
+    y: list - coordinates y (in meters)
     
-    z: list - coordenadas z (in meters)
-    model: list - Elementos geometricos da classe mesher
-        da biblioteca Fatiando a Terra - modelo interpretativo.
+    z: list - coordinates z (in meters)
+    model: list - Geometrical elements of the mesher class
+        of the Fatiando a Terra package - interpretation model.
     
-    G: Matriz de sensibilidade com dimensao (n x m) em que n e o numero de observacos e m o numero de parametros 
-    
+    G: N x M matriz, where N is the number of data and M is the number of parameters
+        
     '''
     g = []
+    
+    if eff_area is not None:
+    
+        ns = 7
+        ns2 = ns/2
+        Q = ns*ns
+        
+        dx = 0.000001*eff_area[0]/ns
+        dy = 0.000001*eff_area[1]/ns
+            
+        xmin = x - ns2*dx
+        
+    
+    
     for i in range(N):
         if (alpha == 0 or alpha == 2):
             g.append(prism.kernelxz(x,y,z,model[i]))
