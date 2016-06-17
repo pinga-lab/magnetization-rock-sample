@@ -760,47 +760,6 @@ is a $3 \times 1$ vector containing the Cartesian components
 $m^{k}_{x}$, $m^{k}_{y}$ and $m^{k}_{z}$ (in $A/m$) of the 
 magnetization vector of the $k$-prism, $k = 1, \dots, P$.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%This modification consists in calculating, on each observation plane
-%$\alpha$ (Figures \ref{fig:sample-planes} and \ref{fig:sample-planes-cross}), 
-%the theoretical $\beta$-component of the magnetic induction 
-%produced by each prism forming the interpretation model
-%not only at the observation points
-%$(x_{i}^{\alpha}, y_{i}^{\alpha}, z_{i}^{\alpha})$, $i = 1, ..., N$, 
-%$\alpha = 0, 1, 2, 3$, but at the regular grid 
-%of $Q$ points (open circles in Figure \ref{fig:b-mag-flux-approx}b) centered
-%at the $i$th observation point $(x_{i}^{\alpha}, y_{i}^{\alpha}, z_{i}^{\alpha})$
-%(black circle in Figure \ref{fig:b-mag-flux-approx}b).
-%This procedure increases the number of elements of the
-%vectors $\mathbf{b}_{\beta}(\mathbf{x}^{\alpha}, \mathbf{y}^{\alpha},
-%\mathbf{z}^{\alpha}, \mathbf{m}^{k})$ and matrices 
-%$\mathbf{M}_{\beta}^{k}(\mathbf{x}^{\alpha}, \mathbf{y}^{\alpha},
-%\mathbf{z}^{\alpha})$ (equation \ref{eq:pred-data-vec-k}),
-%so that they become $QN \times 1$ and $QN \times 3$,
-%respectively. Similarly, the vectors
-%$\mathbf{B}_{\beta}^{\alpha}(\mathbf{m})$ 
-%(equation \ref{eq:pred-data-vec-alphabeta})
-%become $QN \times 1$.
-%Consequently, the theoretical-predicted data vector 
-%$\mathbf{B}(\mathbf{m})$ (equation \ref{eq:theor-pred-data-vec-matrix})
-%become $4QN \times 1$ and the matrix 
-%$\mathbf{M}$ (equation \ref{eq:theor-pred-data-vec-matrix}) 
-%become a $4QN \times 3P$ matrix $\tilde{\mathbf{M}}$, respectively.
-%Additionally, consider that the first $Q$ elements
-%of each new vectors $\tilde{\mathbf{B}}_{\beta}^{\alpha}(\mathbf{m})$
-%represent the $\beta$-component of the magnetic induction
-%produced by the interpretation model at the regular grid of 
-%$Q$ points centered at the observation point 
-%$(x_{1}^{\alpha}, y_{1}^{\alpha}, z_{1}^{\alpha})$,
-%the next $Q$ elements represent the $\beta$-component
-%at the regular grid of 
-%$Q$ points centered at the observation point 
-%$(x_{2}^{\alpha}, y_{2}^{\alpha}, z_{2}^{\alpha})$ and
-%so on.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 Let's also define $N \times 1$ coordinate vectors $\mathbf{x}^{\alpha}$,
 $\mathbf{y}^{\alpha}$ and $\mathbf{z}^{\alpha}$, whose
 $i$th elements are the coordinates $x_{i}^{\alpha}$,
@@ -842,12 +801,13 @@ are grouped into $N \times 1$ vectors given by
                              \tilde{\mathbf{z}}^{\alpha}) \mathbf{m}^{k} \: ,
 \label{eq:pred-data-vec-k}
 \end{equation}
-where $\mathbf{A}$ is a $QN \times QN$ matrix whose element $ij$ is given by
+where $\mathbf{A}$ is a $QN \times QN$ matrix whose element $ij$,
+$i = 1, ..., QN$, $j = 1, ..., QN$, is given by
 \begin{equation}
 \left[\mathbf{A}\right]_{ij} = 
 \begin{cases}
 \begin{split}
-1 &, \quad i \le j \le i+Q \\
+1 &, \quad (i - 1)Q \le j \le iQ \\
 0 &, \quad \text{otherwise}
 \end{split}
 \end{cases}
@@ -985,16 +945,15 @@ where $\mathbf{M}$ is a $4N \times 3P$ partitioned matrix given by
 \mathbf{A}
 \mathbf{M}^{P}_{y}(\tilde{\mathbf{x}}^{3}, 
                    \tilde{\mathbf{y}}^{3},
-                   \tilde{\mathbf{z}]^{3}) \vspace{0.05in}
+                   \tilde{\mathbf{z}}^{3}) \vspace{0.05in}
 \end{array}
 \right] \: ,
 \label{eq:sensitivity-matrix}
 \end{equation}
-which is formed by the matrices
+where $\mathbf{A}$ is defined in equation \ref{eq:Aij} and
 $\mathbf{M}_{\beta}^{k}(\tilde{\mathbf{x}}^{\alpha}, 
 \tilde{\mathbf{y}}^{\alpha}, \tilde{\mathbf{z}}^{\alpha})$, $\beta = y, z$,
-$\alpha = 0,1,2,3$, $k = 1, \dots, P$ (equation \ref{eq:matrix-k-beta})
-and the matrix $\mathbf{A}$ defined in equation \ref{eq:Aij}.
+$\alpha = 0,1,2,3$, $k = 1, \dots, P$ in equation \ref{eq:matrix-k-beta}.
 
 Notice that the forward problem presented in this subsection
 describes the averaged magnetic induction produced by the 
@@ -1048,7 +1007,8 @@ whose $ij$th-element is given by
 \begin{cases}
 \begin{split}
 1 &\: , \quad i = j \\
--1 &\: , \quad j = i+3
+-1 &\: , \quad j = i+3 \\
+0 &\: , \quad \text{otherwise}
 \end{split}
 \end{cases} \: .
 \label{eq:elements_matrix}
