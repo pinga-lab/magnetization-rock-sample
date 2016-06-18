@@ -1038,9 +1038,10 @@ $A = (300 \, \mu \text{m})^{2}$, which was discretized into
 a regular grid of $7 \times 7$ points, totalling $Q = 49$
 (Figure \ref{fig:b-mag-flux-approx}). Besides,
 the magnetic data produced by the synthetic sample on 
-each plane $\alpha$, $\alpha = 0, 1, 2, 3$, were calculated on
-a regular grid of $102 \times 42$ points along the $x$ and 
-$y$/$z$ axes, respectively, and were also contaminated with a 
+each plane $\alpha = 0, 1, 2, 3$ were calculated at
+$N = 4,284$ points, on a set of $42$ regularly spaced lines 
+that are parallel to the $x$-axis, each one with $102$ regularly
+spaced points. The data were also contaminated with a 
 pseudo-random Gaussian noise having null mean and standard 
 deviation equal to $30,000$~$\mu$T. These data simulate
 an observed data set.
@@ -1137,13 +1138,22 @@ produce a coarse data fit.
 
 \subsubsection{Sensor-to-sample distance}
 
-Unlike the previous tests, the simulated noise-corrupted 
-data used here were calculated at a different distance $h$ 
-(Figure \ref{fig:sample-planes-cross}) between each observation
-plane and the surface of the sample.
-The distances $h$ between the sample surface and the planes 
-$\alpha = 0, 1, 2$ and $3$ are equal to $420$~$\mu$m, $330$~$\mu$m,
-$400$~$\mu$m and $230$~$\mu$m, respectively.
+Unlike the previous tests, the distance $h$ 
+(Figure \ref{fig:sample-planes-cross}) between the 
+surface of the sample and the observation
+points at each plane is not constant.
+Let us first remember that, on each plane $\alpha = 0, 1, 2, 3$,
+the observation points are located on a set 
+of $42$ regularly-spaced acquisition 
+lines, each one with $102$ regularly spaced points.
+In this test, the distance $h$ is contaminated with a
+Gaussian position noise having a common standard deviation of
+$100$~$\mu$m and a different mean value equal to 
+$420$~$\mu$m, $330$~$\mu$m, $400$~$\mu$m and $230$~$\mu$m
+on each plane $\alpha = 0, 1, 2, 3$, respectively.
+The distance $h$, however, is constant for observation points 
+located on the same acquisition line.
+
 The noise-corrupted magnetic data were properly corrected 
 from the misalignment problems by using the parameters shown in 
 Table \ref{tab:misalignment-parameters} and the equations 
