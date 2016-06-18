@@ -216,24 +216,24 @@ def sensitivity(P,x,y,z,model,alpha, eff_area = None):
         
         for i, col in enumerate(cols):
             if (alpha == 0 or alpha == 2):
-                G[c[0]] = np.mean(np.reshape(prism.kernelxz(xg, yg, zg, model[i]), (x.size, Q)), axis=1)
-                G[c[1]] = np.mean(np.reshape(prism.kernelyz(xg, yg, zg, model[i]), (x.size, Q)), axis=1)
-                G[c[2]] = np.mean(np.reshape(prism.kernelzz(xg, yg, zg, model[i]), (x.size, Q)), axis=1)
+                G[:,col[0]] = np.mean(np.reshape(prism.kernelxz(xg, yg, zg, model[i]), (x.size, Q)), axis=1)
+                G[:,col[1]] = np.mean(np.reshape(prism.kernelyz(xg, yg, zg, model[i]), (x.size, Q)), axis=1)
+                G[:,col[2]] = np.mean(np.reshape(prism.kernelzz(xg, yg, zg, model[i]), (x.size, Q)), axis=1)
             if (alpha == 1 or alpha == 3):
-                G[c[0]] = np.mean(np.reshape(prism.kernelxy(xg, yg, zg, model[i]), (x.size, Q)), axis=1)
-                G[c[1]] = np.mean(np.reshape(prism.kernelyy(xg, yg, zg, model[i]), (x.size, Q)), axis=1)
-                G[c[2]] = np.mean(np.reshape(prism.kernelyz(xg, yg, zg, model[i]), (x.size, Q)), axis=1)
+                G[:,col[0]] = np.mean(np.reshape(prism.kernelxy(xg, yg, zg, model[i]), (x.size, Q)), axis=1)
+                G[:,col[1]] = np.mean(np.reshape(prism.kernelyy(xg, yg, zg, model[i]), (x.size, Q)), axis=1)
+                G[:,col[2]] = np.mean(np.reshape(prism.kernelyz(xg, yg, zg, model[i]), (x.size, Q)), axis=1)
                 
     else:
         for i, col in enumerate(cols):
             if (alpha == 0 or alpha == 2):
-                G[c[0]] = prism.kernelxz(x, y, z, model[i])
-                G[c[1]] = prism.kernelyz(x, y, z, model[i])
-                G[c[2]] = prism.kernelzz(x, y, z, model[i])
+                G[:,col[0]] = prism.kernelxz(x, y, z, model[i])
+                G[:,col[1]] = prism.kernelyz(x, y, z, model[i])
+                G[:,col[2]] = prism.kernelzz(x, y, z, model[i])
             if (alpha == 1 or alpha == 3):
-                G[c[0]] = prism.kernelxy(x, y, z, model[i])
-                G[c[1]] = prism.kernelyy(x, y, z, model[i])
-                G[c[2]] = prism.kernelyz(x, y, z, model[i])
+                G[:,col[0]] = prism.kernelxy(x, y, z, model[i])
+                G[:,col[1]] = prism.kernelyy(x, y, z, model[i])
+                G[:,col[2]] = prism.kernelyz(x, y, z, model[i])
     
     G *= CM*T2NT
     return G
