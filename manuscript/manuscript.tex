@@ -186,9 +186,12 @@ magnetization distribution of the sample varies along one of
 its axes. Our method approximates the sample geometry
 by an interpretation model composed of a one-dimensional 
 array of juxtaposed rectangular prisms with uniform magnetization. 
-The Cartesian 
-components of the magnetization vector within each rectangular prism 
+The Cartesian components of the magnetization vector 
+within each rectangular prism 
 are the parameters to be estimated by solving a linear inverse problem. 
+Our method automatically deals with the averaging of 
+the measured magnetic data due to the finite size of the magnetic sensor,
+preventing the application of a deconvolution before the inversion.
 Tests with synthetic data show the performance of our method in 
 retrieving complex magnetization distributions even in 
 the presence of magnetization heterogeneities. 
@@ -355,6 +358,11 @@ Moreover, the use of magnetic data measured on more than one
 plane around the sample adds independent information about
 its internal magnetization distribution, which also contributes
 to stabilize the inverse problem.
+We also presents a new approach for automatically including the
+averaging of the magnetic data over the finite active area of
+the magnetic sensor.
+This new approach precludes the application of a deconvolution
+for removing this averaging effect before the inversion.
 In comparison with previous methods,
 the method proposed here does not deal with large-scale inverse problems 
 because our interpretation model is described by a relatively 
@@ -1173,7 +1181,12 @@ the estimate obtained with our method (blue dots) did not
 completely retrieved the magnetization distribution of the synthetic
 sample (red dots), but is much better than that one obtained in the
 previous test (blue dots in Figure \ref{fig:estimate-pre-processing}).
-This (almost good) estimated magnetization distribution yields 
+Notice that the observed data (Figures \ref{fig:datafit-sensor2sample}a, 
+d, g and j) presents striations aligned with the acquisition lines
+on each observation plane. This striations are produced by the
+presence of position noise in the observation points.
+Despite these striations, the (almost good) estimated magnetization 
+distribution obtained by our method yields 
 predicted data (Figures \ref{fig:datafit-sensor2sample}b, e, h and k) 
 that recover the observed data (Figures \ref{fig:datafit-sensor2sample}a, 
 d, g and j) in an acceptable manner.
@@ -1376,6 +1389,10 @@ correction of the misalignment problems.
 These problems, however, were possibly worsened by the
 apparent imprecision in the sensor positioning (or position noise)
 during the scanning stage.
+Notice that, as in the numerical test showing the effects of
+position noise, the observed data (Figures \ref{fig:datafit-real}c, f, i and l)
+present striations along the acquisition lines on each
+observation plane.
 According to \citet{lee2004}, the presence of position noise has 
 an important implication for the design of scanning magnetic microscopy.
 We have also verified with synthetic data that errors in the 
@@ -1447,7 +1464,10 @@ microscopy data with the purpose of estimating the internal
 magnetization distribution of a rectangular rock sample whose
 internal magnetization distribution varies along one of its
 axes.
-Our method takes advantage of the geometry of a rectangular sample
+Our method presents a new approach for automatically including
+the averaging effect produced by the finite size of the 
+magnetic sensor. Additionally, our method takes advantage 
+of the geometry of a rectangular sample
 to propose a new scanning design aiming at providing the magnetic
 data not only on a single plane over the sample, but on four 
 mutually orthogonal planes located around the sample.
