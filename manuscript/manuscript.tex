@@ -227,12 +227,51 @@ induced in the sample.
 \section{Introduction}
 \label{sec:Introduction}
 
-Based on the estimation of the total (bulk) remanent magnetization, the standard 
-paleomagnetic techniques have been used for more than 40 years in studies of rock magnetism, 
-magnetostratigraphic and paleogeographic reconstructions \citep{voo1993}. These techniques 
-are well established and are applied successfully in almost all paleomagnetic studies. 
-However, this classical method has constraints in studies that need high spatial or 
-temporal resolution, such as the secular variation's investigation. In this context, new 
+Based on the estimation of the total (bulk) remanent magnetization (RM), 
+the standard paleomagnetic techniques have been developed for more than 
+40 years in studies of rock magnetism, magnetostratigraphic and 
+paleogeographic reconstructions [e.g., \citeauthor{voo1993}, \citeyear{voo1993}]. 
+The evolution of the paleomagnetic techniques is directly linked to 
+the development of rock magnetometers and data processing methods. 
+
+Since its beginning in the 1950s, 
+palemagnetism has seen at least three generation of rock magnetometers 
+(e.g. Turner et al., 2009) FALTA O BIBTEX: astatic systems, 
+spinner magnetometers and superconducting magnetometers. 
+Astatic system was used during the earliest paleomagnetic studies, 
+such as \citet{blackett1952} and Pozzi e Thellier (1960) FALTA O BIBTEX 
+and it was quickly replaced by spinner magnetometers (e.g., Nagata, 1961) FALTA O BIBTEX. 
+Spinner magnetometers are most used devices in the paleomagnetic 
+laboratories but they have been systematically replaced by 
+superconducting magnetometers. Superconducting rock magnetometers 
+have been developed since 70’s \citep{dodson1974, goree-fuller1976}, 
+reaching notable sensitivity and quickness of measurements on the last two decade 
+\citep{kirschvink2015}. 
+This kind of rock magnetometer can measure both discrete samples 
+(single sample mode) and long-core samples (pass-through mode), 
+with a good spatial accuracy ($\sim$1 cm).
+The long-core samples or u-channel samples are essential to 
+investigations of magnetostratigraphy and environmental magnetism, 
+such as those ones obtained at IODP (International Ocean Drilling Project). 
+
+In terms of data processing, both spinner and SQUID (discrete samples) 
+are similar. For pass-through mode, however, the data 
+processing is little bit different; the measurements are naturally 
+smoothed and have a direct dependence with the sensor response. 
+To overcome this constraint, some studies have used deconvolution 
+algorithms to recover the paleomagnetic signal 
+\citep{jackson2010, oda-xuan2014}. 
+Even though the deconvolution methods have been improved on the 
+last years \citep{jackson2010, lascu2012}, \citet{lascu2012} have 
+noticed that there is a resolution constraint related with sensor 
+response. They have compared the measurements of long-core with 
+the discrete (slices samples) synthetic samples and they realize 
+that the sensor setting imposes a spatial resolution limit of 1 cm. 
+Along these lines this method has constraint in studies that need 
+very high spatial or temporal resolution, such as the secular 
+variation recorded in stalagmites or manganese crusts. 
+
+In this context, new 
 methods have been developed over the last decades to get around these limitations, in special, 
 the Scanning Magnetic Microscopy (SMM) techniques \citep{kirschvink2008, oda2011, fu2014}. 
 Different from 
@@ -278,7 +317,8 @@ contributing to the ill-conditioning of such inverse problems.
 The inherent ill-conditioning of such inverse 
 problems can be narrowed, for example, by introducing \textit{a priori} 
 information regarding the magnetization distribution and/or by 
-optimizing the geometry of the data acquisition. The introduction of \textit{a priori} information aiming at constraining 
+optimizing the geometry of the data acquisition. 
+The introduction of \textit{a priori} information aiming at constraining 
 the possible estimated magnetization distributions and also 
 making them stable to small changes in the observed data is
 generally called regularization \citep{tikhonov1977, engl1996, 
@@ -384,8 +424,8 @@ to invert experimentally measured magnetic data produced by
 a highly-magnetized synthetic sample that was manufactured in 
 laboratory.
 The results show that our method is able to estimate a magnetization
-distribution that is consistent with the Anhysteric Remanance 
-Magnetization (ARM) induced in the
+distribution that is consistent with the Isothermal Remanence 
+Magnetization (IRM) induced in the
 sample, even by inverting a magnetic data set that is contaminated 
 by apparent position noise and were measured by a
 custom-made magnetometer based on a Hall sensor.
@@ -1292,11 +1332,13 @@ respectively, the $x$-,
 $y$- and $z$-axis (with respect to the MCS shown in Figure 
 \ref{fig:sample}).
 These prisms were manufactured by filling a rectangular 
-acrylic mould with a magnetite solution and letting it harden.
+acrylic mould with a magnetite solution and letting it hardens.
 The magnetite solution is formed by a mixture of a diamagnetic 
-epoxy resin and colloidal magnetite obtained from the
-reaction of ferric sulphate and ferrous chloride.
-The hardened prisms were then magnetized anhysteretically
+epoxy resin ($0.3$ g) and colloidal magnetite ($0.02$ g) obtained 
+from the reaction of ferric sulphate and ferrous chloride.
+The magnetite has saturation magnetization Ms ranging from 
+$5$ Am$^{2}$/kg and $8$ Am$^{2}$/kg.
+The hardened prisms were then magnetized isothermally
 by an inducing field of $\approx 1$T, according to the
 schematic representation shown in Figures 
 \ref{fig:real-sample}a and b.
@@ -1305,7 +1347,7 @@ resulting in a sample with side lengths equal to
 $L_{x} \approx 16$~mm, $L_{y} \approx 3$~mm and 
 $L_{z} \approx 3$~mm. The inclination and declination values 
 of the ARM magnetization within each prism
-are shown in Table \ref{tab:ARM-real-sample}.
+are shown in Table \ref{tab:IRM-real-sample}.
 
 \subsection{Data acquisition}
 \label{subsec:Data acquisition and pre-processing}
@@ -1441,10 +1483,10 @@ inclination/declination (Figures \ref{fig:estimate-real}b and c).
 Note that the estimated inclinations (blue dots in Figure 
 \ref{fig:estimate-real}b) within the four prisms forming
 the sample are close to the approximated values shown in Table 
-\ref{tab:ARM-real-sample}.
+\ref{tab:IRM-real-sample}.
 On the other hand, the estimated declinations (blue dots in Figure 
 \ref{fig:estimate-real}c) are close to the values shown in Table 
-\ref{tab:ARM-real-sample} at the prisms $0$, $1$ and $2$, but are 
+\ref{tab:IRM-real-sample} at the prisms $0$, $1$ and $2$, but are 
 very different at the prism $3$.
 This discrepancy nonetheless is not a problem because, at prism $3$,
 the estimated inclination is close to $90^{\circ}$ (Figure
@@ -1604,274 +1646,16 @@ de Desenvolvimento Cient\'{i}fico e Tecnol\'{o}gico (CNPq).
 %
 \bibliographystyle{agufull08}
 
-%\bibliography{bib-file}
+\bibliography{bib-file}
 %
 % 5. Run LaTeX on your new file before submitting.
 %
 % AGU does not want a .bib or a .bbl file. Please copy in the contents of your .bbl file here.
 
-\begin{thebibliography}{42}
-\providecommand{\natexlab}[1]{#1}
-\expandafter\ifx\csname urlstyle\endcsname\relax
-  \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
-  \providecommand{\doi}{doi:\discretionary{}{}{}\begingroup
-  \urlstyle{rm}\Url}\fi
 
-\bibitem[{\textit{Aster et~al.}(2005)\textit{Aster, Borchers, and
-  Thurber}}]{aster2005}
-Aster, R.~C., B.~Borchers, and C.~H. Thurber (2005), \textit{Parameter
-  Estimation and Inverse Problems, Volume 90 (International Geophysics)},
-  Academic Press.
 
-\bibitem[{\textit{Baratchart et~al.}(2013)\textit{Baratchart, Hardin, Lima,
-  Saff, and Weiss}}]{baratchart2013}
-Baratchart, L., D.~P. Hardin, E.~A. Lima, E.~B. Saff, and B.~P. Weiss (2013),
-  Characterizing kernels of operators related to thin-plate magnetizations via
-  generalizations of hodge decompositions, \textit{Inverse Problems},
-  \textit{29}(1), 015,004, \doi{10.1088/0266-5611/29/1/015004}.
 
-\bibitem[{\textit{Barnes}(2014)}]{barnes2014}
-Barnes, G. (2014), Reconstructing the gravity gradient anomaly field from
-  surveys with wide line spacing using equivalent source processing: an error
-  analysis, \textit{Geophysical Prospecting}, \textit{62}(3), 646--657,
-  \doi{10.1111/1365-2478.12098}.
 
-\bibitem[{\textit{Barnes and Lumley}(2011)}]{barnes-lumley2011}
-Barnes, G., and J.~Lumley (2011), Processing gravity gradient data,
-  \textit{GEOPHYSICS}, \textit{76}(2), I33--I47, \doi{10.1190/1.3548548}.
-
-\bibitem[{\textit{Baudenbacher et~al.}(2003)\textit{Baudenbacher, Fong, Holzer,
-  and Radparvar}}]{baudenbacher2003}
-Baudenbacher, F., L.~E. Fong, J.~R. Holzer, and M.~Radparvar (2003), Monolithic
-  low-transition-temperature superconducting magnetometers for high resolution
-  imaging magnetic fields of room temperature samples, \textit{Appl. Phys.
-  Lett.}, \textit{82}(20), 3487--3489,
-  \doi{http://dx.doi.org/10.1063/1.1572968}.
-
-\bibitem[{\textit{Cordell}(1992)}]{cordell1992}
-Cordell, L. (1992), A scattered equivalent-source method for interpolation and
-  gridding of potential‐field data in three dimensions, \textit{GEOPHYSICS},
-  \textit{57}(4), 629--636, \doi{10.1190/1.1443275}.
-
-\bibitem[{\textit{Dampney}(1969)}]{dampney1969}
-Dampney, C. N.~G. (1969), The equivalent source technique, \textit{GEOPHYSICS},
-  \textit{34}(1), 39--53, \doi{10.1190/1.1439996}.
-
-\bibitem[{\textit{Egli and Heller}(2000)}]{egli2000}
-Egli, R., and F.~Heller (2000), High-resolution imaging using a high-tc
-  superconducting quantum interference device (squid) magnetometer, \textit{J.
-  Geophys. Res.: Solid Earth}, \textit{105}(B11), 25,709--25,727,
-  \doi{10.1029/2000JB900192}.
-
-\bibitem[{\textit{Emilia}(1973)}]{emilia1973}
-Emilia, D.~A. (1973), Equivalent sources used as an analytic base for
-  processing total magnetic field profiles, \textit{GEOPHYSICS},
-  \textit{38}(2), 339--348, \doi{10.1190/1.1440344}.
-
-\bibitem[{\textit{Engl et~al.}(1996)\textit{Engl, Hanke, and
-  Neubauer}}]{engl1996}
-Engl, H.~W., M.~Hanke, and A.~Neubauer (1996), \textit{Regularization of
-  Inverse Problems (Mathematics and Its Applications)}, Springer.
-
-\bibitem[{\textit{Fong et~al.}(2005)\textit{Fong, Holzer, McBride, Lima,
-  Baudenbacher, and Radparvar}}]{fong2005}
-Fong, L.~E., J.~R. Holzer, K.~K. McBride, E.~A. Lima, F.~Baudenbacher, and
-  M.~Radparvar (2005), High-resolution room-temperature sample scanning
-  superconducting quantum interference device microscope configurable for
-  geological and biomagnetic applications, \textit{Rev. Sci. Instrum.},
-  \textit{76}(5), \doi{10.1063/1.1884025}.
-
-\bibitem[{\textit{Fu et~al.}(2014)\textit{Fu, Lima, and Weiss}}]{fu2014}
-Fu, R., E.~Lima, and B.~Weiss (2014), No nebular magnetization in the allende
-  \{CV\} carbonaceous chondrite, \textit{Earth Planet. Sci. Lett.},
-  \textit{404}, 54--66, \doi{10.1016/j.epsl.2014.07.014}.
-
-\bibitem[{\textit{Gattacceca et~al.}(2006)\textit{Gattacceca, Boustie, Weiss,
-  Rochette, Lima, Fong, and Baudenbacher}}]{gattacceca2006}
-Gattacceca, J., M.~Boustie, B.~P. Weiss, P.~Rochette, E.~A. Lima, L.~E. Fong,
-  and F.~J. Baudenbacher (2006), Investigating impact demagnetization through
-  laser impacts and squid microscopy, \textit{Geology}, \textit{34}(5),
-  333--336, \doi{10.1130/G21898.1}.
-
-\bibitem[{\textit{Gusp\'{i} and Novara}(2009)}]{guspi-novara2009}
-Gusp\'{i}, F., and I.~Novara (2009), Reduction to the pole and transformations
-  of scattered magnetic data using newtonian equivalent sources,
-  \textit{GEOPHYSICS}, \textit{74}(5), L67--L73, \doi{10.1190/1.3170690}.
-
-\bibitem[{\textit{Hankard et~al.}(2009)\textit{Hankard, Gattacceca, Fermon,
-  Pannetier-Lecoeur, Langlais, Quesnel, Rochette, and McEnroe}}]{hankard2009}
-Hankard, F., J.~Gattacceca, C.~Fermon, M.~Pannetier-Lecoeur, B.~Langlais,
-  Y.~Quesnel, P.~Rochette, and S.~A. McEnroe (2009), Magnetic field microscopy
-  of rock samples using a giant magnetoresistance–based scanning
-  magnetometer, \textit{Geochem., Geophys., Geosyst.}, \textit{10}(10),
-  \doi{10.1029/2009GC002750}.
-
-\bibitem[{\textit{Hansen and Miyazaki}(1984)}]{hansen-miyazaki1984}
-Hansen, R.~O., and Y.~Miyazaki (1984), Continuation of potential fields between
-  arbitrary surfaces, \textit{GEOPHYSICS}, \textit{49}(6), 787--795,
-  \doi{10.1190/1.1441707}.
-
-\bibitem[{\textit{Kara et~al.}(2014)\textit{Kara, Bal, Tur, and
-  Ates}}]{kara-etal2014}
-Kara, I., O.~T. Bal, H.~Tur, and A.~Ates (2014), A new efficient method for
-  topographic distortion correction, analytical continuation, vertical
-  derivatives and using equivalent source technique: Application to field data,
-  \textit{Journal of Applied Geophysics}, \textit{106}, 67--76,
-  \doi{10.1016/j.jappgeo.2014.04.011}.
-
-\bibitem[{\textit{Kirschvink et~al.}(2008)\textit{Kirschvink, Kopp, Raub,
-  Baumgartner, and Holt}}]{kirschvink2008}
-Kirschvink, J.~L., R.~E. Kopp, T.~D. Raub, C.~T. Baumgartner, and J.~W. Holt
-  (2008), Rapid, precise, and high-sensitivity acquisition of paleomagnetic and
-  rock-magnetic data: Development of a low-noise automatic sample changing
-  system for superconducting rock magnetometers, \textit{Geochemistry,
-  Geophysics, Geosystems}, \textit{9}(5), \doi{10.1029/2007GC001856}.
-
-\bibitem[{\textit{Kirschvink et~al.}(2015)\textit{Kirschvink, Isozaki, Shibuya,
-  ichiro Otofuji, Raub, Hilburn, Kasuya, Yokoyama, and
-  Bonifacie}}]{kirschvink2015}
-Kirschvink, J.~L., Y.~Isozaki, H.~Shibuya, Y.~ichiro Otofuji, T.~D. Raub, I.~A.
-  Hilburn, T.~Kasuya, M.~Yokoyama, and M.~Bonifacie (2015), Challenging the
-  sensitivity limits of paleomagnetism: Magnetostratigraphy of weakly
-  magnetized guadalupian–lopingian (permian) limestone from kyushu, japan,
-  \textit{Palaeogeography, Palaeoclimatology, Palaeoecology}, \textit{418}, 75
-  -- 89, \doi{10.1016/j.palaeo.2014.10.037}.
-
-\bibitem[{\textit{Le\~{a}o and Silva}(1989)}]{leao-silva1989}
-Le\~{a}o, J. W.~D., and J.~B.~C. Silva (1989), Discrete linear transformations
-  of potential field data, \textit{GEOPHYSICS}, \textit{54}(4), 497--507,
-  \doi{10.1190/1.1442676}.
-
-\bibitem[{\textit{Lee et~al.}(2004)\textit{Lee, Matthews, and
-  Wellstood}}]{lee2004}
-Lee, S.-Y., J.~Matthews, and F.~C. Wellstood (2004), Position noise in scanning
-  superconducting quantum interference device microscopy, \textit{Appl. Phys.
-  Lett.}, \textit{84}(24), 5001--5003, \doi{10.1063/1.1763215}.
-
-\bibitem[{\textit{Li and Oldenburg}(2010)}]{li-oldenburg2010}
-Li, Y., and D.~W. Oldenburg (2010), Rapid construction of equivalent sources
-  using wavelets, \textit{GEOPHYSICS}, \textit{75}(3), L51--L59,
-  \doi{10.1190/1.3378764}.
-
-\bibitem[{\textit{Li et~al.}(2014)\textit{Li, Nabighian, and
-  Oldenburg}}]{li-nabighian-oldenburg2014}
-Li, Y., M.~Nabighian, and D.~W. Oldenburg (2014), Using an equivalent source
-  with positivity for low-latitude reduction to the pole without striation,
-  \textit{GEOPHYSICS}, \textit{79}(6), J81--J90, \doi{10.1190/geo2014-0134.1}.
-
-\bibitem[{\textit{Lima et~al.}(2013)\textit{Lima, Weiss, Baratchart, Hardin,
-  and Saff}}]{lima2013}
-Lima, E.~A., B.~P. Weiss, L.~Baratchart, D.~P. Hardin, and E.~B. Saff (2013),
-  Fast inversion of magnetic field maps of unidirectional planar geological
-  magnetization, \textit{J. Geophys. Res.: Solid Earth}, \textit{118}(6),
-  2723--2752, \doi{10.1002/jgrb.50229}.
-
-\bibitem[{\textit{Lima et~al.}(2014)\textit{Lima, Bruno, Carvalho, and
-  Weiss}}]{lima2014}
-Lima, E.~A., A.~C. Bruno, H.~R. Carvalho, and B.~P. Weiss (2014), Scanning
-  magnetic tunnel junction microscope for high-resolution imaging of remanent
-  magnetization fields, \textit{Measurement Science and Technology},
-  \textit{25}(10), 105,401, \doi{10.1088/0957-0233/25/10/105401}.
-
-\bibitem[{\textit{Mareschal}(1985)}]{mareschal1985}
-Mareschal, J.~C. (1985), Inversion of potential field data in fourier transform
-  domain, \textit{Geophysics}, \textit{50}(4), 685--691,
-  \doi{10.1190/1.1441943}.
-
-\bibitem[{\textit{Mendon\c{c}a}(1992)}]{mendonca1992}
-Mendon\c{c}a, C.~A. (1992), Interpola\c{c}\~{a}o de dados de campo potencial
-  atrav\'{e}s da camada equivalente, Ph.D. thesis, Universidade Federal do
-  Par\'{a}, Bel\'{e}m do Par\'{a}, Brazil.
-
-\bibitem[{\textit{Mendon\c{c}a and Silva}(1994)}]{mendonca-silva1994}
-Mendon\c{c}a, C.~A., and J.~B.~C. Silva (1994), The equivalent data concept
-  applied to the interpolation of potential field data, \textit{GEOPHYSICS},
-  \textit{59}(5), 722--732, \doi{10.1190/1.1443630}.
-
-\bibitem[{\textit{Mendon\c{c}a and Silva}(1995)}]{mendonca-silva1995}
-Mendon\c{c}a, C.~A., and J.~B.~C. Silva (1995), Interpolation of
-  potential‐field data by equivalent layer and minimum curvature: A
-  comparative analysis, \textit{GEOPHYSICS}, \textit{60}(2), 399--407,
-  \doi{10.1190/1.1443776}.
-
-\bibitem[{\textit{Nagy et~al.}(2000)\textit{Nagy, Papp, and
-  Benedek}}]{nagy2000}
-Nagy, D., G.~Papp, and J.~Benedek (2000), The gravitational potential and its
-  derivatives for the prism, \textit{Journal of Geodesy}, \textit{74}(7-8),
-  311--326, \doi{10.1007/s001900000116}.
-
-\bibitem[{\textit{Oda et~al.}(2011)\textit{Oda, Usui, Miyagi, Joshima, Weiss,
-  Shantz, Fong, McBride, Harder, and Baudenbacher}}]{oda2011}
-Oda, H., A.~Usui, I.~Miyagi, M.~Joshima, B.~P. Weiss, C.~Shantz, L.~E. Fong,
-  K.~K. McBride, R.~Harder, and F.~J. Baudenbacher (2011), Ultrafine-scale
-  magnetostratigraphy of marine ferromanganese crust, \textit{Geology},
-  \textit{39}(3), 227--230, \doi{10.1130/G31610.1}.
-
-\bibitem[{\textit{Oliveira~Jr. et~al.}(2013)\textit{Oliveira~Jr., Barbosa, and
-  Uieda}}]{oliveirajr-etal2013}
-Oliveira~Jr., V.~C., V.~C.~F. Barbosa, and L.~Uieda (2013), Polynomial
-  equivalent layer, \textit{GEOPHYSICS}, \textit{78}(1), G1--G13,
-  \doi{10.1190/geo2012-0196.1}.
-
-\bibitem[{\textit{Roth et~al.}(1989)\textit{Roth, Sepulveda, and
-  Wikswo}}]{roth1989}
-Roth, B.~J., N.~G. Sepulveda, and J.~P. Wikswo (1989), Using a magnetometer to
-  image a two-dimensional current distribution, \textit{J. Appl. Phys.
-  (Melville, NY, U. S.)}, \textit{65}(1), 361--372, \doi{10.1063/1.342549}.
-
-\bibitem[{\textit{Silva}(1986)}]{silva1986}
-Silva, J. B.~C. (1986), Reduction to the pole as an inverse problem and its
-  application to low-latitude anomalies, \textit{GEOPHYSICS}, \textit{51}(2),
-  369--382, \doi{10.1190/1.1442096}.
-
-\bibitem[{\textit{Tikhonov and Arsenin}(1977)}]{tikhonov1977}
-Tikhonov, A.~N., and V.~Y. Arsenin (1977), \textit{Solutions of Ill-Posed
-  Problems (Scripta series in mathematics)}, V. H. Winston \& Sons.
-
-\bibitem[{\textit{Uehara and Nakamura}(2007)}]{uehara2007}
-Uehara, M., and N.~Nakamura (2007), Scanning magnetic microscope system
-  utilizing a magneto-impedance sensor for a nondestructive diagnostic tool of
-  geological samples, \textit{Rev. Sci. Instrum.}, \textit{78}(4),
-  \doi{10.1063/1.2722402}.
-
-\bibitem[{\textit{Uehara and Nakamura}(2008)}]{uehara2008}
-Uehara, M., and N.~Nakamura (2008), Identification of stable remanence carriers
-  through a magneto-impedance scanning magnetic microscope, \textit{Stud.
-  Geophys. Geod.}, \textit{52}(2), 211--223, \doi{10.1007/s11200-008-0014-2}.
-
-\bibitem[{\textit{Usui et~al.}(2012)\textit{Usui, Uehara, and
-  Okuno}}]{usui2012}
-Usui, Y., M.~Uehara, and K.~Okuno (2012), A rapid inversion and resolution
-  analysis of magnetic microscope data by the subtractive optimally localized
-  averages method, \textit{Comput. Geosci.}, \textit{38}(1), 145--155,
-  \doi{10.1016/j.cageo.2011.05.001}.
-
-\bibitem[{\textit{Van Der~Voo}(1993)}]{voo1993}
-Van Der~Voo, R. (1993), \textit{Paleomagnetism of the Atlantic, Tethys and
-  Iapetus oceans}.
-
-\bibitem[{\textit{Von~Frese et~al.}(1981)\textit{Von~Frese, Hinze, and
-  Braile}}]{vonfrese-etal1981}
-Von~Frese, R. R.~B., W.~J. Hinze, and L.~W. Braile (1981), Spherical earth
-  gravity and magnetic anomaly analysis by equivalent point source inversion,
-  \textit{Earth and Planetary Science Letters}, \textit{53}(1), 69 -- 83,
-  \doi{10.1016/0012-821X(81)90027-3}.
-
-\bibitem[{\textit{Weiss et~al.}(2007{\natexlab{a}})\textit{Weiss, Lima, Fong,
-  and Baudenbacher}}]{weiss2007b}
-Weiss, B.~P., E.~A. Lima, L.~E. Fong, and F.~J. Baudenbacher
-  (2007{\natexlab{a}}), Paleointensity of the earth's magnetic field using
-  \{SQUID\} microscopy, \textit{Earth Planet. Sci. Lett.}, \textit{264}(1–2),
-  61--71, \doi{10.1016/j.epsl.2007.08.038}.
-
-\bibitem[{\textit{Weiss et~al.}(2007{\natexlab{b}})\textit{Weiss, Lima, Fong,
-  and Baudenbacher}}]{weiss2007}
-Weiss, B.~P., E.~A. Lima, L.~E. Fong, and F.~J. Baudenbacher
-  (2007{\natexlab{b}}), Paleomagnetic analysis using squid microscopy,
-  \textit{J. Geophys. Res.: Solid Earth}, \textit{112}(B9),
-  \doi{10.1029/2007JB004940}.
-
-\end{thebibliography}
 
 %Reference citation examples:
 
@@ -2133,7 +1917,7 @@ Weiss, B.~P., E.~A. Lima, L.~E. Fong, and F.~J. Baudenbacher
  The numbers indicate the index of each prism, whose magnetization
  is represented by the thick arrows. The inclination and declination
  values of the ARM within each prism is shown in Table 
- \ref{tab:ARM-real-sample}.
+ \ref{tab:IRM-real-sample}.
  The resulting sample is referred to a MCS (Figure \ref{fig:sample}) 
  with origin represented by the black dot and axes $x$ and $z$ 
  represented by the thin arrows.}
@@ -2167,7 +1951,7 @@ Weiss, B.~P., E.~A. Lima, L.~E. Fong, and F.~J. Baudenbacher
  The continuous (vertical) black lines divide the estimated values 
  representing each prism forming the sample.
  The numbers indicate the index of each prism 
- (Figure \ref{fig:real-sample}c and Table \ref{tab:ARM-real-sample}.
+ (Figure \ref{fig:real-sample}c and Table \ref{tab:IRM-real-sample}.
  The black dashed (horizontal) lines in (b) indicate the values 
  $-90^{\circ}$, $0^{\circ}$, $45^{\circ}$ and $90^{\circ}$.
  The black dashed (horizontal) lines in (c) indicate the values 
@@ -2268,7 +2052,7 @@ index & $I$ ($^{\circ}$) & $D$ ($^{\circ}$) \\
 of the prisms forming the synthetic sample that was manufactured 
 in laboratory. Each prism is indicated by an index, according to
 the Figure \ref{fig:real-sample}c.}
-\label{tab:ARM-real-sample}
+\label{tab:IRM-real-sample}
 \end{table}
 
 % See below for how to make sideways figures or tables.
