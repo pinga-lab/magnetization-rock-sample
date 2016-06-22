@@ -138,7 +138,7 @@ def sample(Lx,Ly,Lz,N,m=None,inc=None,dec=None):
     
     Lz: float - side length of all prisms along x (m).
     
-    N: int - number of prisms
+    P: int - number of prisms
     
     m: list - magnetization intensity (A/m) of each prism.
     inc: list - magnetization inclination (graus) of each prism.
@@ -164,16 +164,16 @@ def sample(Lx,Ly,Lz,N,m=None,inc=None,dec=None):
         inclinacao = np.array(inc)
         declinacao = np.array(dec)
         mag = []
-        for i in range(N):
+        for i in range(P):
             mag.append(ang2vec(intensity[i],inclinacao[i],declinacao[i]))
     
-        for i in range(N):
+        for i in range(P):
             model.append(mesher.Prism(a+i*sizex, a+(i+1)*sizex, \
                                       -0.5*sizey, 0.5*sizey, \
                                       -0.5*sizez, 0.5*sizez, \
                                       {'magnetization': mag[i]}))
     else:
-        for i in range(N):
+        for i in range(P):
             model.append(mesher.Prism(a+i*sizex, a+(i+1)*sizex, \
                                       -0.5*sizey, 0.5*sizey, \
                                       -0.5*sizez, 0.5*sizez))
