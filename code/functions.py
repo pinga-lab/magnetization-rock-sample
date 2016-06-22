@@ -125,7 +125,7 @@ def magnetic_data(x, y, z, model, alpha, eff_area = None, grains = None):
 
     return B
 
-def sample(Lx,Ly,Lz,N,m=None,inc=None,dec=None):
+def sample(Lx,Ly,Lz,P,m=None,inc=None,dec=None):
     '''
     Define the interpretation model as a 1D array of rectangular prisms
     along the x-axis.
@@ -154,7 +154,7 @@ def sample(Lx,Ly,Lz,N,m=None,inc=None,dec=None):
     sizey = Ly
     sizez = Lz
 
-    L = N*sizex
+    L = P*sizex
     a = -0.5*L
     
     model = []
