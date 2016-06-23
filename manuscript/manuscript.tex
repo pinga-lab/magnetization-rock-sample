@@ -202,7 +202,7 @@ magnetic data produced by a highly-magnetized synthetic sample
 that was manufactured in the laboratory.
 The results show that, even in the presence of apparent position
 noise, our method was able to retrieve the magnetization distribution
-consistent with the anhysteric remanance magnetization
+consistent with the isothermal remanance magnetization
 induced in the sample.
 
 \end{abstract}
@@ -231,18 +231,18 @@ induced in the sample.
 
 Based on the estimation of the total (bulk) remanent magnetization (RM), 
 the standard paleomagnetic techniques have been developed for more than 
-40 years in studies of rock magnetism, magnetostratigraphic and 
+40 years in studies of rock magnetism, magnetostratigraphy and 
 paleogeographic reconstructions [e.g., \citeauthor{voo1993}, \citeyear{voo1993}]. 
 The evolution of the paleomagnetic techniques is directly linked to 
 the development of rock magnetometers and data processing methods. 
 
 Since its beginning in the 1950s, 
-palemagnetism has seen at least three generation of rock magnetometers 
+paleomagnetism has seen at least three generation of rock magnetometers 
 \citep{turner2015}: astatic systems, 
 spinner magnetometers and superconducting magnetometers. 
 Astatic system was used during the earliest paleomagnetic studies, 
-such as \citet{blackett1952} and Pozzi e Thellier (1960) FALTA O BIBTEX 
-and it was quickly replaced by spinner magnetometers (e.g., Nagata, 1961) FALTA O BIBTEX. 
+such as \citet{blackett1952} and \citet{pozzi-thellier1963},
+and it was quickly replaced by spinner magnetometers \citep{nagata1961}. 
 Spinner magnetometers are most used devices in the paleomagnetic 
 laboratories but they have been systematically replaced by 
 superconducting magnetometers. Superconducting rock magnetometers 
@@ -1008,6 +1008,9 @@ $\mathbf{M}_{\beta}^{k}(\tilde{\mathbf{x}}^{\alpha},
 $\alpha = 0,1,2,3$, $k = 1, \dots, P$ in equation \ref{eq:matrix-k-beta}.
 
 Notice that the forward problem presented in this subsection
+can be easily modified to the case in which the magnetic data
+are measured on less than four observation planes.
+Besides, this forward problem
 describes the averaged magnetic induction produced by the 
 interpretation model at the observation points. The averaging
 is calculated over a regular grid of $Q$ points on the
@@ -1102,6 +1105,7 @@ $\theta$, $\Delta x^{\prime}$ and $\Delta y^{\prime}$ (Figure
 \ref{fig:acquisition_errors}b) representing these misalignments
 in the magnetic data produced by the synthetic sample on
 the planes $\alpha = 0, 1, 2, 3$.
+All inversions shown in this section were run
 
 \subsubsection{Validation test}
 \label{subsec:Validation test}
