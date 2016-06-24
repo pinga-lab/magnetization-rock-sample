@@ -51,7 +51,7 @@ noise, our method was able to retrieve the magnetization distribution
 consistent with the isothermal remanent magnetization
 induced in the sample.
 
-![Test with a simulated marine ferro-manganese crust sample - misfit](https://raw.githubusercontent.com/pinga-lab/magnetization-rock-sample/master/manuscript/Figs/Fig11_LQ.png)
+![Test with a simulated marine ferro-manganese crust sample - misfit](manuscript/Figs/Fig11_LQ.png)
 
 *(a), (d), (g) and (j) Noise-corrupted
 magnetic data produced by a synthetic 
