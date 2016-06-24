@@ -66,8 +66,8 @@
 % To activate the commands, uncomment \usepackage{lineno}
 % and \linenumbers*[1]command, below:
 
-%\usepackage{lineno}
-%\linenumbers*[1]
+\usepackage{lineno}
+\linenumbers*[1]
 %  To add line numbers to lines with equations:
 %  \begin{linenomath*}
 %  \begin{equation}
@@ -1077,7 +1077,7 @@ The least-squares estimate of the parameter vector
 $\mathbf{m} = \mathbf{m}^{\dagger}$ minimizing 
 the goal function (equation \ref{eq:goal-function}) is given by
 \begin{equation}
-\mathbf{m}^{\dagger} = \left( \mathbf{M}^{\top}\mathbf{M} + \mu_0 \,  
+\mathbf{m}^{\dagger} = \left( \mathbf{M}^{\top}\mathbf{M} + \mu_0 \, f_0 \,  
 \mathbf{R}^T \mathbf{R}\right)^{-1}
 \mathbf{M}^{\top}\mathbf{d} \: .
 \label{eq:estimate}
