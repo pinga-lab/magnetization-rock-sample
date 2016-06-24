@@ -2,7 +2,7 @@
 
 The notebooks presented below can be run for generating all the 
 results presented in our manuscript. They use the auxiliary functions
-defined in `function.py`.
+defined in the file `functions.py`.
 
 * [`validation.ipynb`](http://nbviewer.jupyter.org/github/pinga-lab/paper-template/blob/master/code/validation.ipynb): 
   generates all the results presented in the subsubsection **3.1.1 Validation test**.
