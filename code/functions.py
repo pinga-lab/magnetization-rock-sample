@@ -1,3 +1,11 @@
+'''
+License
+
+This code is licensed under under the [BSD 3-clause]
+(http://choosealicense.com/licenses/bsd-3-clause/) license. 
+See the file `LICENSE.md`
+'''
+
 import numpy as np
 from IPython.display import Image
 from fatiando import mesher, gridder, utils
