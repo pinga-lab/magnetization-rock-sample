@@ -10,6 +10,10 @@ A. C. Bruno<sup>3</sup> and Pereira, J. M. B.<sup>3</sup>
 *<sup>3</sup>Department of Physics, Pontifical Catholic University of Rio de Janeiro, Rio
 de Janeiro, RJ, Brazil.*
 
+> This paper has been submitted for publication in 
+> [**Geochemistry, Geophysics, Geosystems (G<sup>3</sup>)**]
+> (http://agupubs.onlinelibrary.wiley.com/agu/journal/10.1002/(ISSN)1525-2027/).
+
 ####Abstract
 
 Over the last decades, scanning magnetic microscopy techniques have 
