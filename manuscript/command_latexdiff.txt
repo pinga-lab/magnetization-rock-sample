@@ -1,3 +1,3 @@
 #Execute this command in cmd instead of gitbash
 
-latexdiffcite file manuscript2.tex manuscript.tex --config config.json --output diff.tex --bbl
+latexdiffcite file manuscript.tex manuscript_submitted.tex --config config.json --output diff.tex --bbl
