@@ -1,4 +1,4 @@
-Copyright (c) YEAR AUTHORS.
+Copyright (c) 2016 André L. A. Reis and Vanderlei C. Oliveira Jr. 
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without

@@ -51,12 +51,34 @@ noise, our method was able to retrieve the magnetization distribution
 consistent with the isothermal remanent magnetization
 induced in the sample.
 
-This paper has been submitted for publication in 
-[**Geochemistry, Geophysics, Geosystems (G<sup>3</sup>)**]
-(http://agupubs.onlinelibrary.wiley.com/agu/journal/10.1002/(ISSN)1525-2027/).
+![Test with a simulated marine ferro-manganese crust sample - misfit](https://raw.githubusercontent.com/pinga-lab/magnetization-rock-sample/master/manuscript/Figs/Fig11_LQ.png)
 
-![](https://raw.githubusercontent.com/pinga-lab/PAPER-REPO/master/FIGURE_FILE)
-Brief figure caption.
+*(a), (d), (g) and (j) Noise-corrupted
+magnetic data produced by a synthetic 
+marine ferro-manganese crust
+sample (not shown) on the
+observation four observation planes, respectively.
+(b), (e), (h), (k) Predicted data produced by the estimated
+magnetization distribution obtained by inversion on the
+four observation planes, respectively.
+The estimated magnetization distribution was obtained by
+inverting the magnetic data located on the four observation
+planes.
+The color scales are slightly saturated for improving the visualization.
+(c), (f), (i) and (l) Normalized histograms of the residuals between the
+predicted data shown in (b), (e), (h), (k) and the 
+noise-corrupted magnetic data shown in (a), (d), (g), (j). 
+The values are in nT.*
+
+![Test with a simulated marine ferro-manganese crust sample - estimated parameters](manuscript/Figs/Fig12_LQ.png)
+
+*Comparison between the true (red dots)
+and estimated (blue and black dots) magnetization (a) intensity, 
+(b) inclination and (c) declination.*
+
+> This paper has been submitted for publication in 
+> [**Geochemistry, Geophysics, Geosystems (G<sup>3</sup>)**]
+> (http://agupubs.onlinelibrary.wiley.com/agu/journal/10.1002/(ISSN)1525-2027/).
 
 #### Reproducing the results
 
@@ -65,7 +87,7 @@ You can download a copy of all the files in this repository by cloning the
 
     git clone https://github.com/pinga-lab/magnetization-rock-sample.git
 
-or [click here to download a zip archive](https://github.com/pinga-lab/PAPER-REPO/archive/master.zip).
+or [click here to download a zip archive](https://github.com/pinga-lab/magnetization-rock-sample/archive/master.zip).
 
 All source code used to generate the results and figures in the paper are in
 the `code` folder.
@@ -113,7 +135,9 @@ To execute the whole notebook, run all cells in order.
 
 #### License
 
-All source code is made available under a BSD 3-clause license.  You can freely
+All source code is made available under a [BSD 3-clause]
+(http://choosealicense.com/licenses/bsd-3-clause/) 
+license.  You can freely
 use and modify the code, without warranty, so long as you provide attribution
 to the authors.  See `LICENSE.md` for the full license text.
 
