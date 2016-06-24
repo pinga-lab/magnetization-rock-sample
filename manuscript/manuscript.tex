@@ -48,7 +48,9 @@
 % substitute the initials of the journal for "jgrga" below.)
 
 %\documentclass[draft,gc]{agutex}
-\documentclass[galley,gc]{agutex}
+%\documentclass[galley,gc]{agutex}
+\documentclass[twocolumn,gc]{agutex}
+
 
 % To create numbered lines:
 
@@ -59,12 +61,13 @@
 
 \usepackage{rotating}
 \usepackage{amsmath}
+\usepackage{url}
 
 % To activate the commands, uncomment \usepackage{lineno}
 % and \linenumbers*[1]command, below:
 
-\usepackage{lineno}
-\linenumbers*[1]
+%\usepackage{lineno}
+%\linenumbers*[1]
 %  To add line numbers to lines with equations:
 %  \begin{linenomath*}
 %  \begin{equation}
@@ -172,8 +175,8 @@ Over the last decades, scanning magnetic microscopy techniques have
 been increasingly used in paleomagnetism and rock magnetism. 
 Different from standard paleomagnetic magnetometers, scanning 
 magnetic microscopes produce high-resolution maps of the vertical 
-component of the magnetic induction field on a plane located over 
-the sample. 
+component of the magnetic induction field (flux density) 
+on a plane located over the sample. 
 These high-resolution magnetic maps can be used for estimating the 
 magnetization distribution within a rock sample by inversion.
 Previous studies have estimated the magnetization distribution 
@@ -186,18 +189,25 @@ magnetization distribution of the sample varies along one of
 its axes. Our method approximates the sample geometry
 by an interpretation model composed of a one-dimensional 
 array of juxtaposed rectangular prisms with uniform magnetization. 
-The Cartesian 
-components of the magnetization vector within each rectangular prism 
+The Cartesian components of the magnetization vector 
+within each rectangular prism 
 are the parameters to be estimated by solving a linear inverse problem. 
+Our method automatically deals with the averaging of 
+the measured magnetic data due to the finite size of the magnetic sensor,
+preventing the application of a deconvolution before the inversion.
 Tests with synthetic data show the performance of our method in 
 retrieving complex magnetization distributions even in 
 the presence of magnetization heterogeneities. 
+Moreover, they show the advantage of inverting the magnetic data on
+four planes around the sample adn how this new acquisition scheme
+improves the estimated magnetization distribution within the rock
+sample.
 We have also applied our method to invert experimentally measured 
 magnetic data produced by a highly-magnetized synthetic sample 
 that was manufactured in the laboratory.
 The results show that, even in the presence of apparent position
 noise, our method was able to retrieve the magnetization distribution
-consistent with the anhysteric remanance magnetization
+consistent with the isothermal remanent magnetization
 induced in the sample.
 
 \end{abstract}
@@ -224,14 +234,54 @@ induced in the sample.
 \section{Introduction}
 \label{sec:Introduction}
 
-Based on the estimation of the total (bulk) remanent magnetization, the standard 
-paleomagnetic techniques have been used for more than 40 years in studies of rock magnetism, 
-magnetostratigraphic and paleogeographic reconstructions \citep{voo1993}. These techniques 
-are well established and are applied successfully in almost all paleomagnetic studies. 
-However, this classical method has constraints in studies that need high spatial or 
-temporal resolution, such as the secular variation's investigation. In this context, new 
+Based on the estimation of the total (bulk) remanent magnetization (RM), 
+the standard paleomagnetic techniques have been developed for more than 
+40 years in studies of rock magnetism, magnetostratigraphy and 
+paleogeographic reconstructions [e.g., \citeauthor{voo1993}, \citeyear{voo1993}]. 
+The evolution of the paleomagnetic techniques is directly linked to 
+the development of rock magnetometers and data processing methods. 
+
+Since its beginning in the 1950s, 
+paleomagnetism has seen at least three generation of rock magnetometers 
+\citep{turner2015}: astatic systems, 
+spinner magnetometers and superconducting magnetometers. 
+Astatic system was used during the earliest paleomagnetic studies, 
+such as \citet{blackett1952} and \citet{pozzi-thellier1963},
+and it was quickly replaced by spinner magnetometers \citep{nagata1961}. 
+Spinner magnetometers are most used devices in the paleomagnetic 
+laboratories but they have been systematically replaced by 
+superconducting magnetometers. Superconducting rock magnetometers 
+have been developed since 70’s \citep{dodson1974, goree-fuller1976}, 
+reaching notable sensitivity and quickness of measurements on the last two decade 
+\citep{kirschvink2015}. 
+This kind of rock magnetometer can measure both discrete samples 
+(single sample mode) and long-core samples (pass-through mode), 
+with a good spatial accuracy ($\sim$1 cm).
+The long-core samples or u-channel samples are essential to 
+investigations of magnetostratigraphy and environmental magnetism, 
+such as those ones obtained at IODP (International Ocean Drilling Project). 
+
+In terms of data processing, both spinner and SQUID (discrete samples) 
+are similar. For pass-through mode, however, the data 
+processing is little bit different; the measurements are naturally 
+smoothed and have a direct dependence with the sensor response. 
+To overcome this constraint, some studies have used deconvolution 
+algorithms to recover the paleomagnetic signal 
+\citep{jackson2010, oda-xuan2014}. 
+Even though the deconvolution methods have been improved on the 
+last years \citep{jackson2010, lascu2012}, \citet{lascu2012} have 
+noticed that there is a resolution constraint related with sensor 
+response. They have compared the measurements of long-core with 
+the discrete (slices samples) synthetic samples and they realize 
+that the sensor setting imposes a spatial resolution limit of 1 cm. 
+Along these lines this method has constraint in studies that need 
+very high spatial or temporal resolution, such as the secular 
+variation recorded in stalagmites or manganese crusts. 
+
+In this context, new 
 methods have been developed over the last decades to get around these limitations, in special, 
-the Scanning Magnetic Microscopy (SMM) techniques \citep{oda2011, fu2014}. Different from 
+the Scanning Magnetic Microscopy (SMM) techniques \citep{kirschvink2008, oda2011, fu2014}. 
+Different from 
 standard paleomagnetic magnetometers, the SMM devices produce high-resolution maps of the 
 vertical component of the magnetic induction field on a planar surface located over the 
 sample. Usually, the scanning magnetic microscopes based on superconducting quantum 
@@ -240,7 +290,8 @@ research. However, these devices are very expensive to build/operate and require
 technologies to keep the sensor at cryogenic temperatures and also present a limited 
 sensor-to-sample distance $\approx 100$~$\mu$m \citep{baudenbacher2003, fong2005}. 
 Despite of these technical difficulties, SQUID sensors have been successfully applied 
-in several paleomagnetic studies \citep{gattacceca2006,weiss2007b, oda2011, fu2014}. 
+in several paleomagnetic studies 
+\citep{gattacceca2006, weiss2007b, oda2011, fu2014, kirschvink2015}. 
 To avoid the problems related with the SQUID complexity, numerous studies have been 
 attempted to develop alternative low-cost high-performance SMM instruments based on 
 magneto-impedance (MI) \citep{uehara2007, uehara2008}, giant magnetoresistance (GMR) 
@@ -273,7 +324,8 @@ contributing to the ill-conditioning of such inverse problems.
 The inherent ill-conditioning of such inverse 
 problems can be narrowed, for example, by introducing \textit{a priori} 
 information regarding the magnetization distribution and/or by 
-optimizing the geometry of the data acquisition. The introduction of \textit{a priori} information aiming at constraining 
+optimizing the geometry of the data acquisition. 
+The introduction of \textit{a priori} information aiming at constraining 
 the possible estimated magnetization distributions and also 
 making them stable to small changes in the observed data is
 generally called regularization \citep{tikhonov1977, engl1996, 
@@ -353,6 +405,11 @@ Moreover, the use of magnetic data measured on more than one
 plane around the sample adds independent information about
 its internal magnetization distribution, which also contributes
 to stabilize the inverse problem.
+We also presents a new approach for automatically including the
+averaging of the magnetic data over the finite active area of
+the magnetic sensor.
+This new approach precludes the application of a deconvolution
+for removing this averaging effect before the inversion.
 In comparison with previous methods,
 the method proposed here does not deal with large-scale inverse problems 
 because our interpretation model is described by a relatively 
@@ -365,6 +422,8 @@ the estimated magnetization distribution obtained by our
 method can be negatively impacted by the presence of position 
 noise, errors in the sensor-to-sample distance and 
 pre-processing errors in the observed data.
+Our results also show the benefit of inverting a full data set
+formed by magnetic data measured on four planes around the sample.
 Tests with synthetic data simulating a real ferro-manganese
 crust with magnetization heterogeneities show that our method 
 can be used, for example, in fine-scale magnetostratigraphic 
@@ -374,8 +433,8 @@ to invert experimentally measured magnetic data produced by
 a highly-magnetized synthetic sample that was manufactured in 
 laboratory.
 The results show that our method is able to estimate a magnetization
-distribution that is consistent with the Anhysteric Remanance 
-Magnetization (ARM) induced in the
+distribution that is consistent with the Isothermal Remanence 
+Magnetization (IRM) induced in the
 sample, even by inverting a magnetic data set that is contaminated 
 by apparent position noise and were measured by a
 custom-made magnetometer based on a Hall sensor.
@@ -406,13 +465,14 @@ which is perpendicular to the sample surface and is referred
 to the MCS.
 
 Let $\mathbf{d}^{\alpha}_{\beta}$, $\beta = y, z$,
-$\alpha = 0, 1, 2, 3$, be $N \times 1$ vectors whose $i$-th 
+$\alpha = 0, 1, 2, 3$, be $N \times 1$ vectors whose $i$th 
 element is the $\beta$-component of the magnetic 
 induction which is measured at the observation
 point $(x^{\alpha}_{i}, y^{\alpha}_{i}, z^{\alpha}_{i})$,
 $i = 1, ..., N$, on the plane $\alpha$.
-For convenience, these vectors are all grouped into the observed 
-data vector $\mathbf{d}$ given below:
+For convenience, these vectors are all grouped into the 
+$4N \times 1$
+observed data vector $\mathbf{d}$ given below:
 \begin{equation}
 \mathbf{d} = \left[
 \begin{array}{c}
@@ -421,9 +481,17 @@ data vector $\mathbf{d}$ given below:
 \mathbf{d}^{2}_{z} \vspace{0.05in} \\
 \mathbf{d}^{3}_{y}
 \end{array}
-\right]_{4N \times 1} \: .
+\right] \: .
 \label{eq:obs-data-vec}
 \end{equation}
+
+In practical situations, however, we are not able to measure
+the magnetic induction produced by the sample at a point.
+Due to the finite size of the magnetic sensors, what is
+actually measured is the magnetic induction averaged on
+the area (or volume) of the magnetic sensor. In the 
+subsection \ref{subsec:Sensor active area}, we present an
+analysis of this averaging effect.
 
 \subsection{Transformations from the local coordinate systems (LCS's) to the MCS}
 \label{subsec:Transformations from the local coordinate systems (LCS's) to the MCS}
@@ -436,7 +504,7 @@ system (LCS) for each observation plane (Figures
 \ref{fig:sample-planes-cross}b-e) and must be subsequently converted to 
 the MCS (Figure \ref{fig:sample-planes-cross}a).
 This coordinate transformation is needed because the usual 
-magnetic sensors can measure the vertical component of the 
+magnetic sensors senses the vertical component of the 
 magnetic induction produced by the sample on a plane located over it.
 For this reason, the magnetic data on the four observation planes 
 (Figure \ref{fig:sample-planes}) are
@@ -453,9 +521,31 @@ $x^{\prime}$-axis coincides with the $x$-axis of the MCS.
 Note that this rotating procedure provides, on each observation plane, 
 the component of the magnetic induction along the $z^{\prime}$-axis
 of the respective LCS (Figure \ref{fig:sample-planes-cross}b-e).
-It is easier, however, converting the measured $z^{\prime}$-component
-data, as well as its Cartesian coordinates, from the LCS's to the MCS.
-The geometrical relationships between these coordinate systems are
+For convenience, let us denote the measured $z^{\prime}$-component
+data as a $4N \times 1$ vector given by
+\begin{equation}
+\mathbf{d}^{\prime} = \left[
+\begin{array}{c}
+\mathbf{d}^{0}_{z^{\prime}} \vspace{0.05in} \\
+\mathbf{d}^{1}_{z^{\prime}} \vspace{0.05in} \\
+\mathbf{d}^{2}_{z^{\prime}} \vspace{0.05in} \\
+\mathbf{d}^{3}_{z^{\prime}}
+\end{array}
+\right] \: ,
+\label{eq:obs-data-vec-LCS}
+\end{equation}
+where $\mathbf{d}^{\alpha}_{z^{\prime}}$, 
+$\alpha = 0, 1, 2, 3$, are $N \times 1$ vectors whose $i$th 
+element is the $z^{\prime}$-component of the magnetic 
+induction which is measured at the $i$th observation
+point, $i = 1, ..., N$, on the plane $\alpha$ 
+(Figure \ref{fig:sample-planes-cross}).
+It is easier, however, converting the measured data
+$\mathbf{d}^{\prime}$ (equation \ref{eq:obs-data-vec-LCS}), 
+referred to the LCS's, to the observed data vector $\mathbf{d}$
+(equation \ref{eq:obs-data-vec}), which is referred to the MCS.
+
+The geometrical relationships between the LCS's and MCS are
 shown in Figure \ref{fig:sample-planes-cross}.
 Table \ref{tab:coordinate-transformations} shows how to perform
 this coordinate transformation. Let's consider, for example, the measurements 
@@ -473,273 +563,130 @@ Hereafter, it is implicit that all quantities with prime ($^{\prime}$)
 are referred to the LCS's while all the quantities without prime 
 ($^{\prime}$) are referred to the MCS.
 
-\subsection{Interpretation model and forward problem}
-\label{subsec:Interpretation model and forward problem}
+\subsection{Sensor active area}
+\label{subsec:Sensor active area}
 
-We consider that the rock sample can be approximated by an 
-interpretation model consisting of $P$ uniformly magnetized 
-prisms, which are juxtaposed along the $x$-axis  
-(Figure \ref{fig:sample}). The $k$-th prism, $k = 1, ..., P$, 
-has the same side lengths $L_{y}$ and $L_{z}$ of the sample along, 
-respectively, the $y$- and $z$-axes (Figure \ref{fig:sample}). 
-However, its side length along the $x$-axis is specified by the 
-interpreter, so that the total side length of the interpretation 
-model along this axis is equal to $L_{x}$ (Figure \ref{fig:sample}).
+As pointed out at the end of the subsection 
+\ref{subsec:Observed data vector}, 
+magnetic sensors do not measure the magnetic induction 
+field at a point. They measure instead the field averaged 
+over the sensor active area (or volume), which is equivalent to a 
+convolution of the magnetic induction field with 
+the sensor answer function \citep{roth1989, egli2000, lima2013}.
+The sensor-to-sample distance and the effective area (or volume) 
+are important limiting factors determining the spatial resolution 
+of magnetic sensors.
 
-Let's define the $3P \times 1$ parameter vector $\mathbf{m}$ 
-as follows:
+The magnetic sensors used in paleomagnetic applications have
+different active area (or volume). 
+\citet{uehara2007, uehara2008} presented a magneto-impedance (MI) 
+sensor whose cylindrical active volume has $36$ $\mu$m in diameter and 
+$5500$ $\mu$m in length, which limits its spatial resolution
+if compared with the giant magnetoresistance 
+(GMR) sensor presented by \citet{hankard2009} and the magnetic 
+tunnel junction (MTJ) sensor presented by \citet{lima2014}, for example.
+These two sensors are considered planar and have active areas
+of, respectively, $9$~$\mu$m~$\times$~$36$~$\mu$m and 
+$\approx 4$~$\mu$m~$\times$~$2$~$\mu$m.
+Finally, \citet{fong2005} presented a low-transition-temperature 
+superconducting quantum interference device (low T$_{c}$ SQUID) sensor
+which is also considered planar and has an active area with
+diameter of $80$~$\mu$m.
+This is currently one of the most powerful magnetic sensors.
+
+In the following, we present an analysis of the averaging effect produced
+by the finite size of sensors. 
+For convenience, we limit our study to square-planar 
+sensors which are parallel to the sample surface and have an
+active area $A$ (Figure \ref{fig:b-mag-flux-approx}a).
+Let us first assume that the sensor detects,
+at the $i$th observation point $(x^{\prime}_{i}, y^{\prime}_{i}, z^{\prime}_{i})$, 
+$i = 1, ..., N$, located on an observation plane $\alpha$,
+$\alpha = 0, ..., 3$ , the $z^{\prime}$-component of 
+the magnetic induction (flux density) 
+(Figure \ref{fig:sample-planes-cross}) that is 
+threaded through the active area $A$ 
+(light grey square in Figure \ref{fig:b-mag-flux-approx}a)
+of the sensor.
+For convenience, let us denote this observed $z^{\prime}$-component
+as $\tilde{d}^{\prime}_{i} \equiv \tilde{d}^{\prime}(x^{\prime}_{i}, y^{\prime}_{i}, z^{\prime}_{i})$,
+which represents the $i$th element of a particular vector 
+$\mathbf{d}^{\alpha}_{z^{\prime}}$ (equation \ref{eq:obs-data-vec-LCS}),
+depending on the observation plane $\alpha$ on 
+which the measurement is done.
+This observed data $\tilde{d}^{\prime}_{i}$ can then be described as a 
+two-dimensional convolution given by
 \begin{equation}
-\mathbf{m} = \left[
-\begin{array}{c}
-\vspace{0.05in}
-\mathbf{m}^{1} \vspace{0.05in} \\
-\vdots \vspace{0.05in} \\
-\mathbf{m}^{P} \vspace{0.05in} \\
-\end{array}
-\right]_{3P \times 1} \: ,
-\label{eq:param-vec}
+\tilde{d}^{\prime}_{i} = 
+\int \limits_{-\infty}^{\infty} \int \limits_{-\infty}^{\infty}
+w(\eta, \zeta) \; d^{\prime}(x^{\prime}_{i} - \eta, 
+                             y^{\prime}_{i} - \zeta,
+                             z^{\prime}_{i}) \, d\eta d\zeta \: ,
+\label{eq:b-mag-flux}
 \end{equation}
-where
+where $w(\eta, \zeta)$ is the sensor answer function \citep{egli2000}
+and $d^{\prime}(x^{\prime}_{i} - \eta, y^{\prime}_{i} - \zeta, z^{\prime}_{i})$
+represents the theoretical values of the $z^{\prime}$-component of 
+the magnetic induction produced by the rock sample at the points located on 
+the observation plane $\alpha$ with constant 
+$z^{\prime}_{i}$ (Figure \ref{fig:sample-planes-cross}).
+Here, we do not consider the
+dependence with the sensor-to-sample distance $h$ 
+(Figure \ref{fig:b-mag-flux-approx}a).
+In this case, the sensor answer function 
+is given by \citep{egli2000}
 \begin{equation}
-\mathbf{m}^{k} = \left[
-\begin{array}{c}
-m^{k}_{x} \vspace{0.05in} \\
-m^{k}_{y} \vspace{0.05in} \\
-m^{k}_{z}
-\end{array}
-\right]_{3 \times 1} \: ,
-\label{eq:vec-mk}
+w(x^{\prime}_{i}, y^{\prime}_{i}) = \begin{cases}
+\begin{split}
+1/A &\: , \quad (x^{\prime}_{i}, y^{\prime}_{i}) \in A \\
+0 &\: , \quad (x^{\prime}_{i}, y^{\prime}_{i}) \notin A
+\end{split}
+\end{cases} \: .
+\label{eq:w-function}
 \end{equation}
-is a $3 \times 1$ vector containing the Cartesian components
-$m^{k}_{x}$, $m^{k}_{y}$ and $m^{k}_{z}$ (in $A/m$) of the 
-magnetization vector of the $k$-prism, $k = 1, \dots, P$.
-
-The $\beta$-component data, $\beta = y, z$,
-of the magnetic induction produced by the $k$-prism (in $nT$), at 
-the observation points 
-$(x_{i}^{\alpha}, y_{i}^{\alpha}, z_{i}^{\alpha})$, $i = 1, ..., N$, 
-$\alpha = 0, 1, 2, 3$,
-are grouped into $N \times 1$ vectors given by
+By substituting this sensor answer function into 
+equation \ref{eq:b-mag-flux}, we obtain
 \begin{equation}
-\mathbf{b}_{\beta}(\mathbf{x}^{\alpha},
-                   \mathbf{y}^{\alpha},
-                   \mathbf{z}^{\alpha},
-                   \mathbf{m}^{k})
-    = \mathbf{M}^{k}_{\beta}(\mathbf{x}^{\alpha}, 
-                             \mathbf{y}^{\alpha},
-                             \mathbf{z}^{\alpha}) \mathbf{m}^{k} \: ,
-\label{eq:pred-data-vec-k}
+\tilde{d}^{\prime}_{i} = \frac{1}{A} 
+\int \limits_{-\infty}^{\infty} \int \limits_{-\infty}^{\infty}
+d^{\prime}(x^{\prime}_{i} - \eta, y^{\prime}_{i} - \zeta, z^{\prime}_{i}) \, d\eta d\zeta \: .
+\label{eq:b-mag-flux2}
 \end{equation}
-where
+Equation \ref{eq:b-mag-flux2} has an analytical solution
+in the wavenumber domain \citep{egli2000}.
+However, we opted for using an approximated solution in the
+space domain. This approximation consists in discretizing the 
+integral \ref{eq:b-mag-flux2} by using a midpoint rule on 
+a regular grid of $Q_{x} \times Q_{y}$ points 
+$(x^{\prime}_{j}, y^{\prime}_{j}) \in A$,
+$j = 1, ..., Q$, where $Q = Q_{x} \, Q_{y}$
+(open circles in Figure \ref{fig:b-mag-flux-approx}b).
+According to this discretization, the active sensor area $A$ is
+divided into a regular grid of square cells with area
+$\Delta A = A/Q$ (Figure \ref{fig:b-mag-flux-approx}b).
+The approximated integral is given by
 \begin{equation}
-\mathbf{M}_{\beta}^{k}(\mathbf{x}^{\alpha}, 
-                       \mathbf{y}^{\alpha},
-                       \mathbf{z}^{\alpha}) =
-\left[
-\begin{array}{ccc}
-\partial_{\beta x} \phi^{k}(x^{\alpha}_{1},
-                            y^{\alpha}_{1},
-                            z^{\alpha}_{1}) &
-\partial_{\beta y} \phi^{k}(x^{\alpha}_{1},
-                            y^{\alpha}_{1},
-                            z^{\alpha}_{1}) &
-\partial_{\beta z} \phi^{k}(x^{\alpha}_{1},
-                            y^{\alpha}_{1},
-                            z^{\alpha}_{1}) 
-                            \vspace{0.05in} \\
-
-\vdots & \vdots & \vdots \vspace{0.05in} \\
-
-\partial_{\beta x} \phi^{k}(x^{\alpha}_{N},
-                            y^{\alpha}_{N},
-                            z^{\alpha}_{N}) &
-\partial_{\beta y} \phi^{k}(x^{\alpha}_{N},
-                            y^{\alpha}_{N},
-                            z^{\alpha}_{N}) &
-\partial_{\beta z} \phi^{k}(x^{\alpha}_{N},
-                            y^{\alpha}_{N},
-                            z^{\alpha}_{N})
-\end{array}
-\right]_{N \times 3}
-\label{eq:matrix-k-beta}
+\begin{split}
+\tilde{d}^{\prime}_{i} 
+&\approx \frac{1}{A} \sum \limits_{j = 1}^{Q} d^{\prime}_{j} \, \Delta A \\
+&\approx \frac{1}{Q} \sum \limits_{j = 1}^{Q} d^{\prime}_{j}
+\end{split} \: ,
+\label{eq:b-mag-flux-approx}
 \end{equation}
-is a matrix whose elements are second derivatives of the function
-\begin{equation}
-\phi^{k}(x, y, z) = 
-    C_{m}
-    \iiint\limits_{\vartheta^{k}}
-    \frac{d\epsilon \, d\zeta \, d\eta}
-         {\sqrt{(x - \epsilon)^{2} +
-                (y - \zeta)^{2} +
-                (z - \eta)^{2}}}
-\label{eq:phi-k}
-\end{equation}
-with respect to the variables $x$, $y$ and $z$, 
-$C_{m}~=~10^{9}\mu_{0}/4\pi$ and $\mu_{0}$ is the 
-magnetic constant. In equations
-\ref{eq:pred-data-vec-k} and \ref{eq:matrix-k-beta}, 
-$\mathbf{x}^{\alpha}$, $\mathbf{y}^{\alpha}$ and
-$\mathbf{z}^{\alpha}$ are vectors containing, respectively, 
-the Cartesian coordinates $x^{\alpha}_{i}$, $y^{\alpha}_{i}$ 
-and $z^{\alpha}_{i}$, $i = 1, ..., N$, of the observation
-points on the plane $\alpha$, referred to the MCS. 
-In this work, the second derivatives in matrix 
-$\mathbf{M}_{\beta}^{k}(\mathbf{x}^{\alpha}, 
-                       \mathbf{y}^{\alpha},
-                       \mathbf{z}^{\alpha})$ 
-(equation \ref{eq:matrix-k-beta}) are calculated by using the formulas 
-presented by \citet{nagy2000}. In equation \ref{eq:phi-k}, the
-integral is evaluated over the volume $\vartheta^{k}$ of the 
-$k$-th prism. 
+where $d^{\prime}_{j}$ is the theoretical value of the 
+$z^{\prime}$-component of the magnetic induction produced by the rock
+sample at the point $(x^{\prime}_{j}, y^{\prime}_{j})$, $j = 1, ..., Q$
+(open circles in Figure \ref{fig:b-mag-flux-approx}b).
 
-From equation \ref{eq:pred-data-vec-k}, we defined the $N \times 1$ 
-vectors $\mathbf{B}_{\beta}^{\alpha}(\mathbf{m})$ containing the resultant 
-$\beta$-component of the magnetic induction produced by the interpretation 
-model on each plane $\alpha$ as follows:
-\begin{equation}
-\mathbf{B}_{\beta}^{\alpha}(\mathbf{m}) \equiv \sum_{k=1}^{P}
-    \mathbf{b}_{\beta}(\mathbf{x}^{\alpha},
-                           \mathbf{y}^{\alpha},
-                           \mathbf{z}^{\alpha},
-                           \mathbf{m}^{k}) \: .
-\label{eq:pred-data-vec-alphabeta}
-\end{equation}
-By grouping all these vectors $\mathbf{B}_{\beta}^{\alpha}(\mathbf{m})$, 
-we define the predicted data vector 
-\begin{equation}
-\mathbf{B}(\mathbf{m}) = \left[
-\begin{array}{c}
-\mathbf{B}^{0}_{z}(\mathbf{m}) \vspace{0.05in} \\
-\mathbf{B}^{1}_{y}(\mathbf{m}) \vspace{0.05in} \\
-\mathbf{B}^{2}_{z}(\mathbf{m}) \vspace{0.05in} \\
-\mathbf{B}^{3}_{y}(\mathbf{m})
-\end{array}
-\right]_{4N \times 1} \: .
-\label{eq:pred-data-vec}
-\end{equation}
-Finally, by substituting equation \ref{eq:pred-data-vec-k} into equation 
-\ref{eq:pred-data-vec-alphabeta}
-and rearranging the terms within the summation, we can conveniently rewrite the
-predicted data vector $\mathbf{B}(\mathbf{m})$ (equation \ref{eq:pred-data-vec})
-as follows:
-\begin{equation}
-\mathbf{B}(\mathbf{m}) = \mathbf{M} \mathbf{m}\: ,
-\label{eq:pred-data-vec-matrix}
-\end{equation}
-where $\mathbf{M}$ is a partitioned matrix given by
-\begin{equation}
-\mathbf{M} = \left[
-\begin{array}{ccc}
-\mathbf{M}^{1}_{z}(\mathbf{x}^{0}, 
-                   \mathbf{y}^{0},
-                   \mathbf{z}^{0}) & 
-\dots & 
-\mathbf{M}^{P}_{z}(\mathbf{x}^{0}, 
-                   \mathbf{y}^{0},
-                   \mathbf{z}^{0}) \vspace{0.05in} \\
-                   
-\mathbf{M}^{1}_{y}(\mathbf{x}^{1}, 
-                   \mathbf{y}^{1},
-                   \mathbf{z}^{1}) & 
-\dots & 
-\mathbf{M}^{P}_{y}(\mathbf{x}^{1}, 
-                   \mathbf{y}^{1},
-                   \mathbf{z}^{1}) \vspace{0.05in} \\
-                   
-\mathbf{M}^{1}_{z}(\mathbf{x}^{2}, 
-                   \mathbf{y}^{2},
-                   \mathbf{z}^{2}) & 
-\dots & 
-\mathbf{M}^{P}_{z}(\mathbf{x}^{2}, 
-                   \mathbf{y}^{2},
-                   \mathbf{z}^{2}) \vspace{0.05in} \\
-                   
-\mathbf{M}^{1}_{y}(\mathbf{x}^{3}, 
-                   \mathbf{y}^{3},
-                   \mathbf{z}^{3}) & 
-\dots & 
-\mathbf{M}^{P}_{y}(\mathbf{x}^{3}, 
-                   \mathbf{y}^{3},
-                   \mathbf{z}^{3}) \vspace{0.05in}
-\end{array}
-\right]_{4N \times 3P} \: ,
-\label{eq:sensitivity-matrix}
-\end{equation}
-which is formed by the matrices
-$\mathbf{M}_{\beta}^{k}(\mathbf{x}^{\alpha}, 
-\mathbf{y}^{\alpha}, \mathbf{z}^{\alpha})$, $\beta = y, z$,
-$\alpha = 0,1,2,3$, $k = 1, \dots, P$ (equation \ref{eq:matrix-k-beta}).
-
-\subsection{Inverse problem}
-\label{subsec:Inverse problem}
-
-By presuming that the rectangular rock sample can
-be approximated by our previously described 
-interpretation model, we define the linear inverse
-problem of estimating its internal magnetization
-distribution as an optimization problem.
-This optimization problem consists in 
-estimating a specific parameter vector 
-$\mathbf{m} = \mathbf{m}^{\dagger}$ (equation \ref{eq:param-vec}) 
-that minimizes the goal function
-\begin{equation}
-\Gamma(\mathbf{m}) = \left[ 
-\mathbf{d} - \mathbf{B}(\mathbf{m})
-\right]^{\top}
-\left[ 
-\mathbf{d} - \mathbf{B}(\mathbf{m})
-\right] \: ,
-\label{eq:goal-function}
-\end{equation}
-where $\mathbf{d}$ and $\mathbf{B}(\mathbf{m})$ are,
-respectively, the observed and predicted data vectors
-(equations \ref{eq:obs-data-vec} and \ref{eq:pred-data-vec-matrix}).
-The minimization of the goal function $\Gamma(\mathbf{m})$ (equation 
-\ref{eq:goal-function}) is equivalent to estimate the parameter vector 
-minimizing the difference between the observed and predicted data 
-vectors in the least-squares sense.
-
-The parameter vector $\mathbf{m} = \mathbf{m}^{\dagger}$ minimizing 
-the goal function (equation \ref{eq:goal-function}) is given by
-\begin{equation}
-\mathbf{m}^{\dagger} = \left( \mathbf{M}^{\top}\mathbf{M} \right)^{-1}
-\mathbf{M}^{\top}\mathbf{d} \: ,
-\label{eq:estimate}
-\end{equation}
-where $\mathbf{M}$ is the partitioned matrix defined in equation 
-\ref{eq:sensitivity-matrix}.
-We consider that the estimated parameter vector $\mathbf{m}^{\dagger}$
-given by equation \ref{eq:estimate} approximates the real magnetization 
-distribution within the rectangular rock sample. However, solutions given by the equation \ref{eq:estimate} can present non-uniqueness and instability. To overcome this ill- conditioning problem we need to impose a \textit{priori} information. As mentioned before, this procedure is generally called regularization. Here we imposed a constraint using ``Smoothness" regularization, generally called first-order Tikhonov regularization. Then equation \ref{eq:estimate} is now equal to 
-\begin{equation}
-\mathbf{m}^{\dagger} = \left( \mathbf{M}^{\top}\mathbf{M} + \mu_0 \,  \mathbf{R}^T \mathbf{R}\right)^{-1}
-\mathbf{M}^{\top}\mathbf{d} \: ,
-\label{eq:estimate_regul}
-\end{equation}
-where $\mu_0$ is a positive number called parameter regularization and $\mathbf{R}$ is a matrix with elements $-1$ and $1$. For example, if we have a sample formed by two prisms ($P=2$), the matrix $\mathbf{R}$ can be written as
-
-\begin{equation}
-\mathbf{R} =\begin{bmatrix}
- 1& 0 & 0 & -1 & 0 & 0\\ 
-0& 1 & 0 & 0 & -1 & 0\\
- 0& 0 & 1 & 0 & 0 & -1\\
-\end{bmatrix}_{3P-3 \times 3P}.
-\label{eq:matrix_smoothness}
-\end{equation} 
-
-Generally, the matrix $\mathbf{R}$ is composed by $3P = 3$ rows and $3P$ columns. Each element of the matrix can be described as 
-
-\begin{equation}
-\left[ \mathbf{R} \right]_{ij} = 
-\begin{cases}
-1 \: , \quad i = j \\
--1 \: , \quad j = i+3
-\end{cases} \: ,
-\label{eq:elements_matrix}
-\end{equation}
-where the others elements of the matrix are zero.
-
-
+Equation \ref{eq:b-mag-flux-approx} shows that the
+$z^{\prime}$-component $\tilde{d}^{\prime}_{i}$ measured at
+the $i$th observation point on a plane $\alpha$ is
+approximately given by the averaged magnetic induction
+produced by the rock sample over the active area $A$ of the sensor.
+Consequently, the elements of the observed data vector 
+$\mathbf{d}$ (equation \ref{eq:obs-data-vec}) also represent
+averaged components of the magnetic induction over the
+active area $A$ of the magnetic sensor.
 
 \subsection{Pre-processing}
 \label{subsec:Pre-processing}
@@ -831,105 +778,338 @@ Finally, on each observation plane, the magnetic data are
 subtracted from its mean value in order to remove the effect of
 a possible (weak) interfering field.
 
-\subsection{Sensor active area}
-\label{subsec:Sensor active area}
+\subsection{Interpretation model and forward problem}
+\label{subsec:Interpretation model and forward problem}
 
-Magnetic sensors do not measure the magnetic induction 
-field at a point. They measure instead the field averaged 
-over the sensor active area (or volume), which is equivalent to a 
-convolution of the magnetic induction field with 
-the sensor answer function \citep{roth1989, egli2000, lima2013}.
-The sensor-to-sample distance and the effective area (or volume) 
-are important limiting factors determining the spatial resolution 
-of magnetic sensors.
+We consider that the rock sample can be approximated by an 
+interpretation model consisting of $P$ uniformly magnetized 
+prisms, which are juxtaposed along the $x$-axis  
+(Figure \ref{fig:sample}). The $k$th prism, $k = 1, ..., P$, 
+has the same side lengths $L_{y}$ and $L_{z}$ of the sample along, 
+respectively, the $y$- and $z$-axes (Figure \ref{fig:sample}). 
+However, its side length along the $x$-axis is specified by the 
+interpreter, so that the total side length of the interpretation 
+model along this axis is equal to $L_{x}$ (Figure \ref{fig:sample}).
 
-The magnetic sensors used in paleomagnetic applications have
-different active area (or volume). 
-\citet{uehara2007, uehara2008} presented a magneto-impedance (MI) 
-sensor whose cylindrical active volume has $36\mu$m in diameter and 
-$5500\mu$m in length, which limits its spatial resolution
-if compared with the giant magnetoresistance 
-(GMR) sensor presented by \citet{hankard2009} and the magnetic 
-tunnel junction (MTJ) sensor presented by \citet{lima2014}, for example.
-These two sensors are considered planar and have active areas
-of, respectively, $9\mu$m~$\times$~$36\mu$m and 
-$\approx 4\mu$m~$\times$~$2\mu$m.
-Finally, \citet{fong2005} presented a low-transition-temperature 
-superconducting quantum interference device (low T$_{c}$ SQUID) sensor
-which is also considered planar and has an active area with
-diameter of $80\mu$m.
-This is currently one of the most powerful magnetic sensors.
-
-In the following, we present an analysis of the averaging effect produced
-by the finite size of sensors. We limit our study to squared-planar 
-sensors which are parallel to the sample surface.
-Let us first consider the magnetic induction component $\tilde{b}(x,y)$ that is 
-parallel to the sample surface and is threaded
-through a planar sensing area parallel to the sample
-as the following two-dimensional convolution
+Let's define the $3P \times 1$ parameter vector $\mathbf{m}$ 
+as follows:
 \begin{equation}
-\tilde{b}(x, y) = \int \limits_{-\infty}^{\infty} \int \limits_{-\infty}^{\infty}
-w(\eta, \zeta) \; b(x - \eta, y - \zeta) \, d\eta d\zeta \: ,
-\label{eq:b-mag-flux}
+\mathbf{m} = \left[
+\begin{array}{c}
+\vspace{0.05in}
+\mathbf{m}^{1} \vspace{0.05in} \\
+\vdots \vspace{0.05in} \\
+\mathbf{m}^{P} \vspace{0.05in} \\
+\end{array}
+\right] \: ,
+\label{eq:param-vec}
 \end{equation}
-where $w(\eta, \zeta)$ is the sensor answer function \citep{egli2000}. 
-Here, we do not consider the
-dependence with the sensor-to-sample distance $h$ 
-(Figure \ref{fig:b-mag-flux-approx}a).
-For convenience, we consider a square sensor having an active area $A$
-(light grey square in Figure \ref{fig:b-mag-flux-approx}a).
-In this case, the sensor answer function $w(\eta, \zeta)$ 
-is given by \citep{egli2000}
+where
 \begin{equation}
-w(x, y) = \begin{cases}
+\mathbf{m}^{k} = \left[
+\begin{array}{c}
+m^{k}_{x} \vspace{0.05in} \\
+m^{k}_{y} \vspace{0.05in} \\
+m^{k}_{z}
+\end{array}
+\right] \: ,
+\label{eq:vec-mk}
+\end{equation}
+is a $3 \times 1$ vector containing the Cartesian components
+$m^{k}_{x}$, $m^{k}_{y}$ and $m^{k}_{z}$ (in $A/m$) of the 
+magnetization vector of the $k$-prism, $k = 1, \dots, P$.
+
+Let's also define $N \times 1$ coordinate vectors $\mathbf{x}^{\alpha}$,
+$\mathbf{y}^{\alpha}$ and $\mathbf{z}^{\alpha}$, whose
+$i$th elements are the coordinates $x_{i}^{\alpha}$,
+$y_{i}^{\alpha}$ and $z_{i}^{\alpha}$, respectively,
+of the $i$th observation point on the plane $\alpha$
+(black circle in Figure \ref{fig:b-mag-flux-approx}b).
+Additionally, consider the $QN \times 1$ coordinate vectors 
+$\tilde{\mathbf{x}}^{\alpha}$, $\tilde{\mathbf{y}}^{\alpha}$ and 
+$\tilde{\mathbf{z}}^{\alpha}$. The first $Q$ elements of these
+vectors are, respectively, the coordinates $x_{j}^{\alpha}$,
+$y_{j}^{\alpha}$ and $z_{j}^{\alpha}$ of a regular grid of points
+(open circles in Figure \ref{fig:b-mag-flux-approx}b) centered at 
+the observation point $(x_{1}^{\alpha}, y_{1}^{\alpha}, z_{1}^{\alpha})$
+(black circle in Figure \ref{fig:b-mag-flux-approx}b).
+Similarly, the next set of $Q$ elements of these vectors are
+the coordinates of a regular grid of $Q$ points centered
+at the observation point $(x_{2}^{\alpha}, y_{2}^{\alpha}, z_{2}^{\alpha})$
+and so on.
+The Cartesian coordinates forming the vectors $\mathbf{x}^{\alpha}$,
+$\mathbf{y}^{\alpha}$, $\mathbf{z}^{\alpha}$, 
+$\tilde{\mathbf{x}}^{\alpha}$, $\tilde{\mathbf{y}}^{\alpha}$ and 
+$\tilde{\mathbf{z}}^{\alpha}$ are referred to the MSC
+(Figure \ref{fig:sample-planes-cross}).
+
+Once the coordinate vectors were defined, we define
+the $\beta$-component, 
+$\beta = y, z$, of the magnetic induction produced by the 
+$k$-prism (in $nT$), at the observation points $\mathbf{x}^{\alpha}$,
+$\mathbf{y}^{\alpha}$ and $\mathbf{z}^{\alpha}$,
+are grouped into $N \times 1$ vectors given by
+\begin{equation}
+\mathbf{b}_{\beta}(\mathbf{x}^{\alpha},
+                   \mathbf{y}^{\alpha},
+                   \mathbf{z}^{\alpha},
+                   \mathbf{m}^{k})
+    = \mathbf{A}
+      \mathbf{M}^{k}_{\beta}(\tilde{\mathbf{x}}^{\alpha}, 
+                             \tilde{\mathbf{y}}^{\alpha},
+                             \tilde{\mathbf{z}}^{\alpha}) \mathbf{m}^{k} \: ,
+\label{eq:pred-data-vec-k}
+\end{equation}
+where $\mathbf{A}$ is a $N \times QN$ sparse matrix whose 
+element $ij$, $i = 1, ..., N$, $j = 1, ..., QN$, is given by
+\begin{equation}
+\left[\mathbf{A}\right]_{ij} = 
+\begin{cases}
 \begin{split}
-1/A &\: , \quad (x, y) \in A \\
-0 &\: , \quad (x, y) \notin A
+1/Q &\:, \quad (i - 1)Q \le j \le iQ \\
+0 &\:, \quad \text{otherwise}
+\end{split}
+\end{cases}
+\label{eq:Aij}
+\end{equation}
+and
+\begin{equation}
+\mathbf{M}_{\beta}^{k}(\tilde{\mathbf{x}}^{\alpha}, 
+                       \tilde{\mathbf{y}}^{\alpha},
+                       \tilde{\mathbf{z}}^{\alpha}) =
+\left[
+\begin{array}{ccc}
+\partial_{\beta x} \phi^{k}_{1} &
+\partial_{\beta y} \phi^{k}_{1}&
+\partial_{\beta z} \phi^{k}_{1} 
+\vspace{0.05in} \\
+\vdots & \vdots & \vdots \vspace{0.05in} \\
+\partial_{\beta x} \phi^{k}_{N} &
+\partial_{\beta y} \phi^{k}_{N} &
+\partial_{\beta z} \phi^{k}_{N}
+\end{array}
+\right]
+\label{eq:matrix-k-beta}
+\end{equation}
+is a $QN \times 3$ matrix whose elements $\partial_{\beta x} \phi^{k}_{j}$,
+$\partial_{\beta y} \phi^{k}_{j}$ and $\partial_{\beta z} \phi^{k}_{j}$,
+$j = 1, ..., QN$, 
+are second derivatives, evaluated at the points
+$\tilde{\mathbf{x}}^{\alpha}$, $\tilde{\mathbf{y}}^{\alpha}$ and 
+$\tilde{\mathbf{z}}^{\alpha}$,
+of the function
+\begin{equation}
+\phi^{k}(x, y, z) = 
+    C_{m}
+    \iiint\limits_{\vartheta^{k}}
+    \frac{d\epsilon \, d\zeta \, d\eta}
+         {\sqrt{(x - \epsilon)^{2} +
+                (y - \zeta)^{2} +
+                (z - \eta)^{2}}}
+\label{eq:phi-k}
+\end{equation}
+with respect to the variables $x$, $y$ and $z$.
+In equation \ref{eq:phi-k},
+$C_{m}~=~10^{9}\mu_{0}/4\pi$, $\mu_{0}~=~4~\pi~10^{-7}$~$H/m$ is the 
+magnetic permeability of the free space
+and the integral is evaluated over the 
+volume $\vartheta^{k}$ of the $k$th prism. 
+In this work, the second derivatives in the matrices
+$\mathbf{M}_{\beta}^{k}(\tilde{\mathbf{x}}^{\alpha}, 
+\tilde{\mathbf{y}}^{\alpha}, \tilde{\mathbf{z}}^{\alpha})$ 
+(equation \ref{eq:matrix-k-beta}) are calculated by using the formulas 
+presented by \citet{nagy2000}.
+Notice that the vectors $\mathbf{b}_{\beta}(\mathbf{x}^{\alpha},
+\mathbf{y}^{\alpha}, \mathbf{z}^{\alpha}, \mathbf{m}^{k})$
+(equation \ref{eq:pred-data-vec-k}) contain averaged values of
+the $\beta$-components of the magnetic induction produced by
+the interpretation model at the observation points located at
+the four planes $\alpha = 0, 1, 2, 3$. The averaging is imposed
+by the matrix $\mathbf{A}$ defined in equation \ref{eq:Aij}.
+
+From equation \ref{eq:pred-data-vec-k}, we define the $N \times 1$ 
+vectors $\mathbf{B}_{\beta}^{\alpha}(\mathbf{m})$ containing the 
+$\beta$-component of the magnetic induction produced by all prisms forming
+the interpretation model on each plane $\alpha$ as follows:
+\begin{equation}
+\mathbf{B}_{\beta}^{\alpha}(\mathbf{m}) \equiv \sum_{k=1}^{P}
+    \mathbf{b}_{\beta}(\mathbf{x}^{\alpha},
+                           \mathbf{y}^{\alpha},
+                           \mathbf{z}^{\alpha},
+                           \mathbf{m}^{k}) \: .
+\label{eq:pred-data-vec-alphabeta}
+\end{equation}
+By grouping all these vectors $\mathbf{B}_{\beta}^{\alpha}(\mathbf{m})$, 
+we define the $4N \times 1$ theoretical-predicted data vector 
+\begin{equation}
+\mathbf{B}(\mathbf{m}) = \left[
+\begin{array}{c}
+\mathbf{B}^{0}_{z}(\mathbf{m}) \vspace{0.05in} \\
+\mathbf{B}^{1}_{y}(\mathbf{m}) \vspace{0.05in} \\
+\mathbf{B}^{2}_{z}(\mathbf{m}) \vspace{0.05in} \\
+\mathbf{B}^{3}_{y}(\mathbf{m})
+\end{array}
+\right] \: .
+\label{eq:theor-pred-data-vec}
+\end{equation}
+Finally, by substituting equation \ref{eq:pred-data-vec-k} 
+into equation \ref{eq:pred-data-vec-alphabeta}
+and rearranging the terms within the summation, we can 
+conveniently rewrite the predicted data vector 
+$\mathbf{B}(\mathbf{m})$ (equation \ref{eq:theor-pred-data-vec})
+as follows:
+\begin{equation}
+\mathbf{B}(\mathbf{m}) = \mathbf{M} \mathbf{m}\: ,
+\label{eq:theor-pred-data-vec-matrix}
+\end{equation}
+where $\mathbf{M}$ is a $4N \times 3P$ partitioned matrix given by
+\begin{equation}
+\mathbf{M} = \left[
+\begin{array}{ccc}
+\mathbf{A}
+\mathbf{M}^{1}_{z}(\tilde{\mathbf{x}}^{0}, 
+                   \tilde{\mathbf{y}}^{0},
+                   \tilde{\mathbf{z}}^{0}) & 
+\cdots & 
+\mathbf{A}
+\mathbf{M}^{P}_{z}(\tilde{\mathbf{x}}^{0}, 
+                   \tilde{\mathbf{y}}^{0},
+                   \tilde{\mathbf{z}}^{0}) \vspace{0.05in} \\
+
+\mathbf{A}       
+\mathbf{M}^{1}_{y}(\tilde{\mathbf{x}}^{1}, 
+                   \tilde{\mathbf{y}}^{1},
+                   \tilde{\mathbf{z}}^{1}) & 
+\cdots & 
+\mathbf{A}
+\mathbf{M}^{P}_{y}(\tilde{\mathbf{x}}^{1}, 
+                   \tilde{\mathbf{y}}^{1},
+                   \tilde{\mathbf{z}}^{1}) \vspace{0.05in} \\
+                   
+\mathbf{A}
+\mathbf{M}^{1}_{z}(\tilde{\mathbf{x}}^{2}, 
+                   \tilde{\mathbf{y}}^{2},
+                   \tilde{\mathbf{z}}^{2}) & 
+\cdots & 
+\mathbf{A}
+\mathbf{M}^{P}_{z}(\tilde{\mathbf{x}}^{2}, 
+                   \tilde{\mathbf{y}}^{2},
+                   \tilde{\mathbf{z}}^{2}) \vspace{0.05in} \\
+                   
+\mathbf{A}
+\mathbf{M}^{1}_{y}(\tilde{\mathbf{x}}^{3}, 
+                   \tilde{\mathbf{y}}^{3},
+                   \tilde{\mathbf{z}}^{3}) & 
+\cdots & 
+\mathbf{A}
+\mathbf{M}^{P}_{y}(\tilde{\mathbf{x}}^{3}, 
+                   \tilde{\mathbf{y}}^{3},
+                   \tilde{\mathbf{z}}^{3}) \vspace{0.05in}
+\end{array}
+\right] \: ,
+\label{eq:sensitivity-matrix}
+\end{equation}
+where $\mathbf{A}$ is defined in equation \ref{eq:Aij} and
+$\mathbf{M}_{\beta}^{k}(\tilde{\mathbf{x}}^{\alpha}, 
+\tilde{\mathbf{y}}^{\alpha}, \tilde{\mathbf{z}}^{\alpha})$, $\beta = y, z$,
+$\alpha = 0,1,2,3$, $k = 1, \dots, P$ in equation \ref{eq:matrix-k-beta}.
+
+Notice that the forward problem presented in this subsection
+can be easily modified to the case in which the magnetic data
+are measured on less than four observation planes.
+Besides, this forward problem
+describes the averaged magnetic induction produced by the 
+interpretation model at the observation points. The averaging
+is calculated over a regular grid of $Q$ points on the
+active area $A$ of the magnetic sensor 
+(Figure \ref{fig:b-mag-flux-approx}).
+
+\subsection{Inverse problem}
+\label{subsec:Inverse problem}
+
+By presuming that the rectangular rock sample can
+be approximated by our previously described 
+interpretation model, we define the linear inverse
+problem of estimating its internal magnetization
+distribution as a constrained optimization problem.
+This optimization problem consists in 
+estimating a specific parameter vector 
+$\mathbf{m} = \mathbf{m}^{\dagger}$ (equation \ref{eq:param-vec}) 
+that minimizes the goal function
+\begin{equation}
+\Gamma(\mathbf{m}) =
+\| \mathbf{d} - \mathbf{B}(\mathbf{m}) \|_{2}^{2} + 
+\mu_0 \, \| \mathbf{R} \mathbf{m} \|_{2}^{2} \: ,
+\label{eq:goal-function}
+\end{equation}
+where $\| \cdot \|_{2}$ stands for Euclidian (or $\ell_{2}$) norm, 
+$\mathbf{d}$ and $\mathbf{B}(\mathbf{m})$ are,
+respectively, the observed and predicted data vectors
+(equations \ref{eq:obs-data-vec} and \ref{eq:theor-pred-data-vec-matrix}),
+$\mu_0$ is a positive number called regularization parameter and
+$\mathbf{R}$ is a $3P-3 \times 3P$ sparse matrix 
+whose $ij$th-element is given by
+\begin{equation}
+\left[ \mathbf{R} \right]_{ij} = 
+\begin{cases}
+\begin{split}
+1 &\: , \quad i = j \\
+-1 &\: , \quad j = i+3 \\
+0 &\: , \quad \text{otherwise}
 \end{split}
 \end{cases} \: .
-\label{eq:w-function}
+\label{eq:elements_matrix}
 \end{equation}
-By substituting this sensor answer function into the
-magnetic flux integral (equation \ref{eq:b-mag-flux})
-we obtain
+In equation \ref{eq:goal-function}, the regularization parameter $\mu_0$ 
+controls the trade-off between 
+the first and second terms at the right side. 
+The first term represents the data fit
+and the second term is the well-known first-order Tikhonov regularization 
+function \citep{aster2005}, which imposes
+``smoothness" to the estimated parameters.
+The least-squares estimate of the parameter vector 
+$\mathbf{m} = \mathbf{m}^{\dagger}$ minimizing 
+the goal function (equation \ref{eq:goal-function}) is given by
 \begin{equation}
-\tilde{b}(x, y) = \frac{1}{A} 
-\int \limits_{-\infty}^{\infty} \int \limits_{-\infty}^{\infty}
-b(x - \eta, y - \zeta) \, d\eta d\zeta \: .
-\label{eq:b-mag-flux2}
+\mathbf{m}^{\dagger} = \left( \mathbf{M}^{\top}\mathbf{M} + \mu_0 \,  
+\mathbf{R}^T \mathbf{R}\right)^{-1}
+\mathbf{M}^{\top}\mathbf{d} \: .
+\label{eq:estimate}
 \end{equation}
-Equation \ref{eq:b-mag-flux2} has an analytical solution
-in the wavenumber domain \citep{egli2000}.
-However, we opted for using an approximated solution in the
-space domain. This approximation consists in discretizing the 
-integral \ref{eq:b-mag-flux2} by using a midpoint rule on 
-a regular grid of $Q_{x} \times Q_{y}$ points $(x_{j}, y_{j}) \in A$,
-$j = 1, ..., n$, where $Q = Q_{x} \, Q_{y}$.
-The approximated integral is given by
-\begin{equation}
-\tilde{b}_{i} \approx \frac{\Delta A}{A} \sum \limits_{j = 1}^{Q} b_{j} \: ,
-\label{eq:b-mag-flux-approx}
-\end{equation}
-where $\tilde{b}_{i} \equiv \tilde{b}(x_{i}, y_{i})$, $(x_{i}, y_{i})$ is
-the point located at the center of the sensor active area $A$
-(black circle in Figure \ref{fig:b-mag-flux-approx}b) and 
-$b_{j}$ is the magnetic induction component parallel to the
-sample surface and evaluated at the point $(x_{j}, y_{j})$
-(open circle in Figure \ref{fig:b-mag-flux-approx}c),
-$j = 1, ..., Q$.
-According to the discretization represented in Figure 
-\ref{fig:b-mag-flux-approx}b, the active sensor area is
-divided into a regular grid of square cells with area
-$\Delta A$ (Figure \ref{fig:b-mag-flux-approx}c). 
-Hence, by noting that $A = Q \, \Delta A$, we get
-\begin{equation}
-\tilde{b}_{i} \approx \frac{1}{Q} \sum \limits_{j = 1}^{Q} b_{j} \: .
-\label{eq:b-mag-flux-approx2}
-\end{equation}
-Equation \ref{eq:b-mag-flux-approx2} shows that the magnetic induction
-$\tilde{b}_{i}$ at the observation point $(x_{i}, y_{i})$ is 
-approximately given by the magnetic induction
-averaged over the active area $A$ of the sensor.
+We consider that the estimated parameter vector $\mathbf{m}^{\dagger}$
+given by equation \ref{eq:estimate} approximates the real magnetization 
+distribution within the rectangular rock sample.
+
+\subsection{Software implementation}
+\label{subsec:Software implementation}
+
+The inversion method proposed here is implemented in the Python programming
+language.
+Our implementation relies on the open-source library
+numpy \citep[][ \url{http://scipy.org}]{jones2001, walt2011}
+for array-based computations,
+matplotlib \citep[][ \url{http://matplotlib.org}]{hunter2007}
+for plots and maps,
+and Fatiando a Terra \citep[][ \url{http://www.fatiando.org}]{uieda2013}
+for geophysics specific tasks,
+particularly for forward modeling using prisms.
+
+The computational experiments
+(e.g., data processing, synthetic tests, real data application)
+were performed in
+Jupyter (formerly IPython) notebooks
+\citep[][ \url{http://jupyter.org/}]{perez2007}.
+The notebook files combine the source code,
+the results and figures generated by the code
+and rich text to explain the analysis.
+
+All source code, Jupyter notebooks, data, and results
+can be found at the online repository
+\url{https://github.com/pinga-lab/magnetization-rock-sample}.
+An archived version of this repository is also available at
+\url{http://dx.doi.org/...}
+(\textbf{Note to reviewers: the archived version will be uploaded upon
+publication}).
 
 \section{Numerical simulations}
 \label{sec:Numerical simulations}
@@ -944,10 +1124,15 @@ the $x$-axis, where each prism has a uniform and high magnetization
 (red dots in Figures \ref{fig:estimate-validation},
 \ref{fig:estimate-pre-processing} and \ref{fig:estimate-sensor2sample}).
 In all tests presented in this section, 
-the magnetic data produced by the synthetic sample on 
-each plane $\alpha$, $\alpha = 0, 1, 2, 3$, were calculated on
-a regular grid of $102 \times 42$ points along the $x$ and 
-$y$/$z$ axes, respectively, and were also contaminated with a 
+the simulated magnetic sensor has an square active area  
+$A = (300 \, \mu \text{m})^{2}$, which was discretized into
+a regular grid of $7 \times 7$ points, totalling $Q = 49$
+(Figure \ref{fig:b-mag-flux-approx}). The
+magnetic data produced by the synthetic sample on 
+each plane $\alpha = 0, 1, 2, 3$ were calculated at
+$N = 4,284$ points, on a set of $42$ regularly spaced lines 
+that are parallel to the $x$-axis, each one with $102$ regularly
+spaced points. The data were also contaminated with a 
 pseudo-random Gaussian noise having null mean and standard 
 deviation equal to $30,000$~$\mu$T. These data simulate
 an observed data set.
@@ -979,9 +1164,24 @@ To do that, we used an interpretation model which has side lengths
 $L_{x}$, $L_{y}$ and $L_{z}$ equal to the true ones and is
 formed by the same number of prisms ($P = 16$) as the synthetic sample.
 
-Figure \ref{fig:estimate-validation} shows that the estimate
-obtained with our method (blue dots) successfully retrieved the 
-magnetization distribution of the simulated sample (red dots).
+Figure \ref{fig:estimate-validation} shows the four estimated 
+magnetization distributions obtained by our method.
+The one obtained by inverting the magnetic data on the 
+four planes $\alpha = 0, 1, 2, 3$ is represented by the 
+black dots and dashed lines. 
+The three sets of blue dots and 
+dashed lines represent the estimated magnetization distribution 
+obtained by inverting the data located on the plane 
+$\alpha = 0$, planes $\alpha = 0, 1$ and planes $\alpha = 0, 1, 2$,
+which are plotted, respectively, with high, intermediate and low 
+transparency.
+All these estimates were obtained by using a regularization
+parameter $\mu_{0} = 1 \times 10^{-10}$ (equation \ref{eq:goal-function}).
+We can see that the estimated magnetization distribution 
+obtained by inverting the full data set (black dots and black 
+dashed lines in Figure \ref{fig:estimate-validation}) is the best one
+in retrieving the true magnetization distribution
+(red dots and red lines in Figure \ref{fig:estimate-validation}).
 This estimated magnetization distribution yields a predicted data
 (Figures \ref{fig:datafit-validation}b, e, h and k) that is very
 close to the observed data (Figures \ref{fig:datafit-validation}a, 
@@ -992,7 +1192,9 @@ sample means $\mu$ and sample standard deviations $\sigma$
 very close to that ones of the pseudo-random noise 
 contaminating the simulated magnetic data.
 
-These results show the good performance obtained by our method
+These results show the advantage of inverting the full data set 
+(data on the four planes) and
+also the good performance obtained by our method
 if all the premisses about the magnetic data and the sample 
 are not violated.
 
@@ -1017,11 +1219,16 @@ an interpretation model with side lengths $L_{x}$, $L_{y}$
 and $L_{z}$ equal to the true ones and with the same number 
 of prisms ($P = 16$) as the synthetic sample along the $x$-axis.
 
-Figure \ref{fig:estimate-pre-processing} shows that,
-differently from the previous test, 
-the estimate obtained with our method (blue dots) failed in
+Figure \ref{fig:estimate-pre-processing} confirms the
+the superiority of the estimated magnetization distribution 
+obtained by inverting the full data set (black dots and 
+black dashed lines) over the remaining three (blue dots and blue dashed lines).
+All these estimates were obtained by using a regularization
+parameter $\mu_{0} = 5 \times 10^{-2}$ (equation \ref{eq:goal-function}).
+We can see, however, that even the estimate obtained with
+the full data set failed in
 retrieving the magnetization distribution of the simulated sample
-(red dots).
+(red dots). 
 This poorly-estimated magnetization distribution yields 
 predicted data (Figures \ref{fig:datafit-pre-processing}b, e, h and k) 
 that do not
@@ -1038,19 +1245,30 @@ the misalignment problems.
 
 These results exemplify the effects of not correcting the
 misalignment problems prior to the inversion.
+Besides, they show the advantage of inverting the full data set 
+(data on the four planes).
 As we can see, these problems lead to an estimated magnetization 
 distribution that do not retrieves the true one and also
 produce a coarse data fit.
 
 \subsubsection{Sensor-to-sample distance}
 
-Unlike the previous tests, the simulated noise-corrupted 
-data used here were calculated at a different distance $h$ 
-(Figure \ref{fig:sample-planes-cross}) between each observation
-plane and the surface of the sample.
-The distances $h$ between the sample surface and the planes 
-$\alpha = 0, 1, 2$ and $3$ are equal to $420$~$\mu$m, $330$~$\mu$m,
-$400$~$\mu$m and $230$~$\mu$m, respectively.
+Unlike the previous tests, the distance $h$ 
+(Figure \ref{fig:sample-planes-cross}) between the 
+surface of the sample and the observation
+points at each plane is not constant.
+On each plane $\alpha = 0, 1, 2, 3$,
+the observation points are located on a set 
+of $42$ regularly-spaced acquisition 
+lines, each one with $102$ regularly spaced points.
+In this test, the distance $h$ is contaminated with a
+Gaussian position noise having a common standard deviation of
+$100$~$\mu$m and a different mean value equal to 
+$420$~$\mu$m, $330$~$\mu$m, $400$~$\mu$m and $230$~$\mu$m
+on each plane $\alpha = 0, 1, 2, 3$, respectively.
+The distance $h$, however, is constant for observation points 
+located on the same acquisition line.
+
 The noise-corrupted magnetic data were properly corrected 
 from the misalignment problems by using the parameters shown in 
 Table \ref{tab:misalignment-parameters} and the equations 
@@ -1065,13 +1283,25 @@ sensor-to-sample distances $h$. Instead, we presumed a constant
 distance $h = 500$~$\mu$m between all the planes and the surface
 of the sample.
 
-Figure \ref{fig:estimate-sensor2sample} shows that
-the estimate obtained with our method (blue dots) did not
-completely retrieved the magnetization distribution of the synthetic
-sample (red dots), but is much better than that one obtained in the
-previous test (blue dots in Figure \ref{fig:estimate-pre-processing}).
-This (almost good) estimated magnetization distribution yields 
-predicted data (Figures \ref{fig:datafit-sensor2sample}b, e, h and k) 
+Figure \ref{fig:estimate-sensor2sample} shows the four
+estimated magnetization distributions produced in this
+test. All these estimates were obtained by using a regularization
+parameter $\mu_{0} = 1 \times 10^{-10}$ (equation \ref{eq:goal-function}).
+This figure also shows that,
+as in the previous tests, the estimate obtained by 
+inverting the full data set (black dots and black dashed lines) 
+best approximates the true magnetization distribution
+(red dots and red lines). However, even this estimate
+did not completely retrieved the magnetization distribution of the synthetic
+sample (red dots).
+Notice that the observed data (Figures \ref{fig:datafit-sensor2sample}a, 
+d, g and j) present striations aligned with the acquisition lines
+on each observation plane. These striations are produced by the
+presence of position noise in the observation points.
+Despite these striations, the (almost good) estimated magnetization 
+distribution obtained by inverting the full data set 
+(black dots and black dashed lines in Figure \ref{fig:estimate-sensor2sample}) 
+yields predicted data (Figures \ref{fig:datafit-sensor2sample}b, e, h and k) 
 that recover the observed data (Figures \ref{fig:datafit-sensor2sample}a, 
 d, g and j) in an acceptable manner.
 This acceptable data fit is shown by the normalized histograms of 
@@ -1082,10 +1312,11 @@ deviations $\sigma$ present some discrepancies with respect to
 that one of the pseudo-random noise in magnetic data.
 According to these histograms, the poorest data fit occurs in the 
 observation plane $\alpha = 3$ (Figure \ref{fig:datafit-sensor2sample}l),
-where the sample standard deviation $\sigma \approx 42$~$\mu$T.
+where the sample standard deviation $\sigma \approx 60$~$\mu$T.
 
 These results illustrate the effects of errors in the sensor-to-sample
-distance.
+distance and also illustrate the advantage of inverting the full data set 
+(data on the four planes).
 If compared with the results obtained in the previous test, 
 the results obtained here suggest that our method is most robust against errors in
 the sensor-to-sample distance than against misalignment errors.
@@ -1125,6 +1356,9 @@ We have also simulated the presence of $20$ magnetized grains that
 are randomly placed within the sample.
 These grains are represented by spheres having radius equal to $30$~$\mu$m,
 constant magnetization intensity of $100$~A/m and random magnetization direction.
+Notice that the presence of these magnetized grains violates
+the premise that the rock sample can be approximated by
+uniformly magnetized prisms.
 The magnetic data produced by our heterogeneous sample on 
 each plane $\alpha = 0, 1, 2, 3$ were calculated at a
 constant distance $h = 370$~$\mu$m, on
@@ -1133,9 +1367,20 @@ $y$/$z$ axes, respectively, and were also contaminated with a
 pseudo-random Gaussian noise having null mean and standard 
 deviation equal to $1.0$~nT (Figures \ref{fig:datafit-oda}a,
 d, g and j).
+The simulated magnetic sensor used for calculating these data 
+has an square active area  
+$A = (300 \, \mu \text{m})^{2}$, which was discretized into
+a regular grid of $7 \times 7$ points, totalling $Q = 49$
+(Figure \ref{fig:b-mag-flux-approx}).
 
-Figure \ref{fig:estimate-oda} shows that the estimate
-obtained with our method (blue dots) completely retrieved the 
+Figure \ref{fig:estimate-oda} shows the four estimated 
+magnetization distributions produced in this test.
+All these estimates were obtained by using a regularization
+parameter $\mu_{0} = 1 \times 10^{-10}$ (equation \ref{eq:goal-function}).
+This figure also confirms that the estimate
+obtained by inverting the full data set (black dots and black
+dashed lines) is better than the remaining three (blue dots and blue
+dashed lines) because it completely retrieved the 
 magnetization distribution of the simulated heterogeneous 
 sample (red dots).
 This estimated magnetization distribution yields a predicted data
@@ -1149,7 +1394,9 @@ sample means $\mu$ and sample standard deviations $\sigma$
 very close to that ones of the pseudo-random noise 
 contaminating the simulated magnetic data.
 
-These results confirm the good performance of our method
+As in all the previous tests, these results confirm the 
+advantage of inverting the full data set (data on the four planes).
+Moreover, they show the good performance of our method
 in retrieving the magnetization distribution within a complex and
 heterogeneous synthetic sample simulating a real ferro-manganese
 crust.
@@ -1171,11 +1418,13 @@ respectively, the $x$-,
 $y$- and $z$-axis (with respect to the MCS shown in Figure 
 \ref{fig:sample}).
 These prisms were manufactured by filling a rectangular 
-acrylic mould with a magnetite solution and letting it harden.
+acrylic mould with a magnetite solution and letting it hardens.
 The magnetite solution is formed by a mixture of a diamagnetic 
-epoxy resin and colloidal magnetite obtained from the
-reaction of ferric sulphate and ferrous chloride.
-The hardened prisms were then magnetized anhysteretically
+epoxy resin ($0.3$ g) and colloidal magnetite ($0.02$ g) obtained 
+from the reaction of ferric sulphate and ferrous chloride.
+The magnetite has saturation magnetization Ms ranging from 
+$5$ Am$^{2}$/kg and $8$ Am$^{2}$/kg.
+The hardened prisms were then magnetized isothermally
 by an inducing field of $\approx 1$T, according to the
 schematic representation shown in Figures 
 \ref{fig:real-sample}a and b.
@@ -1183,8 +1432,8 @@ Finally, the prisms were juxtaposed (Figure \ref{fig:real-sample}c),
 resulting in a sample with side lengths equal to
 $L_{x} \approx 16$~mm, $L_{y} \approx 3$~mm and 
 $L_{z} \approx 3$~mm. The inclination and declination values 
-of the ARM magnetization within each prism
-are shown in Table \ref{tab:ARM-real-sample}.
+of the IRM magnetization within each prism
+are shown in Table \ref{tab:IRM-real-sample}.
 
 \subsection{Data acquisition}
 \label{subsec:Data acquisition and pre-processing}
@@ -1242,8 +1491,16 @@ $z$ axes.
 Note that each prism forming the synthetic sample is 
 approximated by four juxtaposed prisms of the 
 interpretation model.
-Figure \ref{fig:estimate-real} shows the estimated
+We considered a square magnetic sensor with active area  
+$A = (300 \, \mu \text{m})^{2}$, which was discretized into
+a regular grid of $7 \times 7$ points, totalling $Q = 49$
+(Figure \ref{fig:b-mag-flux-approx}).
+Figure \ref{fig:estimate-real} shows the four estimated
 magnetization distribution obtained with our method.
+All these estimates were obtained by using a regularization
+parameter $\mu_{0} = 1 \times 10^{-10}$ (equation \ref{eq:goal-function}).
+The black dots and black dashed lines represent the estimate
+obtained by inverting the magnetic data on the four observation planes.
 This estimated magnetization distribution yields a predicted data
 (Figures \ref{fig:datafit-real}b, e, h and k) that recover
 the main features in the observed data (Figures \ref{fig:datafit-real}a, 
@@ -1264,6 +1521,10 @@ correction of the misalignment problems.
 These problems, however, were possibly worsened by the
 apparent imprecision in the sensor positioning (or position noise)
 during the scanning stage.
+Notice that, as in the numerical test showing the effects of
+position noise, the observed data (Figures \ref{fig:datafit-real}c, f, i and l)
+present striations along the acquisition lines on each
+observation plane.
 According to \citet{lee2004}, the presence of position noise has 
 an important implication for the design of scanning magnetic microscopy.
 We have also verified with synthetic data that errors in the 
@@ -1312,10 +1573,10 @@ inclination/declination (Figures \ref{fig:estimate-real}b and c).
 Note that the estimated inclinations (blue dots in Figure 
 \ref{fig:estimate-real}b) within the four prisms forming
 the sample are close to the approximated values shown in Table 
-\ref{tab:ARM-real-sample}.
+\ref{tab:IRM-real-sample}.
 On the other hand, the estimated declinations (blue dots in Figure 
 \ref{fig:estimate-real}c) are close to the values shown in Table 
-\ref{tab:ARM-real-sample} at the prisms $0$, $1$ and $2$, but are 
+\ref{tab:IRM-real-sample} at the prisms $0$, $1$ and $2$, but are 
 very different at the prism $3$.
 This discrepancy nonetheless is not a problem because, at prism $3$,
 the estimated inclination is close to $90^{\circ}$ (Figure
@@ -1325,7 +1586,7 @@ are not important.
 These results show that, even inverting a magnetic data set that
 were measured by a prototype magnetometer and were, at least apparently,
 highly contaminated with position noise, our method estimated a 
-magnetization distribution that is consistent with the ARM orientation
+magnetization distribution that is consistent with the IRM orientation
 within our manufactured sample.
 
 \section{Conclusion}
@@ -1335,7 +1596,10 @@ microscopy data with the purpose of estimating the internal
 magnetization distribution of a rectangular rock sample whose
 internal magnetization distribution varies along one of its
 axes.
-Our method takes advantage of the geometry of a rectangular sample
+Our method presents a new approach for automatically including
+the averaging effect produced by the finite size of the 
+magnetic sensor. Additionally, our method takes advantage 
+of the geometry of a rectangular sample
 to propose a new scanning design aiming at providing the magnetic
 data not only on a single plane over the sample, but on four 
 mutually orthogonal planes located around the sample.
@@ -1343,6 +1607,8 @@ The use of magnetic data located on the four planes instead
 of a single one introduces independent information into the
 linear system to be solved and consequently leads to a
 a better conditioned inverse problem.
+The advantage of inverting magnetic data located on four planes
+around the sample is confirmed by all tests with synthetic data.
 
 Results with synthetic data produced by a simulated highly-magnetized 
 sample show not only the good performance of 
@@ -1366,11 +1632,12 @@ is consistent with that one in the manufactured sample.
 These results show that our method could be an interesting complement
 of traditional paleomagnetic techniques aiming at providing a 
 non-destructive diagnostic of geological samples.
-Nevertheles, further tests using either manufactured and geological samples 
+Nevertheless, further tests using either manufactured and geological samples 
 need to be carried out with the purpose of validating our approach,
-better evaluating the effects of position noise 
+better evaluating the effects of position noise
 and misalignment problems during the scanning stage and
-developing automatic pre-processing techniques.
+also developing automatic pre-processing techniques.
+
 By presuming that the internal magnetization of the rectangular 
 sample varies along one of its axis we implicitly restrict the
 application of our method to samples that are perpendicular
@@ -1472,256 +1739,16 @@ de Desenvolvimento Cient\'{i}fico e Tecnol\'{o}gico (CNPq).
 %
 \bibliographystyle{agufull08}
 
-%\bibliography{bib-file}
+\bibliography{bib-file}
 %
 % 5. Run LaTeX on your new file before submitting.
 %
 % AGU does not want a .bib or a .bbl file. Please copy in the contents of your .bbl file here.
 
-\begin{thebibliography}{40}
-\providecommand{\natexlab}[1]{#1}
-\expandafter\ifx\csname urlstyle\endcsname\relax
-  \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
-  \providecommand{\doi}{doi:\discretionary{}{}{}\begingroup
-  \urlstyle{rm}\Url}\fi
 
-\bibitem[{\textit{Aster et~al.}(2005)\textit{Aster, Borchers, and
-  Thurber}}]{aster2005}
-Aster, R.~C., B.~Borchers, and C.~H. Thurber (2005), \textit{Parameter
-  Estimation and Inverse Problems, Volume 90 (International Geophysics)},
-  Academic Press.
 
-\bibitem[{\textit{Baratchart et~al.}(2013)\textit{Baratchart, Hardin, Lima,
-  Saff, and Weiss}}]{baratchart2013}
-Baratchart, L., D.~P. Hardin, E.~A. Lima, E.~B. Saff, and B.~P. Weiss (2013),
-  Characterizing kernels of operators related to thin-plate magnetizations via
-  generalizations of hodge decompositions, \textit{Inverse Problems},
-  \textit{29}(1), 015,004, \doi{10.1088/0266-5611/29/1/015004}.
 
-\bibitem[{\textit{Barnes}(2014)}]{barnes2014}
-Barnes, G. (2014), Reconstructing the gravity gradient anomaly field from
-  surveys with wide line spacing using equivalent source processing: an error
-  analysis, \textit{Geophysical Prospecting}, \textit{62}(3), 646--657,
-  \doi{10.1111/1365-2478.12098}.
 
-\bibitem[{\textit{Barnes and Lumley}(2011)}]{barnes-lumley2011}
-Barnes, G., and J.~Lumley (2011), Processing gravity gradient data,
-  \textit{GEOPHYSICS}, \textit{76}(2), I33--I47, \doi{10.1190/1.3548548}.
-
-\bibitem[{\textit{Baudenbacher et~al.}(2003)\textit{Baudenbacher, Fong, Holzer,
-  and Radparvar}}]{baudenbacher2003}
-Baudenbacher, F., L.~E. Fong, J.~R. Holzer, and M.~Radparvar (2003), Monolithic
-  low-transition-temperature superconducting magnetometers for high resolution
-  imaging magnetic fields of room temperature samples, \textit{Appl. Phys.
-  Lett.}, \textit{82}(20), 3487--3489,
-  \doi{http://dx.doi.org/10.1063/1.1572968}.
-
-\bibitem[{\textit{Cordell}(1992)}]{cordell1992}
-Cordell, L. (1992), A scattered equivalent-source method for interpolation and
-  gridding of potential‐field data in three dimensions, \textit{GEOPHYSICS},
-  \textit{57}(4), 629--636, \doi{10.1190/1.1443275}.
-
-\bibitem[{\textit{Dampney}(1969)}]{dampney1969}
-Dampney, C. N.~G. (1969), The equivalent source technique, \textit{GEOPHYSICS},
-  \textit{34}(1), 39--53, \doi{10.1190/1.1439996}.
-
-\bibitem[{\textit{Egli and Heller}(2000)}]{egli2000}
-Egli, R., and F.~Heller (2000), High-resolution imaging using a high-tc
-  superconducting quantum interference device (squid) magnetometer, \textit{J.
-  Geophys. Res.: Solid Earth}, \textit{105}(B11), 25,709--25,727,
-  \doi{10.1029/2000JB900192}.
-
-\bibitem[{\textit{Emilia}(1973)}]{emilia1973}
-Emilia, D.~A. (1973), Equivalent sources used as an analytic base for
-  processing total magnetic field profiles, \textit{GEOPHYSICS},
-  \textit{38}(2), 339--348, \doi{10.1190/1.1440344}.
-
-\bibitem[{\textit{Engl et~al.}(1996)\textit{Engl, Hanke, and
-  Neubauer}}]{engl1996}
-Engl, H.~W., M.~Hanke, and A.~Neubauer (1996), \textit{Regularization of
-  Inverse Problems (Mathematics and Its Applications)}, Springer.
-
-\bibitem[{\textit{Fong et~al.}(2005)\textit{Fong, Holzer, McBride, Lima,
-  Baudenbacher, and Radparvar}}]{fong2005}
-Fong, L.~E., J.~R. Holzer, K.~K. McBride, E.~A. Lima, F.~Baudenbacher, and
-  M.~Radparvar (2005), High-resolution room-temperature sample scanning
-  superconducting quantum interference device microscope configurable for
-  geological and biomagnetic applications, \textit{Rev. Sci. Instrum.},
-  \textit{76}(5), \doi{10.1063/1.1884025}.
-
-\bibitem[{\textit{Fu et~al.}(2014)\textit{Fu, Lima, and Weiss}}]{fu2014}
-Fu, R., E.~Lima, and B.~Weiss (2014), No nebular magnetization in the allende
-  \{CV\} carbonaceous chondrite, \textit{Earth Planet. Sci. Lett.},
-  \textit{404}, 54--66, \doi{10.1016/j.epsl.2014.07.014}.
-
-\bibitem[{\textit{Gattacceca et~al.}(2006)\textit{Gattacceca, Boustie, Weiss,
-  Rochette, Lima, Fong, and Baudenbacher}}]{gattacceca2006}
-Gattacceca, J., M.~Boustie, B.~P. Weiss, P.~Rochette, E.~A. Lima, L.~E. Fong,
-  and F.~J. Baudenbacher (2006), Investigating impact demagnetization through
-  laser impacts and squid microscopy, \textit{Geology}, \textit{34}(5),
-  333--336, \doi{10.1130/G21898.1}.
-
-\bibitem[{\textit{Gusp\'{i} and Novara}(2009)}]{guspi-novara2009}
-Gusp\'{i}, F., and I.~Novara (2009), Reduction to the pole and transformations
-  of scattered magnetic data using newtonian equivalent sources,
-  \textit{GEOPHYSICS}, \textit{74}(5), L67--L73, \doi{10.1190/1.3170690}.
-
-\bibitem[{\textit{Hankard et~al.}(2009)\textit{Hankard, Gattacceca, Fermon,
-  Pannetier-Lecoeur, Langlais, Quesnel, Rochette, and McEnroe}}]{hankard2009}
-Hankard, F., J.~Gattacceca, C.~Fermon, M.~Pannetier-Lecoeur, B.~Langlais,
-  Y.~Quesnel, P.~Rochette, and S.~A. McEnroe (2009), Magnetic field microscopy
-  of rock samples using a giant magnetoresistance–based scanning
-  magnetometer, \textit{Geochem., Geophys., Geosyst.}, \textit{10}(10),
-  \doi{10.1029/2009GC002750}.
-
-\bibitem[{\textit{Hansen and Miyazaki}(1984)}]{hansen-miyazaki1984}
-Hansen, R.~O., and Y.~Miyazaki (1984), Continuation of potential fields between
-  arbitrary surfaces, \textit{GEOPHYSICS}, \textit{49}(6), 787--795,
-  \doi{10.1190/1.1441707}.
-
-\bibitem[{\textit{Kara et~al.}(2014)\textit{Kara, Bal, Tur, and
-  Ates}}]{kara-etal2014}
-Kara, I., O.~T. Bal, H.~Tur, and A.~Ates (2014), A new efficient method for
-  topographic distortion correction, analytical continuation, vertical
-  derivatives and using equivalent source technique: Application to field data,
-  \textit{Journal of Applied Geophysics}, \textit{106}, 67--76,
-  \doi{10.1016/j.jappgeo.2014.04.011}.
-
-\bibitem[{\textit{Le\~{a}o and Silva}(1989)}]{leao-silva1989}
-Le\~{a}o, J. W.~D., and J.~B.~C. Silva (1989), Discrete linear transformations
-  of potential field data, \textit{GEOPHYSICS}, \textit{54}(4), 497--507,
-  \doi{10.1190/1.1442676}.
-
-\bibitem[{\textit{Lee et~al.}(2004)\textit{Lee, Matthews, and
-  Wellstood}}]{lee2004}
-Lee, S.-Y., J.~Matthews, and F.~C. Wellstood (2004), Position noise in scanning
-  superconducting quantum interference device microscopy, \textit{Appl. Phys.
-  Lett.}, \textit{84}(24), 5001--5003, \doi{10.1063/1.1763215}.
-
-\bibitem[{\textit{Li and Oldenburg}(2010)}]{li-oldenburg2010}
-Li, Y., and D.~W. Oldenburg (2010), Rapid construction of equivalent sources
-  using wavelets, \textit{GEOPHYSICS}, \textit{75}(3), L51--L59,
-  \doi{10.1190/1.3378764}.
-
-\bibitem[{\textit{Li et~al.}(2014)\textit{Li, Nabighian, and
-  Oldenburg}}]{li-nabighian-oldenburg2014}
-Li, Y., M.~Nabighian, and D.~W. Oldenburg (2014), Using an equivalent source
-  with positivity for low-latitude reduction to the pole without striation,
-  \textit{GEOPHYSICS}, \textit{79}(6), J81--J90, \doi{10.1190/geo2014-0134.1}.
-
-\bibitem[{\textit{Lima et~al.}(2013)\textit{Lima, Weiss, Baratchart, Hardin,
-  and Saff}}]{lima2013}
-Lima, E.~A., B.~P. Weiss, L.~Baratchart, D.~P. Hardin, and E.~B. Saff (2013),
-  Fast inversion of magnetic field maps of unidirectional planar geological
-  magnetization, \textit{J. Geophys. Res.: Solid Earth}, \textit{118}(6),
-  2723--2752, \doi{10.1002/jgrb.50229}.
-
-\bibitem[{\textit{Lima et~al.}(2014)\textit{Lima, Bruno, Carvalho, and
-  Weiss}}]{lima2014}
-Lima, E.~A., A.~C. Bruno, H.~R. Carvalho, and B.~P. Weiss (2014), Scanning
-  magnetic tunnel junction microscope for high-resolution imaging of remanent
-  magnetization fields, \textit{Measurement Science and Technology},
-  \textit{25}(10), 105,401, \doi{10.1088/0957-0233/25/10/105401}.
-
-\bibitem[{\textit{Mareschal}(1985)}]{mareschal1985}
-Mareschal, J.~C. (1985), Inversion of potential field data in fourier transform
-  domain, \textit{Geophysics}, \textit{50}(4), 685--691,
-  \doi{10.1190/1.1441943}.
-
-\bibitem[{\textit{Mendon\c{c}a}(1992)}]{mendonca1992}
-Mendon\c{c}a, C.~A. (1992), Interpola\c{c}\~{a}o de dados de campo potencial
-  atrav\'{e}s da camada equivalente, Ph.D. thesis, Universidade Federal do
-  Par\'{a}, Bel\'{e}m do Par\'{a}, Brazil.
-
-\bibitem[{\textit{Mendon\c{c}a and Silva}(1994)}]{mendonca-silva1994}
-Mendon\c{c}a, C.~A., and J.~B.~C. Silva (1994), The equivalent data concept
-  applied to the interpolation of potential field data, \textit{GEOPHYSICS},
-  \textit{59}(5), 722--732, \doi{10.1190/1.1443630}.
-
-\bibitem[{\textit{Mendon\c{c}a and Silva}(1995)}]{mendonca-silva1995}
-Mendon\c{c}a, C.~A., and J.~B.~C. Silva (1995), Interpolation of
-  potential‐field data by equivalent layer and minimum curvature: A
-  comparative analysis, \textit{GEOPHYSICS}, \textit{60}(2), 399--407,
-  \doi{10.1190/1.1443776}.
-
-\bibitem[{\textit{Nagy et~al.}(2000)\textit{Nagy, Papp, and
-  Benedek}}]{nagy2000}
-Nagy, D., G.~Papp, and J.~Benedek (2000), The gravitational potential and its
-  derivatives for the prism, \textit{Journal of Geodesy}, \textit{74}(7-8),
-  311--326, \doi{10.1007/s001900000116}.
-
-\bibitem[{\textit{Oda et~al.}(2011)\textit{Oda, Usui, Miyagi, Joshima, Weiss,
-  Shantz, Fong, McBride, Harder, and Baudenbacher}}]{oda2011}
-Oda, H., A.~Usui, I.~Miyagi, M.~Joshima, B.~P. Weiss, C.~Shantz, L.~E. Fong,
-  K.~K. McBride, R.~Harder, and F.~J. Baudenbacher (2011), Ultrafine-scale
-  magnetostratigraphy of marine ferromanganese crust, \textit{Geology},
-  \textit{39}(3), 227--230, \doi{10.1130/G31610.1}.
-
-\bibitem[{\textit{Oliveira~Jr. et~al.}(2013)\textit{Oliveira~Jr., Barbosa, and
-  Uieda}}]{oliveirajr-etal2013}
-Oliveira~Jr., V.~C., V.~C.~F. Barbosa, and L.~Uieda (2013), Polynomial
-  equivalent layer, \textit{GEOPHYSICS}, \textit{78}(1), G1--G13,
-  \doi{10.1190/geo2012-0196.1}.
-
-\bibitem[{\textit{Roth et~al.}(1989)\textit{Roth, Sepulveda, and
-  Wikswo}}]{roth1989}
-Roth, B.~J., N.~G. Sepulveda, and J.~P. Wikswo (1989), Using a magnetometer to
-  image a two-dimensional current distribution, \textit{J. Appl. Phys.
-  (Melville, NY, U. S.)}, \textit{65}(1), 361--372, \doi{10.1063/1.342549}.
-
-\bibitem[{\textit{Silva}(1986)}]{silva1986}
-Silva, J. B.~C. (1986), Reduction to the pole as an inverse problem and its
-  application to low-latitude anomalies, \textit{GEOPHYSICS}, \textit{51}(2),
-  369--382, \doi{10.1190/1.1442096}.
-
-\bibitem[{\textit{Tikhonov and Arsenin}(1977)}]{tikhonov1977}
-Tikhonov, A.~N., and V.~Y. Arsenin (1977), \textit{Solutions of Ill-Posed
-  Problems (Scripta series in mathematics)}, V. H. Winston \& Sons.
-
-\bibitem[{\textit{Uehara and Nakamura}(2007)}]{uehara2007}
-Uehara, M., and N.~Nakamura (2007), Scanning magnetic microscope system
-  utilizing a magneto-impedance sensor for a nondestructive diagnostic tool of
-  geological samples, \textit{Rev. Sci. Instrum.}, \textit{78}(4),
-  \doi{10.1063/1.2722402}.
-
-\bibitem[{\textit{Uehara and Nakamura}(2008)}]{uehara2008}
-Uehara, M., and N.~Nakamura (2008), Identification of stable remanence carriers
-  through a magneto-impedance scanning magnetic microscope, \textit{Stud.
-  Geophys. Geod.}, \textit{52}(2), 211--223, \doi{10.1007/s11200-008-0014-2}.
-
-\bibitem[{\textit{Usui et~al.}(2012)\textit{Usui, Uehara, and
-  Okuno}}]{usui2012}
-Usui, Y., M.~Uehara, and K.~Okuno (2012), A rapid inversion and resolution
-  analysis of magnetic microscope data by the subtractive optimally localized
-  averages method, \textit{Comput. Geosci.}, \textit{38}(1), 145--155,
-  \doi{10.1016/j.cageo.2011.05.001}.
-
-\bibitem[{\textit{Van Der~Voo}(1993)}]{voo1993}
-Van Der~Voo, R. (1993), \textit{Paleomagnetism of the Atlantic, Tethys and
-  Iapetus oceans}.
-
-\bibitem[{\textit{Von~Frese et~al.}(1981)\textit{Von~Frese, Hinze, and
-  Braile}}]{vonfrese-etal1981}
-Von~Frese, R. R.~B., W.~J. Hinze, and L.~W. Braile (1981), Spherical earth
-  gravity and magnetic anomaly analysis by equivalent point source inversion,
-  \textit{Earth and Planetary Science Letters}, \textit{53}(1), 69 -- 83,
-  \doi{10.1016/0012-821X(81)90027-3}.
-
-\bibitem[{\textit{Weiss et~al.}(2007{\natexlab{a}})\textit{Weiss, Lima, Fong,
-  and Baudenbacher}}]{weiss2007b}
-Weiss, B.~P., E.~A. Lima, L.~E. Fong, and F.~J. Baudenbacher
-  (2007{\natexlab{a}}), Paleointensity of the earth's magnetic field using
-  \{SQUID\} microscopy, \textit{Earth Planet. Sci. Lett.}, \textit{264}(1–2),
-  61--71, \doi{10.1016/j.epsl.2007.08.038}.
-
-\bibitem[{\textit{Weiss et~al.}(2007{\natexlab{b}})\textit{Weiss, Lima, Fong,
-  and Baudenbacher}}]{weiss2007}
-Weiss, B.~P., E.~A. Lima, L.~E. Fong, and F.~J. Baudenbacher
-  (2007{\natexlab{b}}), Paleomagnetic analysis using squid microscopy,
-  \textit{J. Geophys. Res.: Solid Earth}, \textit{112}(B9),
-  \doi{10.1029/2007JB004940}.
-
-\end{thebibliography}
 
 %Reference citation examples:
 
@@ -1835,14 +1862,22 @@ Weiss, B.~P., E.~A. Lima, L.~E. Fong, and F.~J. Baudenbacher
  
  \begin{figure}
  \noindent \includegraphics[width=20pc]{Figs/Fig4b_HQ.pdf}
- \caption{Schematic representation of the integral \ref{eq:Phi-mag-flux2}.
+ \caption{Schematic representation of the discretization
+ used for approximating the integral \ref{eq:b-mag-flux2} by 
+ the summation \ref{eq:b-mag-flux-approx}.
  (a) Magnetic sensor with active area $A$ (light grey square) located at
- a distance $h$ of the sample (grey prism). (b) Detailed representation
- of the sensor active area, which is centered at the observation point
- $(x_{i}, y_{i})$ (black circle). The square active area is discretized into 
- a regular grid of $Q$ square cells (limited by the dashed lines). 
- (c) jth cell with area $\Delta A$ and center at the point $(x_{j}, y_{j})$
- (open circle), $j = 1, ..., Q$.}
+ a distance $h$ of the sample (grey prisms), on a particular observation
+ plane $\alpha$ (Figures \ref{fig:sample-planes} and 
+ \ref{fig:sample-planes-cross}). (b) Detailed representation
+ of the sensor active area $A$ centered at the observation point
+ $(x_{i}, y_{i})$ (black circle). 
+ The square active area 
+ of the sensor is discretized into a regular grid of $Q$ square cells 
+ (limited by the dashed lines). Each cell is centered at a point 
+ $(x_{j}, y_{j})$, $j = 1, ..., Q$, (open circles) and 
+ has an area $\Delta A = A/Q$. The points $(x_{i}, y_{i})$
+ and $(x_{j}, y_{j})$ can be either referred to a specific LCS or
+ to the MCS (Figure \ref{fig:sample-planes-cross}).}
  \label{fig:b-mag-flux-approx}
  \end{figure} 
  
@@ -1852,8 +1887,11 @@ Weiss, B.~P., E.~A. Lima, L.~E. Fong, and F.~J. Baudenbacher
  magnetic data produced by the synthetic sample (not shown) on the
  observation planes $\alpha = 0, 1, 2$ and $3$, respectively.
  (b), (e), (h), (k) Predicted data produced by the estimated
- magnetization distribution obtained by inversion on the
+ magnetization distribution on the
  observation planes $\alpha = 0, 1, 2$ and $3$, respectively.
+ The estimated magnetization distribution was obtained by
+ inverting the magnetic data located on the four observation
+ planes.
  (c), (f), (i) and (l) Normalized histograms of the residuals between the
  predicted data shown in (b), (e), (h), (k) and the 
  noise-corrupted magnetic data shown in (a), (d), (g), (j). 
@@ -1867,8 +1905,18 @@ Weiss, B.~P., E.~A. Lima, L.~E. Fong, and F.~J. Baudenbacher
  \begin{figure}
  \noindent \includegraphics[width=20pc]{Figs/Fig6_LQ.png}
  \caption{Validation test. Comparison between the true (red dots)
- and estimated (blue dots) magnetization (a) intensity, (b) inclination 
- and (c) declination.
+ and estimated (blue and black dots) magnetization 
+ (a) intensity, (b) inclination  and (c) declination.
+ The estimated magnetization distribution obtained by 
+ inverting the magnetic data on the four planes $\alpha = 0, 1, 2, 3$
+ is represented
+ by the black dots and black dashed lines. The three sets of
+ blue dots and dashed lines represent the estimated 
+ magnetization distribution obtained by inverting the 
+ magnetic data located on a single plane ($\alpha = 0$),
+ two planes ($\alpha = 0, 1$) and three planes ($\alpha = 0, 1, 2$)
+ are plotted, respectively, with high, intermediate and low 
+ transparency.
  The values are plotted along the $x$-axis, at the center of each 
  prism forming the interpretation model.
  The black dashed lines in (b) and (c) indicate the $0^{\circ}$ value.}
@@ -1883,6 +1931,9 @@ Weiss, B.~P., E.~A. Lima, L.~E. Fong, and F.~J. Baudenbacher
  (b), (e), (h), (k) Predicted data produced by the estimated
  magnetization distribution obtained by inversion on the
  observation planes $\alpha = 0, 1, 2$ and $3$, respectively.
+ The estimated magnetization distribution was obtained by
+ inverting the magnetic data located on the four observation
+ planes.
  (c), (f), (i) and (l) Normalized histograms of the residuals between the
  predicted data shown in (b), (e), (h), (k) and the 
  noise-corrupted magnetic data shown in (a), (d), (g), (j). 
@@ -1896,8 +1947,18 @@ Weiss, B.~P., E.~A. Lima, L.~E. Fong, and F.~J. Baudenbacher
  \begin{figure}
  \noindent \includegraphics[width=20pc]{Figs/Fig8_LQ.png}
  \caption{Pre-processing errors test. Comparison between the true (red dots)
- and estimated (blue dots) magnetization (a) intensity, (b) inclination 
- and (c) declination.
+ and estimated (blue and black dots) magnetization 
+ (a) intensity, (b) inclination and (c) declination.
+ The estimated magnetization distribution obtained by 
+ inverting the magnetic data on the four planes $\alpha = 0, 1, 2, 3$
+ is represented
+ by the black dots and black dashed lines. The three sets of
+ blue dots and dashed lines represent the estimated 
+ magnetization distribution obtained by inverting the 
+ magnetic data located on a single plane ($\alpha = 0$),
+ two planes ($\alpha = 0, 1$) and three planes ($\alpha = 0, 1, 2$)
+ are plotted, respectively, with high, intermediate and low 
+ transparency.
  The values are plotted along the $x$-axis, at the center of each 
  prism forming the interpretation model.
  The black dashed lines in (b) and (c) indicate the $0^{\circ}$ value.}
@@ -1912,6 +1973,9 @@ Weiss, B.~P., E.~A. Lima, L.~E. Fong, and F.~J. Baudenbacher
  (b), (e), (h), (k) Predicted data produced by the estimated
  magnetization distribution obtained by inversion on the
  observation planes $\alpha = 0, 1, 2$ and $3$, respectively.
+ The estimated magnetization distribution was obtained by
+ inverting the magnetic data located on the four observation
+ planes.
  (c), (f), (i) and (l) Normalized histograms of the residuals between the
  predicted data shown in (b), (e), (h), (k) and the 
  noise-corrupted magnetic data shown in (a), (d), (g), (j). 
@@ -1925,8 +1989,18 @@ Weiss, B.~P., E.~A. Lima, L.~E. Fong, and F.~J. Baudenbacher
  \begin{figure}
  \noindent \includegraphics[width=20pc]{Figs/Fig10_LQ.png}
  \caption{Sensor-to-sample distance test. Comparison between the true (red dots)
- and estimated (blue dots) magnetization (a) intensity, (b) inclination 
- and (c) declination.
+ and estimated (blue and black dots) magnetization 
+ (a) intensity, (b) inclination and (c) declination.
+ The estimated magnetization distribution obtained by 
+ inverting the magnetic data on the four planes $\alpha = 0, 1, 2, 3$
+ is represented
+ by the black dots and black dashed lines. The three sets of
+ blue dots and dashed lines represent the estimated 
+ magnetization distribution obtained by inverting the 
+ magnetic data located on a single plane ($\alpha = 0$),
+ two planes ($\alpha = 0, 1$) and three planes ($\alpha = 0, 1, 2$)
+ are plotted, respectively, with high, intermediate and low 
+ transparency.
  The values are plotted along the $x$-axis, at the center of each 
  prism forming the interpretation model.
  The black dashed lines in (b) and (c) indicate the $0^{\circ}$ value.}
@@ -1941,6 +2015,9 @@ Weiss, B.~P., E.~A. Lima, L.~E. Fong, and F.~J. Baudenbacher
  (b), (e), (h), (k) Predicted data produced by the estimated
  magnetization distribution obtained by inversion on the
  observation planes $\alpha = 0, 1, 2$ and $3$, respectively.
+ The estimated magnetization distribution was obtained by
+ inverting the magnetic data located on the four observation
+ planes.
  The color scales are slightly saturated for improving the visualization.
  (c), (f), (i) and (l) Normalized histograms of the residuals between the
  predicted data shown in (b), (e), (h), (k) and the 
@@ -1954,9 +2031,20 @@ Weiss, B.~P., E.~A. Lima, L.~E. Fong, and F.~J. Baudenbacher
  
  \begin{figure}
  \noindent \includegraphics[width=20pc]{Figs/Fig12_LQ.png}
- \caption{Marine ferro-manganese crust sample. Comparison between the true (red dots)
- and estimated (blue dots) magnetization (a) intensity, (b) inclination 
- and (c) declination.
+ \caption{Marine ferro-manganese crust sample. 
+ Comparison between the true (red dots)
+ and estimated (blue and black dots) magnetization 
+ (a) intensity, (b) inclination and (c) declination.
+ The estimated magnetization distribution obtained by 
+ inverting the magnetic data on the four planes $\alpha = 0, 1, 2, 3$
+ is represented
+ by the black dots and black dashed lines. The three sets of
+ blue dots and dashed lines represent the estimated 
+ magnetization distribution obtained by inverting the 
+ magnetic data located on one the plane $\alpha = 0$,
+ planes $\alpha = 0, 1$ and planes $\alpha = 0, 1, 2$
+ are plotted, respectively, with high, intermediate and low 
+ transparency.
  The values are plotted along the $x$-axis, at the center of each 
  prism forming the interpretation model.
  The black dashed lines in (b) and (c) indicate the $0^{\circ}$ value.}
@@ -1966,7 +2054,7 @@ Weiss, B.~P., E.~A. Lima, L.~E. Fong, and F.~J. Baudenbacher
  \begin{figure}
  \noindent \includegraphics[width=20pc]{Figs/Fig13_HQ.pdf}
  \caption{Manufactured sample. 
- (a) Four prisms forming the sample. The ARM magnetization of these
+ (a) Four prisms forming the sample. The IRM magnetization of these
  prisms are approximately parallel to the vertical planes represented
  in grey.
  (b) Magnetization (thick arrows) of the prisms on the vertical 
@@ -1974,8 +2062,8 @@ Weiss, B.~P., E.~A. Lima, L.~E. Fong, and F.~J. Baudenbacher
  (c) Resultant sample obtained by juxtaposing the magnetized prisms.
  The numbers indicate the index of each prism, whose magnetization
  is represented by the thick arrows. The inclination and declination
- values of the ARM within each prism is shown in Table 
- \ref{tab:ARM-real-sample}.
+ values of the IRM within each prism is shown in Table 
+ \ref{tab:IRM-real-sample}.
  The resulting sample is referred to a MCS (Figure \ref{fig:sample}) 
  with origin represented by the black dot and axes $x$ and $z$ 
  represented by the thin arrows.}
@@ -1990,6 +2078,9 @@ Weiss, B.~P., E.~A. Lima, L.~E. Fong, and F.~J. Baudenbacher
  (b), (e), (h), (k) Predicted data produced by the estimated
  magnetization distribution obtained by inversion on the
  observation planes $\alpha = 0, 1, 2$ and $3$, respectively.
+ The estimated magnetization distribution was obtained by
+ inverting the magnetic data located on the four observation
+ planes.
  (c), (f), (i) and (l) Normalized histograms of the residuals between the
  predicted data shown in (b), (e), (h), (k) and the 
  observed magnetic data shown in (a), (d), (g), (j). 
@@ -2004,12 +2095,22 @@ Weiss, B.~P., E.~A. Lima, L.~E. Fong, and F.~J. Baudenbacher
  \noindent \includegraphics[width=20pc]{Figs/Fig15_LQ.png}
  \caption{Application to real data. Estimated magnetization 
  (a) intensity, (b) inclination and (c) declination.
+ The estimated magnetization distribution obtained by 
+ inverting the magnetic data on the four planes $\alpha = 0, 1, 2, 3$
+ is represented
+ by the black dots and black continuous lines. The three sets of
+ blue dots and dashed lines represent the estimated 
+ magnetization distribution obtained by inverting the 
+ magnetic data located on a single plane ($\alpha = 0$),
+ two planes ($\alpha = 0, 1$) and three planes ($\alpha = 0, 1, 2$)
+ are plotted, respectively, with high, intermediate and low 
+ transparency.
  The values are plotted along the $x$-axis, at the center of each 
  prism forming the interpretation model.
  The continuous (vertical) black lines divide the estimated values 
  representing each prism forming the sample.
  The numbers indicate the index of each prism 
- (Figure \ref{fig:real-sample}c and Table \ref{tab:ARM-real-sample}.
+ (Figure \ref{fig:real-sample}c and Table \ref{tab:IRM-real-sample}.
  The black dashed (horizontal) lines in (b) indicate the values 
  $-90^{\circ}$, $0^{\circ}$, $45^{\circ}$ and $90^{\circ}$.
  The black dashed (horizontal) lines in (c) indicate the values 
@@ -2093,7 +2194,7 @@ sample described in section \ref{sec:Numerical simulations}.}
 \end{table}
 
 \begin{table}
-\caption{Approximated ARM orientation within the prisms forming 
+\caption{Approximated IRM orientation within the prisms forming 
 synthetic sample\tablenotemark{a}}
 \centering
 \begin{tabular}{c c c}
@@ -2106,11 +2207,11 @@ index & $I$ ($^{\circ}$) & $D$ ($^{\circ}$) \\
   3    &  90 & -- \\
 \hline
 \end{tabular}
-\tablenotetext{a}{ARM inclination ($I$) and declination ($D$) 
+\tablenotetext{a}{IRM inclination ($I$) and declination ($D$) 
 of the prisms forming the synthetic sample that was manufactured 
 in laboratory. Each prism is indicated by an index, according to
 the Figure \ref{fig:real-sample}c.}
-\label{tab:ARM-real-sample}
+\label{tab:IRM-real-sample}
 \end{table}
 
 % See below for how to make sideways figures or tables.

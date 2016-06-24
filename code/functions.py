@@ -6,6 +6,63 @@ from fatiando.utils import ang2vec, vec2ang
 from fatiando.vis import mpl, myv
 from fatiando.constants import CM, T2NT
 
+def point2grid(x, y, effective_area, ns, z = None):
+    '''
+    Creates a regular grid of Qx x Qy points
+    over the effective_area centered at each point
+    (x,y).
+    
+    input
+    x: numpy array 1D - x coordinates of the points (in meters).
+    y: numpy array 1D - y coordinates of the points (in meters).
+    effective_area: tuple - x and y dimensions (in microns) of the area.
+    ns: int - number of points along the x- and y-axis.
+    y: numpy array 1D - y coordinates of the points (in meters) - default is None.
+    
+    output
+    
+    xgrid: numpy array 1D - x coordinates of the grid (in meters).
+    ygrid: numpy array 1D - y coordinates of the grid (in meters).
+    zgrid: numpy array 1D - z coordinates of the grid (in meters).
+    '''
+    
+    assert (effective_area[0] > 0) and (effective_area[1] > 0), \
+    'effective area must be positive'
+        
+    assert x.size == y.size, 'x and y must have the same number of elements'
+    
+    if z is not None:
+        assert x.size == z.size, 'x, y and z must have the same number of elements'
+    
+    assert ns%2 != 0, 'ns must be odd'
+        
+    dx = 0.000001*effective_area[0]/ns
+    dy = 0.000001*effective_area[1]/ns
+    
+    ns2 = int(ns//2)
+    Q = int(ns*ns)
+    
+    x_small_grid, y_small_grid = np.meshgrid(dx*np.arange(-ns2, ns2+1), dy*np.arange(-ns2, ns2+1))
+    
+    #print x_small_grid
+    #print y_small_grid
+    
+    xgrid = np.resize(x, Q*x.size).reshape(Q,x.size).T.ravel()
+    ygrid = np.resize(y, Q*y.size).reshape(Q,y.size).T.ravel()
+    
+    if z is not None:
+        zgrid = np.resize(z, Q*z.size).reshape(Q,z.size).T.ravel()
+    
+    for i, xi in enumerate(x):
+        xgrid[i*Q:(i+1)*Q] += x_small_grid.ravel()
+    for i, yi in enumerate(y):
+        ygrid[i*Q:(i+1)*Q] += y_small_grid.ravel()
+        
+    if z is not None:
+        return xgrid, ygrid, zgrid
+    else:
+        return xgrid, ygrid
+
 def magnetic_data(x, y, z, model, alpha, eff_area = None, grains = None):
     '''
     Calculates the magnetic indution on the plane alpha
@@ -40,45 +97,21 @@ def magnetic_data(x, y, z, model, alpha, eff_area = None, grains = None):
     assert (alpha == 0) or (alpha == 1) or (alpha == 2) or (alpha == 3), \
            'alpha must be equal to 0, 1, 2 or 3'
            
-    ns = 7
-    ns2 = ns/2
-    
     if eff_area is not None:
         
-        dx = 0.000001*eff_area[0]/ns
-        dy = 0.000001*eff_area[1]/ns
-            
-        xmin = x - ns2*dx
+        ns = 7
         
-        B = np.zeros_like(x)
+        xg, yg, zg = point2grid(x, y, eff_area, ns, z)
             
         if (alpha == 0) or (alpha == 2):
-            ymin = y - ns2*dy
-            if grains is None:
-                for i in range(ns):
-                    for j in range(ns):
-                        B += prism.bz(xmin + i*dx, ymin + j*dy, z, model)
-            else:
-                for i in range(ns):
-                    for j in range(ns):
-                        B += prism.bz(xmin + i*dx, ymin + j*dy, z, model)
-                        B += sphere.bz(xmin + i*dx, ymin + j*dy, z, grains)
+            B = np.mean(np.reshape(prism.bz(xg, yg, zg, model), (x.size, ns*ns)), axis=1)
+            if grains is not None:
+                B += np.mean(np.reshape(sphere.bz(xg, yg, zg, grains), (x.size, ns*ns)), axis=1)
+
         if (alpha == 1) or (alpha == 3):
-            #zmin = z - ns2*dz
-            zmin = z - ns2*dy
-            if grains is None:
-                for i in range(ns):
-                    for j in range(ns):
-                        #B += prism.by(xmin + i*dx, y, zmin + j*dz, model)
-                        B += prism.by(xmin + i*dx, y, zmin + j*dy, model)
-            else:
-                for i in range(ns):
-                    for j in range(ns):
-                        #B += prism.by(xmin + i*dx, y, zmin + j*dz, model)
-                        B += prism.by(xmin + i*dx, y, zmin + j*dy, model)
-                        #B += sphere.by(xmin + i*dx, y, zmin + j*dz, grains)
-                        B += sphere.by(xmin + i*dx, y, zmin + j*dy, grains)
-        B /= ns*ns
+            B = np.mean(np.reshape(prism.by(xg, yg, zg, model), (x.size, ns*ns)), axis=1)
+            if grains is not None:
+                B += np.mean(np.reshape(sphere.by(xg, yg, zg, grains), (x.size, ns*ns)), axis=1)
         
     else:
         if (alpha == 0) or (alpha == 2):
@@ -92,34 +125,36 @@ def magnetic_data(x, y, z, model, alpha, eff_area = None, grains = None):
 
     return B
 
-def sample(Lx,Ly,Lz,N,m=None,inc=None,dec=None):
+def sample(Lx,Ly,Lz,P,m=None,inc=None,dec=None):
     '''
-    Define o modelo interpretativo formado por prismas retangulares e justapostos ao longo da direcao x.
+    Define the interpretation model as a 1D array of rectangular prisms
+    along the x-axis.
     
     input
     
-    Lx: float - dimensao x (m) de todos os prismas.
+    Lx: float - side length of all prisms along x (m).
     
-    Ly: float - dimensao y (m) de todos os prismas.
+    Ly: float - side length of all prisms along x (m).
     
-    Lz: float - dimensao z (m) de todos os prismas.
+    Lz: float - side length of all prisms along x (m).
     
-    N: int - numero de prismas.
+    P: int - number of prisms
     
-    m: list - intensidade de magnetizacao (A/m) de cada prisma.
-    inc: list - inclinacao da magnetizacao (graus) de cada prisma.
-    dec: list - declinacao da magnetizacao (graus) de cada prisma.
+    m: list - magnetization intensity (A/m) of each prism.
+    inc: list - magnetization inclination (graus) of each prism.
+    dec: list - magnetization declination (graus) of each prism.
     
     output
     
-    model: list de elementos geometricos da classe mesher da biblioteca Fatiando a Terra - modelo interpretativo.
+    model: list of geometrical elements mesher class of the 
+        Fatiando a Terra package - interpretation model.
     '''
     
     sizex = Lx
     sizey = Ly
     sizez = Lz
 
-    L = N*sizex
+    L = P*sizex
     a = -0.5*L
     
     model = []
@@ -129,54 +164,79 @@ def sample(Lx,Ly,Lz,N,m=None,inc=None,dec=None):
         inclinacao = np.array(inc)
         declinacao = np.array(dec)
         mag = []
-        for i in range(N):
+        for i in range(P):
             mag.append(ang2vec(intensity[i],inclinacao[i],declinacao[i]))
     
-        for i in range(N):
-            model.append(mesher.Prism(a+i*sizex, a+(i+1)*sizex, -0.5*sizey, 0.5*sizey, -0.5*sizez, 0.5*sizez, {'magnetization': mag[i]}))
+        for i in range(P):
+            model.append(mesher.Prism(a+i*sizex, a+(i+1)*sizex, \
+                                      -0.5*sizey, 0.5*sizey, \
+                                      -0.5*sizez, 0.5*sizez, \
+                                      {'magnetization': mag[i]}))
     else:
-        for i in range(N):
-            model.append(mesher.Prism(a+i*sizex, a+(i+1)*sizex, -0.5*sizey, 0.5*sizey, -0.5*sizez, 0.5*sizez))
+        for i in range(P):
+            model.append(mesher.Prism(a+i*sizex, a+(i+1)*sizex, \
+                                      -0.5*sizey, 0.5*sizey, \
+                                      -0.5*sizez, 0.5*sizez))
         
     return model
 
 
 
-def sensitivity(N,x,y,z,model,alpha):
+def sensitivity(P,x,y,z,model,alpha, eff_area = None):
     '''
-    Funcao que calcula a matriz de sensibilidade para a inversao
+    Calculates the Jacobian matrix of the inversion
     
     input
     
-    N: int - numero de prismas
+    P: int - number of prisms
     
-    x: list - coordenadas x (in meters)
+    x: list - coordinates x (in meters)
     
-    y: list - coordenadas y (in meters)
+    y: list - coordinates y (in meters)
     
-    z: list - coordenadas z (in meters)
-    model: list - Elementos geometricos da classe mesher
-        da biblioteca Fatiando a Terra - modelo interpretativo.
+    z: list - coordinates z (in meters)
+    model: list - Geometrical elements of the mesher class
+        of the Fatiando a Terra package - interpretation model.
     
-    G: Matriz de sensibilidade com dimensao (n x m) em que n e o numero de observacos e m o numero de parametros 
-    
+    G: matrix with number of rows equal to the number N of data and 
+       number of colunms equal to the number M of parameters.
+        
     '''
-    g = []
-    for i in range(N):
-        if (alpha == 0 or alpha == 2):
-            g.append(prism.kernelxz(x,y,z,model[i]))
-            g.append(prism.kernelyz(x,y,z,model[i]))
-            g.append(prism.kernelzz(x,y,z,model[i]))
-        if (alpha == 1 or alpha == 3):
-            g.append(prism.kernelxy(x,y,z,model[i]))
-            g.append(prism.kernelyy(x,y,z,model[i]))
-            g.append(prism.kernelyz(x,y,z,model[i]))
     
-    G = CM*np.transpose(g)*T2NT
+    G = np.empty((x.size, 3*P))
+    
+    cols = np.reshape(np.arange(3*P), (P, 3))
+    
+    if eff_area is not None:
+    
+        ns = 7
+        Q = ns*ns
+        
+        xg, yg, zg = point2grid(x, y, eff_area, ns, z)
+        
+        for i, col in enumerate(cols):
+            if (alpha == 0 or alpha == 2):
+                G[:,col[0]] = np.mean(np.reshape(prism.kernelxz(xg, yg, zg, model[i]), (x.size, Q)), axis=1)
+                G[:,col[1]] = np.mean(np.reshape(prism.kernelyz(xg, yg, zg, model[i]), (x.size, Q)), axis=1)
+                G[:,col[2]] = np.mean(np.reshape(prism.kernelzz(xg, yg, zg, model[i]), (x.size, Q)), axis=1)
+            if (alpha == 1 or alpha == 3):
+                G[:,col[0]] = np.mean(np.reshape(prism.kernelxy(xg, yg, zg, model[i]), (x.size, Q)), axis=1)
+                G[:,col[1]] = np.mean(np.reshape(prism.kernelyy(xg, yg, zg, model[i]), (x.size, Q)), axis=1)
+                G[:,col[2]] = np.mean(np.reshape(prism.kernelyz(xg, yg, zg, model[i]), (x.size, Q)), axis=1)
+                
+    else:
+        for i, col in enumerate(cols):
+            if (alpha == 0 or alpha == 2):
+                G[:,col[0]] = prism.kernelxz(x, y, z, model[i])
+                G[:,col[1]] = prism.kernelyz(x, y, z, model[i])
+                G[:,col[2]] = prism.kernelzz(x, y, z, model[i])
+            if (alpha == 1 or alpha == 3):
+                G[:,col[0]] = prism.kernelxy(x, y, z, model[i])
+                G[:,col[1]] = prism.kernelyy(x, y, z, model[i])
+                G[:,col[2]] = prism.kernelyz(x, y, z, model[i])
+    
+    G *= CM*T2NT
     return G
-    
-    
-
 
 def parameters_sph(N,coord):
     '''
