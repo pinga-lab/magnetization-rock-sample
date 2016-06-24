@@ -116,8 +116,11 @@ scientific packages installed (numpy, scipy, matplotlib, etc).  The easiest
 [Anaconda Python distribution](http://continuum.io/downloads#all).
 Make sure you get the **Python 2.7** version.
 
-You'll also need to install version X.Y of the
-[Fatiando a Terra](http://www.fatiando.org/) library.
+You'll also need to install the [Fatiando a Terra](http://www.fatiando.org/) library
+from GitHub.
+We used a development version defined by the
+commit hash [09cd37da986114a68c57c6a611271fc6cd22bde4]
+(https://github.com/fatiando/fatiando/tree/09cd37da986114a68c57c6a611271fc6cd22bde4).
 See the install instructions on the website.
 
 #### Running the code
