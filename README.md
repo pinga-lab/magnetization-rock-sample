@@ -52,7 +52,7 @@ consistent with the isothermal remanent magnetization
 induced in the sample.
 
 This paper has been submitted for publication in 
-[*Geochemistry, Geophysics, Geosystems (G<sup>3<\sup>)*]
+[**Geochemistry, Geophysics, Geosystems (G<sup>3</sup>)**]
 (http://agupubs.onlinelibrary.wiley.com/agu/journal/10.1002/(ISSN)1525-2027/).
 
 ![](https://raw.githubusercontent.com/pinga-lab/PAPER-REPO/master/FIGURE_FILE)
@@ -119,5 +119,5 @@ to the authors.  See `LICENSE.md` for the full license text.
 
 The manuscript text is not open source. The authors reserve the rights to the
 article content, which is currently submitted for publication in the
-[*Geochemistry, Geophysics, Geosystems (G<sup>3<\sup>)*]
+[**Geochemistry, Geophysics, Geosystems (G<sup>3</sup>)**]
 (http://agupubs.onlinelibrary.wiley.com/agu/journal/10.1002/(ISSN)1525-2027/)
