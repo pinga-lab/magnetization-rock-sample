@@ -202,7 +202,7 @@ magnetic data produced by a highly-magnetized synthetic sample
 that was manufactured in the laboratory.
 The results show that, even in the presence of apparent position
 noise, our method was able to retrieve the magnetization distribution
-consistent with the isothermal remanance magnetization
+consistent with the isothermal remanent magnetization
 induced in the sample.
 
 \end{abstract}
@@ -1089,8 +1089,8 @@ In all tests presented in this section,
 the simulated magnetic sensor has an square active area  
 $A = (300 \, \mu \text{m})^{2}$, which was discretized into
 a regular grid of $7 \times 7$ points, totalling $Q = 49$
-(Figure \ref{fig:b-mag-flux-approx}). Besides,
-the magnetic data produced by the synthetic sample on 
+(Figure \ref{fig:b-mag-flux-approx}). The
+magnetic data produced by the synthetic sample on 
 each plane $\alpha = 0, 1, 2, 3$ were calculated at
 $N = 4,284$ points, on a set of $42$ regularly spaced lines 
 that are parallel to the $x$-axis, each one with $102$ regularly
@@ -1105,7 +1105,6 @@ $\theta$, $\Delta x^{\prime}$ and $\Delta y^{\prime}$ (Figure
 \ref{fig:acquisition_errors}b) representing these misalignments
 in the magnetic data produced by the synthetic sample on
 the planes $\alpha = 0, 1, 2, 3$.
-All inversions shown in this section were run
 
 \subsubsection{Validation test}
 \label{subsec:Validation test}
@@ -1127,9 +1126,22 @@ To do that, we used an interpretation model which has side lengths
 $L_{x}$, $L_{y}$ and $L_{z}$ equal to the true ones and is
 formed by the same number of prisms ($P = 16$) as the synthetic sample.
 
-Figure \ref{fig:estimate-validation} shows that the estimate
-obtained with our method (blue dots) successfully retrieved the 
-magnetization distribution of the simulated sample (red dots).
+Figure \ref{fig:estimate-validation} shows the four estimated 
+magnetization distributions obtained by our method.
+The one obtained by inverting the magnetic data on the 
+four planes $\alpha = 0, 1, 2, 3$ is represented by the 
+black dots and dashed lines. 
+The three sets of blue dots and 
+dashed lines represent the estimated magnetization distribution 
+obtained by inverting the data located on the plane 
+$\alpha = 0$, planes $\alpha = 0, 1$ and planes $\alpha = 0, 1, 2$,
+which are plotted, respectively, with high, intermediate and low 
+transparency.
+We can see that the estimated magnetization distribution 
+obtained by inverting the full data set (black dots and black 
+dashed lines in Figure \ref{fig:estimate-validation}) is the best one
+in retrieving the true magnetization distribution
+(red dots and red lines in Figure \ref{fig:estimate-validation}).
 This estimated magnetization distribution yields a predicted data
 (Figures \ref{fig:datafit-validation}b, e, h and k) that is very
 close to the observed data (Figures \ref{fig:datafit-validation}a, 
@@ -1140,7 +1152,9 @@ sample means $\mu$ and sample standard deviations $\sigma$
 very close to that ones of the pseudo-random noise 
 contaminating the simulated magnetic data.
 
-These results show the good performance obtained by our method
+These results show the advantage of inverting the full data set 
+(data on the four planes) and
+also the good performance obtained by our method
 if all the premisses about the magnetic data and the sample 
 are not violated.
 
@@ -1165,11 +1179,14 @@ an interpretation model with side lengths $L_{x}$, $L_{y}$
 and $L_{z}$ equal to the true ones and with the same number 
 of prisms ($P = 16$) as the synthetic sample along the $x$-axis.
 
-Figure \ref{fig:estimate-pre-processing} shows that,
-differently from the previous test, 
-the estimate obtained with our method (blue dots) failed in
+Figure \ref{fig:estimate-pre-processing} confirms the
+the superiority of the estimated magnetization distribution 
+obtained by inverting the full data set (black dots and 
+black dashed lines) over the other three (blue dots and blue dashed lines).
+We can see, however, that even the estimated obtained with
+the full data set failed in
 retrieving the magnetization distribution of the simulated sample
-(red dots).
+(red dots). 
 This poorly-estimated magnetization distribution yields 
 predicted data (Figures \ref{fig:datafit-pre-processing}b, e, h and k) 
 that do not
@@ -1355,7 +1372,7 @@ Finally, the prisms were juxtaposed (Figure \ref{fig:real-sample}c),
 resulting in a sample with side lengths equal to
 $L_{x} \approx 16$~mm, $L_{y} \approx 3$~mm and 
 $L_{z} \approx 3$~mm. The inclination and declination values 
-of the ARM magnetization within each prism
+of the IRM magnetization within each prism
 are shown in Table \ref{tab:IRM-real-sample}.
 
 \subsection{Data acquisition}
@@ -1505,7 +1522,7 @@ are not important.
 These results show that, even inverting a magnetic data set that
 were measured by a prototype magnetometer and were, at least apparently,
 highly contaminated with position noise, our method estimated a 
-magnetization distribution that is consistent with the ARM orientation
+magnetization distribution that is consistent with the IRM orientation
 within our manufactured sample.
 
 \section{Conclusion}
@@ -1803,8 +1820,11 @@ de Desenvolvimento Cient\'{i}fico e Tecnol\'{o}gico (CNPq).
  magnetic data produced by the synthetic sample (not shown) on the
  observation planes $\alpha = 0, 1, 2$ and $3$, respectively.
  (b), (e), (h), (k) Predicted data produced by the estimated
- magnetization distribution obtained by inversion on the
+ magnetization distribution on the
  observation planes $\alpha = 0, 1, 2$ and $3$, respectively.
+ The estimated magnetization distribution was obtained by
+ inverting the magnetic data located on the four observation
+ planes.
  (c), (f), (i) and (l) Normalized histograms of the residuals between the
  predicted data shown in (b), (e), (h), (k) and the 
  noise-corrupted magnetic data shown in (a), (d), (g), (j). 
@@ -1818,8 +1838,18 @@ de Desenvolvimento Cient\'{i}fico e Tecnol\'{o}gico (CNPq).
  \begin{figure}
  \noindent \includegraphics[width=20pc]{Figs/Fig6_LQ.png}
  \caption{Validation test. Comparison between the true (red dots)
- and estimated (blue dots) magnetization (a) intensity, (b) inclination 
- and (c) declination.
+ and estimated (blue and black dots) magnetization 
+ (a) intensity, (b) inclination  and (c) declination.
+ The estimated magnetization distribution obtained by 
+ inverting the magnetic data on the four planes $\alpha = 0, 1, 2, 3$
+ is represented
+ by the black dots and black dashed lines. The three sets of
+ blue dots and dashed lines represent the estimated 
+ magnetization distribution obtained by inverting the 
+ magnetic data located on one the plane $\alpha = 0$,
+ planes $\alpha = 0, 1$ and planes $\alpha = 0, 1, 2$
+ are plotted, respectively, with high, intermediate and low 
+ transparency.
  The values are plotted along the $x$-axis, at the center of each 
  prism forming the interpretation model.
  The black dashed lines in (b) and (c) indicate the $0^{\circ}$ value.}
@@ -1834,6 +1864,9 @@ de Desenvolvimento Cient\'{i}fico e Tecnol\'{o}gico (CNPq).
  (b), (e), (h), (k) Predicted data produced by the estimated
  magnetization distribution obtained by inversion on the
  observation planes $\alpha = 0, 1, 2$ and $3$, respectively.
+ The estimated magnetization distribution was obtained by
+ inverting the magnetic data located on the four observation
+ planes.
  (c), (f), (i) and (l) Normalized histograms of the residuals between the
  predicted data shown in (b), (e), (h), (k) and the 
  noise-corrupted magnetic data shown in (a), (d), (g), (j). 
@@ -1847,8 +1880,18 @@ de Desenvolvimento Cient\'{i}fico e Tecnol\'{o}gico (CNPq).
  \begin{figure}
  \noindent \includegraphics[width=20pc]{Figs/Fig8_LQ.png}
  \caption{Pre-processing errors test. Comparison between the true (red dots)
- and estimated (blue dots) magnetization (a) intensity, (b) inclination 
- and (c) declination.
+ and estimated (blue and black dots) magnetization 
+ (a) intensity, (b) inclination and (c) declination.
+ The estimated magnetization distribution obtained by 
+ inverting the magnetic data on the four planes $\alpha = 0, 1, 2, 3$
+ is represented
+ by the black dots and black dashed lines. The three sets of
+ blue dots and dashed lines represent the estimated 
+ magnetization distribution obtained by inverting the 
+ magnetic data located on one the plane $\alpha = 0$,
+ planes $\alpha = 0, 1$ and planes $\alpha = 0, 1, 2$
+ are plotted, respectively, with high, intermediate and low 
+ transparency.
  The values are plotted along the $x$-axis, at the center of each 
  prism forming the interpretation model.
  The black dashed lines in (b) and (c) indicate the $0^{\circ}$ value.}
@@ -1863,6 +1906,9 @@ de Desenvolvimento Cient\'{i}fico e Tecnol\'{o}gico (CNPq).
  (b), (e), (h), (k) Predicted data produced by the estimated
  magnetization distribution obtained by inversion on the
  observation planes $\alpha = 0, 1, 2$ and $3$, respectively.
+ The estimated magnetization distribution was obtained by
+ inverting the magnetic data located on the four observation
+ planes.
  (c), (f), (i) and (l) Normalized histograms of the residuals between the
  predicted data shown in (b), (e), (h), (k) and the 
  noise-corrupted magnetic data shown in (a), (d), (g), (j). 
@@ -1876,8 +1922,18 @@ de Desenvolvimento Cient\'{i}fico e Tecnol\'{o}gico (CNPq).
  \begin{figure}
  \noindent \includegraphics[width=20pc]{Figs/Fig10_LQ.png}
  \caption{Sensor-to-sample distance test. Comparison between the true (red dots)
- and estimated (blue dots) magnetization (a) intensity, (b) inclination 
- and (c) declination.
+ and estimated (blue and black dots) magnetization 
+ (a) intensity, (b) inclination and (c) declination.
+ The estimated magnetization distribution obtained by 
+ inverting the magnetic data on the four planes $\alpha = 0, 1, 2, 3$
+ is represented
+ by the black dots and black dashed lines. The three sets of
+ blue dots and dashed lines represent the estimated 
+ magnetization distribution obtained by inverting the 
+ magnetic data located on one the plane $\alpha = 0$, 
+ planes $\alpha = 0, 1$ and planes 
+ $\alpha = 0, 1, 2$ are plotted, respectively, with 
+ high, intermediate and low transparency.
  The values are plotted along the $x$-axis, at the center of each 
  prism forming the interpretation model.
  The black dashed lines in (b) and (c) indicate the $0^{\circ}$ value.}
@@ -1892,6 +1948,9 @@ de Desenvolvimento Cient\'{i}fico e Tecnol\'{o}gico (CNPq).
  (b), (e), (h), (k) Predicted data produced by the estimated
  magnetization distribution obtained by inversion on the
  observation planes $\alpha = 0, 1, 2$ and $3$, respectively.
+ The estimated magnetization distribution was obtained by
+ inverting the magnetic data located on the four observation
+ planes.
  The color scales are slightly saturated for improving the visualization.
  (c), (f), (i) and (l) Normalized histograms of the residuals between the
  predicted data shown in (b), (e), (h), (k) and the 
@@ -1905,9 +1964,20 @@ de Desenvolvimento Cient\'{i}fico e Tecnol\'{o}gico (CNPq).
  
  \begin{figure}
  \noindent \includegraphics[width=20pc]{Figs/Fig12_LQ.png}
- \caption{Marine ferro-manganese crust sample. Comparison between the true (red dots)
- and estimated (blue dots) magnetization (a) intensity, (b) inclination 
- and (c) declination.
+ \caption{Marine ferro-manganese crust sample. 
+ Comparison between the true (red dots)
+ and estimated (blue and black dots) magnetization 
+ (a) intensity, (b) inclination and (c) declination.
+ The estimated magnetization distribution obtained by 
+ inverting the magnetic data on the four planes $\alpha = 0, 1, 2, 3$
+ is represented
+ by the black dots and black dashed lines. The three sets of
+ blue dots and dashed lines represent the estimated 
+ magnetization distribution obtained by inverting the 
+ magnetic data located on one the plane $\alpha = 0$,
+ planes $\alpha = 0, 1$ and planes $\alpha = 0, 1, 2$
+ are plotted, respectively, with high, intermediate and low 
+ transparency.
  The values are plotted along the $x$-axis, at the center of each 
  prism forming the interpretation model.
  The black dashed lines in (b) and (c) indicate the $0^{\circ}$ value.}
@@ -1917,7 +1987,7 @@ de Desenvolvimento Cient\'{i}fico e Tecnol\'{o}gico (CNPq).
  \begin{figure}
  \noindent \includegraphics[width=20pc]{Figs/Fig13_HQ.pdf}
  \caption{Manufactured sample. 
- (a) Four prisms forming the sample. The ARM magnetization of these
+ (a) Four prisms forming the sample. The IRM magnetization of these
  prisms are approximately parallel to the vertical planes represented
  in grey.
  (b) Magnetization (thick arrows) of the prisms on the vertical 
@@ -1925,7 +1995,7 @@ de Desenvolvimento Cient\'{i}fico e Tecnol\'{o}gico (CNPq).
  (c) Resultant sample obtained by juxtaposing the magnetized prisms.
  The numbers indicate the index of each prism, whose magnetization
  is represented by the thick arrows. The inclination and declination
- values of the ARM within each prism is shown in Table 
+ values of the IRM within each prism is shown in Table 
  \ref{tab:IRM-real-sample}.
  The resulting sample is referred to a MCS (Figure \ref{fig:sample}) 
  with origin represented by the black dot and axes $x$ and $z$ 
@@ -1941,6 +2011,9 @@ de Desenvolvimento Cient\'{i}fico e Tecnol\'{o}gico (CNPq).
  (b), (e), (h), (k) Predicted data produced by the estimated
  magnetization distribution obtained by inversion on the
  observation planes $\alpha = 0, 1, 2$ and $3$, respectively.
+ The estimated magnetization distribution was obtained by
+ inverting the magnetic data located on the four observation
+ planes.
  (c), (f), (i) and (l) Normalized histograms of the residuals between the
  predicted data shown in (b), (e), (h), (k) and the 
  observed magnetic data shown in (a), (d), (g), (j). 
@@ -1955,6 +2028,16 @@ de Desenvolvimento Cient\'{i}fico e Tecnol\'{o}gico (CNPq).
  \noindent \includegraphics[width=20pc]{Figs/Fig15_LQ.png}
  \caption{Application to real data. Estimated magnetization 
  (a) intensity, (b) inclination and (c) declination.
+ The estimated magnetization distribution obtained by 
+ inverting the magnetic data on the four planes $\alpha = 0, 1, 2, 3$
+ is represented
+ by the black dots and black continuous lines. The three sets of
+ blue dots and dashed lines represent the estimated 
+ magnetization distribution obtained by inverting the 
+ magnetic data located on one the plane $\alpha = 0$,
+ planes $\alpha = 0, 1$ and planes $\alpha = 0, 1, 2$ are
+ plotted, respectively, with high, intermediate and low
+ transparency.
  The values are plotted along the $x$-axis, at the center of each 
  prism forming the interpretation model.
  The continuous (vertical) black lines divide the estimated values 
@@ -2044,7 +2127,7 @@ sample described in section \ref{sec:Numerical simulations}.}
 \end{table}
 
 \begin{table}
-\caption{Approximated ARM orientation within the prisms forming 
+\caption{Approximated IRM orientation within the prisms forming 
 synthetic sample\tablenotemark{a}}
 \centering
 \begin{tabular}{c c c}
@@ -2057,7 +2140,7 @@ index & $I$ ($^{\circ}$) & $D$ ($^{\circ}$) \\
   3    &  90 & -- \\
 \hline
 \end{tabular}
-\tablenotetext{a}{ARM inclination ($I$) and declination ($D$) 
+\tablenotetext{a}{IRM inclination ($I$) and declination ($D$) 
 of the prisms forming the synthetic sample that was manufactured 
 in laboratory. Each prism is indicated by an index, according to
 the Figure \ref{fig:real-sample}c.}
