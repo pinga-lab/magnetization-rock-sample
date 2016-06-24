@@ -1,14 +1,20 @@
-# Source code for producing the results and figures
+# Source code for reproducing the results and figures
 
-Describe your code briefly here.
+The notebooks presented below can be run for generating all the 
+results presented in our manuscript. They use the auxiliary functions
+defined in `function.py`.
 
-List the notebooks here with links to each on nbviewer:
+* [`validation.ipynb`](http://nbviewer.jupyter.org/github/pinga-lab/paper-template/blob/master/code/validation.ipynb): 
+  generates all the results presented in the subsubsection **3.1.1 Validation test**.
 
-* [example.ipynb](http://nbviewer.jupyter.org/github/pinga-lab/paper-template/blob/master/code/example.ipynb):
-  What this notebook does.
-
-The `Makefile` has a rule to convert all notebooks to PDF.
-To convert, run the following in this directory:
-
-    make
-
+* [`pre_processing.ipynb`](http://nbviewer.jupyter.org/github/pinga-lab/paper-template/blob/master/code/pre_processing.ipynb): 
+  generates all the results presented in the subsubsection **3.1.2 Pre-processing errors**.
+  
+* [`sensor_to_sample.ipynb`](http://nbviewer.jupyter.org/github/pinga-lab/paper-template/blob/master/code/sensor_to_sample.ipynb): 
+  generates all the results presented in the subsubsection **3.1.3 Sensor-to-sample distance**.
+  
+* [`ferromanganese_crust_simulation.ipynb`](http://nbviewer.jupyter.org/github/pinga-lab/paper-template/blob/master/code/ferromanganese_crust_simulation.ipynb): 
+  generates all the results presented in the subsubsection **3.2 Marine ferro-manganese crust sample**.
+  
+* [`application_real_data_PUC.ipynb`](http://nbviewer.jupyter.org/github/pinga-lab/paper-template/blob/master/code/application_real_data_PUC.ipynb): 
+  generates all the results presented in the subsubsection **4 Tentative application to real data produced by a synthetic sample**.

@@ -10,6 +10,10 @@ A. C. Bruno<sup>3</sup> and Pereira, J. M. B.<sup>3</sup>
 *<sup>3</sup>Department of Physics, Pontifical Catholic University of Rio de Janeiro, Rio
 de Janeiro, RJ, Brazil.*
 
+> This paper has been submitted for publication in 
+> [**Geochemistry, Geophysics, Geosystems (G<sup>3</sup>)**]
+> (http://agupubs.onlinelibrary.wiley.com/agu/journal/10.1002/(ISSN)1525-2027/).
+
 ####Abstract
 
 Over the last decades, scanning magnetic microscopy techniques have 
@@ -51,7 +55,7 @@ noise, our method was able to retrieve the magnetization distribution
 consistent with the isothermal remanent magnetization
 induced in the sample.
 
-![Test with a simulated marine ferro-manganese crust sample - misfit](https://raw.githubusercontent.com/pinga-lab/magnetization-rock-sample/master/manuscript/Figs/Fig11_LQ.png)
+![Test with a simulated marine ferro-manganese crust sample - misfit](manuscript/Figs/Fig11_LQ.png)
 
 *(a), (d), (g) and (j) Noise-corrupted
 magnetic data produced by a synthetic 
