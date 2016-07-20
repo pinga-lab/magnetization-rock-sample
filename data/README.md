@@ -20,7 +20,7 @@ the laboratory, the experimental measurements were made inside a small 3 layer o
 plane α = 0, 1, 2, 3, the magnetic data were measured at a constant distance h ≈ 500 μm, on a regular grid of 102 × 42
 points along the x and y/z axes.
 
-![Picture of the GaAs Hall-effect sensor HG-176A, AKM Inc](data/fig/HG-176A foto.jpg)
+![Picture of the GaAs Hall-effect sensor HG-176A, AKM Inc](data/fig/HG_176A.jpg)
 
 *This picture shows the GaAs Hall-effect sensor used to measure all the data used in this paper with the magnetic microscope at PUC-Rio. The sensor has an effective area size of 300 μm, which is 250 μm distant from the top of the encapsulation. 
 
