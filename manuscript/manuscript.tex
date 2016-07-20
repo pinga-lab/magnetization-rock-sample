@@ -47,9 +47,9 @@
 % (If you are submitting to a journal other than jgrga,
 % substitute the initials of the journal for "jgrga" below.)
 
-\documentclass[draft,gc]{agutex}
+%\documentclass[draft,gc]{agutex}
 %\documentclass[galley,gc]{agutex}
-%\documentclass[twocolumn,gc]{agutex}
+\documentclass[twocolumn,gc]{agutex}
 
 
 % To create numbered lines:
@@ -66,8 +66,8 @@
 % To activate the commands, uncomment \usepackage{lineno}
 % and \linenumbers*[1]command, below:
 
-\usepackage{lineno}
-\linenumbers*[1]
+%\usepackage{lineno}
+%\linenumbers*[1]
 %  To add line numbers to lines with equations:
 %  \begin{linenomath*}
 %  \begin{equation}
@@ -866,7 +866,7 @@ element $ij$, $i = 1, ..., N$, $j = 1, ..., QN$, is given by
 \left[\mathbf{A}\right]_{ij} = 
 \begin{cases}
 \begin{split}
-1/Q &\:, \quad (i - 1)Q \le j \le iQ \\
+1/Q &\:, \quad (i - 1)Q < j \le iQ \\
 0 &\:, \quad \text{otherwise}
 \end{split}
 \end{cases}
