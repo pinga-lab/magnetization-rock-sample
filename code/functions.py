@@ -7,11 +7,10 @@ See the file `LICENSE.md`
 '''
 
 import numpy as np
-from IPython.display import Image
-from fatiando import mesher, gridder, utils
+from fatiando import mesher, gridder
 from fatiando.gravmag import prism, sphere, polyprism
 from fatiando.utils import ang2vec, vec2ang
-from fatiando.vis import mpl, myv
+from fatiando.vis import mpl
 from fatiando.constants import CM, T2NT
 
 def point2grid(x, y, effective_area, ns, z = None):
@@ -248,19 +247,19 @@ def sensitivity(P,x,y,z,model,alpha, eff_area = None):
 
 def parameters_sph(N,coord):
     '''
-    Funcao que transforma os parametros estimados em coordenadas Cartesianas 
-    para intensidade, declinacao e inclinacao
+    Makes the transformation from Cartesian Coordinates to Intensity, Declination
+    and Inclination
     
     input
     
-    N: int - numero de prismas
+    N: int - number of prisms
     
-    coord: list - lista com os parametros estimados em coordenadas cartesianas
+    coord: list - list of Cartesian Coordinates of the parameters
     
     return
     
-    mag_sph: array - Matriz do tipo (N x 3) com cada linha contendo os valores 
-        de intensidade, declinacao e inclinacao.
+    mag_sph: array - Matrix with shape (N x 3) containing each row with the values of 
+    intensity, declination and inclination.
     '''
     
     mag_cart = []
@@ -284,19 +283,19 @@ def parameters_sph(N,coord):
 def proj_polar(N,mag,color='k',simbolo='o',size=10):
     
     '''
-    Funcao que gera uma figura com a projecao polar de vetores
+    Generates a figure of a polar projection of estimates
     
     input
     
-    N: int - numero de prismas
+    N: int - number of prisms
     
-    mag: array - Matriz do tipo (N x 3) com os valores de intensidade, declinacao e inclinacao
+    mag: array - Matrix with shape (N x 3) containing intensity, declination and inclination
     
-    proj: array - lista com valores das projecoes horizontais
+    proj: array - list of projection values
     
     return
     
-    Figura com as projecoes polares para os vetores
+    Figure with polar projections of the estimates
     
     '''
        
@@ -314,32 +313,31 @@ def proj_polar(N,mag,color='k',simbolo='o',size=10):
 
 def dipolesrand(N, seed,n,deg_dec,deg_inc,std,mag,raio,Lx,Ly,Lz):
     '''
-    Funcao que gera um conjunto de esferas 
-    distribuidas aleatoriamente dentro da amostra.
+    Generates a set of spheres randomly distribuited within the model
     
     input
     
-    N: int - numero de prismas
+    N: int - number of prisms
         
-    s: int - valor da semente para a geracao de uma sequencia de numeros aleatorios
+    s: int - seed value
     
-    n: int - numero de esferas magnetizadas
+    n: int - number of magnetized spheres
     
-    deg_dec: float - valor da declinacao (graus) media do conjunto de esferas
+    deg_dec: float - mean value of the declination (degrees)
     
-    deg_inc: float - valor da inclinacao (graus) media do conjunto de esferas
+    deg_inc: float - mean value of inclination (degrees)
     
-    std: float - desvio padrao (graus) da declinacao e inclinacao do conjunto de esferas
+    std: float - standard deviation of the declination and inclination (degrees)
     
-    mag: float - intensidade de magnetizacao (A/m) em cada esfera
+    mag: float - magnetization intensity of each sphere (A/m)
     
-    raio: float - raio (m) de cada esfera 
+    raio: float - radius of each sphere (m)  
     
-    Lx,Ly,Lz: int - dimensoes do prisma (m)
+    Lx,Ly,Lz: int - prisms dimensions (m)
     
     return
     
-    modelrand: list de elementos geometricos da classe mesher da biblioteca Fatiando a Terra.
+    modelrand: list of geometrical objects using the library Fatiando a Terra.
     '''
     np.random.seed(seed=seed)
     sizex = Lx
@@ -363,100 +361,84 @@ def dipolesrand(N, seed,n,deg_dec,deg_inc,std,mag,raio,Lx,Ly,Lz):
 
     return modelrand,Coordx,Coordy,Coordz
 
-def L1_norm(A,d,n,std):
-    At = A.T
-    AtA = np.dot(At,A)
-    Atd = np.dot(At,d)
-    m0 = np.linalg.solve(AtA,Atd)
-    for k in range(n):
-        r = d - np.dot(A,m0)
-        R = np.diag(1/np.abs(r))
-        AtR = np.dot(At,R)
-        AtRA= np.dot(AtR,A)
-        AtRd = np.dot(AtR,d)
-        m = np.linalg.solve(AtRA,AtRd)
-        a = np.linalg.norm(m - m0)
-        b = 1+np.linalg.norm(m)
-        c = a/b
-        tau = 2*std
-        if c < tau:
-            break
-        else:
-            m0=m
-            continue
-    return m
-
-def L2_norm(G,d):
-    Gt = G.T
-    GtG = np.dot(Gt,G)
-    Gtd = np.dot(Gt,d)
-    m = np.linalg.solve(GtG,Gtd)
-    return m
-
-
 def residual(do,dp):
+    '''
+    Calculates the residuals
+    
+    input
+    
+    do : numpy array - vector containing the observables
+    
+    dp : numpy array - vector containing the predicted data
+
+    output
+
+    r_norm : numpy array - residual normalized
+    
+    r_mean : float - mean of the residuals
+
+    r_std : float - standard deviation of the residuals
+    '''
     r = do - dp
     r_mean = np.mean(r)
     r_std = np.std(r)
     r_norm = (r - r_mean)/r_std
     return r_norm, r_mean, r_std
 
-def coordplane(h,L,Nx,Ny,area,alpha,theta):
-    '''
-    Funcao que calcula as coordenadas das medidas em um plano 
-    a uma distancia h acima da amostra, sobre um grid regular
-    de Nx x Ny pontos.
-    
-    input
-    
-    h: int - distancia (10**-6 m) da amostra ao sensor
-    
-    L: float - dimensao em (mm) da aresta do prisma paralela ao plano
-    
-    Nx: int - numero de observacoes ao longo do eixo x 
-    
-    Ny: int - numero de observacoes ao longo do eixo y
-    
-    area: list - lista com os valores da area que sera feita a medicao
-    
-    alpha: int - numero sobre qual o plano vao ser feitas as medidas
-    
-    theta: int - numero (em graus) com o valor de quanto o plano correspondente foi rotacionado 
-    
-    return
-    
-    x,y,z: list com as coordenadas de observacao acima
-    da amostra
-    
-    '''
-    shape = (Nx, Ny)
-    areaxy = area
-    dist = h*0.000001
-    size = L
-    voo = dist + 0.5*size
-    ang = np.deg2rad(theta)
-    cos = np.cos(ang)
-    sin = np.sin(ang)
-    
-    if (alpha == 0):
-        x, y, z = gridder.regular(areaxy, shape, -voo)
-    if (alpha == 1):
-        x, z, y = gridder.regular(areaxy, shape, voo)
-    if (alpha == 2):
-        x, y, z = gridder.regular(areaxy, shape, voo)
-    if (alpha == 3):
-        x, z, y = gridder.regular(areaxy, shape, -voo)
-    
-    x_rot = []
-    y_rot = []
-    z_rot = []
-    if (alpha==0 or alpha ==2):
-        x_rot.append(cos*x - sin*y)
-        y_rot.append(sin*x + cos*y)
-        z_rot.append(z)
-    if (alpha == 1 or alpha == 3):
-        x_rot.append(cos*x - sin*z)
-        z_rot.append(sin*x + cos*z)
-        y_rot.append(y)
-    
-    return x_rot[0], y_rot[0], z_rot[0]
+#def coordplane(h,L,Nx,Ny,area,alpha,theta):
+#    '''
+#    Generates the Coodinates of observation
+#    
+#    input
+#    
+#    h: int - distance (10**-6 m) sensor-to-sample
+#    
+#    L: float - dimensao em (mm) da aresta do prisma paralela ao plano
+#    
+#    Nx: int - numero de observacoes ao longo do eixo x 
+#    
+#    Ny: int - numero de observacoes ao longo do eixo y
+#    
+#    area: list - lista com os valores da area que sera feita a medicao
+#    
+#    alpha: int - numero sobre qual o plano vao ser feitas as medidas
+#    
+#    theta: int - numero (em graus) com o valor de quanto o plano correspondente foi rotacionado 
+#    
+#    return
+#    
+#    x,y,z: list com as coordenadas de observacao acima
+#    da amostra
+#    
+#    '''
+#   shape = (Nx, Ny)
+#    areaxy = area
+#    dist = h*0.000001
+#    size = L
+#    voo = dist + 0.5*size
+#    ang = np.deg2rad(theta)
+#    cos = np.cos(ang)
+#    sin = np.sin(ang)
+#    
+#    if (alpha == 0):
+#        x, y, z = gridder.regular(areaxy, shape, -voo)
+#    if (alpha == 1):
+#        x, z, y = gridder.regular(areaxy, shape, voo)
+#    if (alpha == 2):
+#        x, y, z = gridder.regular(areaxy, shape, voo)
+#    if (alpha == 3):
+#        x, z, y = gridder.regular(areaxy, shape, -voo)
+#    
+#    x_rot = []
+#    y_rot = []
+#    z_rot = []
+#    if (alpha==0 or alpha ==2):
+#        x_rot.append(cos*x - sin*y)
+#        y_rot.append(sin*x + cos*y)
+#        z_rot.append(z)
+#    if (alpha == 1 or alpha == 3):
+#        x_rot.append(cos*x - sin*z)
+#        z_rot.append(sin*x + cos*z)
+#        y_rot.append(y)
+#    
+#    return x_rot[0], y_rot[0], z_rot[0]
