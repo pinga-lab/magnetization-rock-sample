@@ -27,5 +27,12 @@ points along the x and y/z axes.
 List all data files and their descriptions (include citations and links to
 where you downloaded them from).
 
+The data used in inversion, after correcting some misalignments cited in the paper:
 
-* `example-data.txt`: This is data file in such and such format bla bla bla...
+* `data0.txt`: This is data file in text format of the plane α = 0.
+
+* `data1.txt`: This is data file in text format of the plane α = 1.
+
+* `data2.txt`: This is data file in text format of the plane α = 2.
+
+* `data3.txt`: This is data file in text format of the plane α = 3.
