@@ -24,9 +24,6 @@ points along the x and y/z axes.
 
 *This picture shows the GaAs Hall-effect sensor used to measure all the data used in this paper with the magnetic microscope at PUC-Rio. The sensor has an effective area size of 300 μm, which is 250 μm distant from the top of the encapsulation.*
 
-List all data files and their descriptions (include citations and links to
-where you downloaded them from).
-
 The data used in inversion, after correcting some misalignments cited in the paper:
 
 * `data0.txt`: This is data file in text format of the plane α = 0.
