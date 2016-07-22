@@ -47,9 +47,9 @@
 % (If you are submitting to a journal other than jgrga,
 % substitute the initials of the journal for "jgrga" below.)
 
-%\documentclass[draft,gc]{agutex}
+\documentclass[draft,gc]{agutex}
 %\documentclass[galley,gc]{agutex}
-\documentclass[twocolumn,gc]{agutex}
+%\documentclass[twocolumn,gc]{agutex}
 
 
 % To create numbered lines:
@@ -66,8 +66,8 @@
 % To activate the commands, uncomment \usepackage{lineno}
 % and \linenumbers*[1]command, below:
 
-%\usepackage{lineno}
-%\linenumbers*[1]
+\usepackage{lineno}
+\linenumbers*[1]
 %  To add line numbers to lines with equations:
 %  \begin{linenomath*}
 %  \begin{equation}
@@ -588,11 +588,9 @@ tunnel junction (MTJ) sensor presented by \citet{lima2014}, for example.
 These two sensors are considered planar and have active areas
 of, respectively, $9$~$\mu$m~$\times$~$36$~$\mu$m and 
 $\approx 4$~$\mu$m~$\times$~$2$~$\mu$m.
-Finally, \citet{fong2005} presented a low-transition-temperature 
-superconducting quantum interference device (low T$_{c}$ SQUID) sensor
-which is also considered planar and has an active area with
-diameter of $80$~$\mu$m.
-This is currently one of the most powerful magnetic sensors.
+Finally, \citet{fong2005} used a bare SQUID design with an 
+active diameter of $120$~$\mu$m. In this case, the sensor 
+is also considered planar.
 
 In the following, we present an analysis of the averaging effect produced
 by the finite size of sensors. 
@@ -1319,7 +1317,7 @@ deviations $\sigma$ present some discrepancies with respect to
 that one of the pseudo-random noise in magnetic data.
 According to these histograms, the poorest data fit occurs in the 
 observation plane $\alpha = 3$ (Figure \ref{fig:datafit-sensor2sample}l),
-where the sample standard deviation $\sigma \approx 60$~$\mu$T.
+where the sample standard deviation $\sigma \approx 47$~$\mu$T.
 
 These results illustrate the effects of errors in the sensor-to-sample
 distance and also illustrate the advantage of inverting the full data set 
@@ -1331,23 +1329,36 @@ the sensor-to-sample distance than against misalignment errors.
 \subsection{Marine ferro-manganese crust sample}
 \label{subsec:Marine ferro-manganese crust sample}
 
-The method proposed by \citet{oda2011} 
-uses SQUID microscopy to identify the boundaries of fine magnetic stripes 
-(smaller than $1$~mm) with approximately reversed magnetization. These magnetic stripes are 
-then correlated with a standard magneto-stratigraphic time scale, providing a tool for 
-estimating ages and growth rates for hydro-genetic ferro-manganese crusts with unprecedented 
+
+\citet{oda2011} proposed a new method for determining absolute 
+ages and growth rates for ferro-manganese crusts.
+They applied their method to analyse a ferro-manganese crust sample 
+obtained from a seamount in the Northwest Pacific Ocean and
+showed that magnetostratigraphy using state of the art SQUID
+microscopy is a promising chronological tool.
+The method proposed by \citet{oda2011} uses SQUID microscopy 
+on thin sections to identify the boundaries of fine magnetic stripes 
+(smaller than $1$~mm) with approximately reversed magnetization. 
+These magnetic stripes are then correlated with a standard 
+magneto-stratigraphic time scale, providing a tool for 
+estimating ages and growth rates for hydro-genetic 
+ferro-manganese crusts with unprecedented 
 spatial resolution.
-\citet{oda2011} applied their method to analyse a block of ferro-manganese crust obtained 
-from a seamount in the Northwest Pacific Ocean. They have cut and sliced a columnar block 
-parallel to the growth lamination at $1.5$~mm intervals using a $0.3$-mm-thick diamond-wire 
-saw. After that, the magnetization of the slices have been estimated by using a 
-SQUID magnetometer.
-Note that, to determine the magnetization along the sample, it was necessary to slice 
-it in small parts. It would be useful instead to determine the bulk magnetization along 
+
+\citet{oda2011} also used SQUID magnetometer measurements
+to analyse a columnar block of their ferro-manganese crust sample.
+They have cut and sliced the columnar block parallel to the growth 
+lamination at $1.5$~mm intervals using a $0.3$-mm-thick diamond-wire 
+saw. After that, they estimated the magnetization of the slices by 
+using a SQUID magnetometer.
+Note that, to determine the magnetization along the sample, 
+it was necessary to slice it in small parts. It would be useful instead 
+to determine the bulk magnetization along 
 the sample by using a non-destructive method.
 Here, we present a feasibility study aiming at  
-determining the magnetization distribution along a simulated sample
-by applying our method and directly inverting the high-resolution measurements of 
+determining the magnetization distribution along a simulated sample.
+This feasibility study consists in applying our method and 
+directly inverting simulated high-resolution measurements of 
 the magnetic induction around the sample. 
 
 The internal magnetization distribution of our simulated sample
@@ -1562,6 +1573,12 @@ magnetite precipitation during the manufacturing of our sample.
 This precipitation would decrease the magnetite concentration at the
 top of each sample prism, increasing the concentration towards
 their bottom.
+Figures \ref{fig:real-sample}b and c represent the magnetite 
+precipitation as a gradient fill. The resultant
+high-concentration zones at the bottom of the prisms forming the 
+sample are represented in dark grey while the resultant
+low-concentration zones at the top of the prisms are represented
+in white. 
 The magnetic induction produced by these low-concentration zones
 there must be superimposed by those ones produced by the 
 high-concentration zones, which makes the correct estimation 
@@ -1637,13 +1654,16 @@ data, our method estimated a meaningful magnetization distribution that
 is consistent with that one in the manufactured sample.
 
 These results show that our method could be an interesting complement
-of traditional paleomagnetic techniques aiming at providing a 
+to traditional paleomagnetic techniques aiming at providing a 
 non-destructive diagnostic of geological samples.
 Nevertheless, further tests using either manufactured and geological samples 
 need to be carried out with the purpose of validating our approach,
 better evaluating the effects of position noise
 and misalignment problems during the scanning stage and
 also developing automatic pre-processing techniques.
+A further study need to be carried out in order to evaluate
+the influence of, for example, the scanning geometry and the 
+sensitivity of the magnetic sensor on the performance of our method.
 
 By presuming that the internal magnetization of the rectangular 
 sample varies along one of its axis we implicitly restrict the
@@ -2404,7 +2424,11 @@ Weiss, B.~P., E.~A. Lima, L.~E. Fong, and F.~J. Baudenbacher
  prisms are approximately parallel to the vertical planes represented
  in grey.
  (b) Magnetization (thick arrows) of the prisms on the vertical 
- planes shown in (a).
+ planes shown in (a). The vertical gradient fill (shown in grey)
+ represents the magnetite precipitation during the hardening of
+ the sample. The resultant low-concentration zones at the top of
+ the prisms are represented in white and the high-concentration zones
+ at the bottom of the prisms are represented in dark grey.
  (c) Resultant sample obtained by juxtaposing the magnetized prisms.
  The numbers indicate the index of each prism, whose magnetization
  is represented by the thick arrows. The inclination and declination
