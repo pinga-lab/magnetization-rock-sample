@@ -1,16 +1,14 @@
-# Figures and Latex source files for the manuscript
+# Figures and Latex source files used to generate the paper
 
-The `Makefile` has rules for building the PDF of the manuscript. To build the
-PDF, run:
+The folder manuscript contains some files used to generate all the sections of the paper to be published. Inside this folder, there are some .tex files and some HQ figures with all the result.
 
-    make
+Just below follows a list with the main files used to produce the text:
 
-To estimate the number of words in the paper (useful for estimating number of
-pages):
+*`manuscript.tex`: This file in .tex format used to generate the text.
 
-    make wc
+*`manuscript_galley.pdf `: This file in .pdf format is the main file containing the whole text.
 
-The compiled paper is placed in the `output` folder.
+*`bib-file.bib`: This file in .bib format contains the references used in this work.
 
-*It's also a good idea to mention here what notebook generated the figures in
-the `figures` folder.*
+* `Figs` : This is the folder containing all the Figures used in this paper.
+
