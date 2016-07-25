@@ -384,61 +384,61 @@ def residual(do,dp):
     r_std = np.std(r)
     r_norm = (r - r_mean)/r_std
     return r_norm, r_mean, r_std
-
-#def coordplane(h,L,Nx,Ny,area,alpha,theta):
-#    '''
-#    Generates the Coodinates of observation
-#    
-#    input
-#    
-#    h: int - distance (10**-6 m) sensor-to-sample
-#    
-#    L: float - dimensao em (mm) da aresta do prisma paralela ao plano
-#    
-#    Nx: int - numero de observacoes ao longo do eixo x 
-#    
-#    Ny: int - numero de observacoes ao longo do eixo y
-#    
-#    area: list - lista com os valores da area que sera feita a medicao
-#    
-#    alpha: int - numero sobre qual o plano vao ser feitas as medidas
-#    
-#    theta: int - numero (em graus) com o valor de quanto o plano correspondente foi rotacionado 
-#    
-#    return
-#    
-#    x,y,z: list com as coordenadas de observacao acima
-#    da amostra
-#    
-#    '''
-#   shape = (Nx, Ny)
-#    areaxy = area
-#    dist = h*0.000001
-#    size = L
-#    voo = dist + 0.5*size
-#    ang = np.deg2rad(theta)
-#    cos = np.cos(ang)
-#    sin = np.sin(ang)
-#    
-#    if (alpha == 0):
-#        x, y, z = gridder.regular(areaxy, shape, -voo)
-#    if (alpha == 1):
-#        x, z, y = gridder.regular(areaxy, shape, voo)
-#    if (alpha == 2):
-#        x, y, z = gridder.regular(areaxy, shape, voo)
-#    if (alpha == 3):
-#        x, z, y = gridder.regular(areaxy, shape, -voo)
-#    
-#    x_rot = []
-#    y_rot = []
-#    z_rot = []
-#    if (alpha==0 or alpha ==2):
-#        x_rot.append(cos*x - sin*y)
-#        y_rot.append(sin*x + cos*y)
-#        z_rot.append(z)
-#    if (alpha == 1 or alpha == 3):
-#        x_rot.append(cos*x - sin*z)
-#        z_rot.append(sin*x + cos*z)
-#        y_rot.append(y)
-#    
-#    return x_rot[0], y_rot[0], z_rot[0]
+   
+def coordplane(h,L,Nx,Ny,area,alpha,theta):
+    '''
+    Generates the Coodinates of observation
+    
+    input
+    
+    h: int - distance (10**-6 m) sensor-to-sample
+    
+    L: float - side length of the sample (in mm) along the x-axis
+    
+    Nx: int - number of observations along the x-axis
+    
+    Ny: int - number of observations along the y-axis
+    
+    area: list - limit boundaries of the observation planes
+    
+    alpha: int - number of the observation plane
+    
+    theta: int - angle (in radians) of the rotation
+    
+    return
+    
+    x,y,z: coordinates of the observations
+    
+    '''
+    
+    shape = (Nx, Ny)
+    areaxy = area
+    dist = h*0.000001
+    size = L
+    voo = dist + 0.5*size
+    ang = np.deg2rad(theta)
+    cos = np.cos(ang)
+    sin = np.sin(ang)
+    
+    if (alpha == 0):
+        x, y, z = gridder.regular(areaxy, shape, -voo)
+    if (alpha == 1):
+        x, z, y = gridder.regular(areaxy, shape, voo)
+    if (alpha == 2):
+        x, y, z = gridder.regular(areaxy, shape, voo)
+    if (alpha == 3):
+        x, z, y = gridder.regular(areaxy, shape, -voo)
+    
+    x_rot = []
+    y_rot = []
+    z_rot = []
+    if (alpha==0 or alpha ==2):
+        x_rot.append(cos*x - sin*y)
+        y_rot.append(sin*x + cos*y)
+        z_rot.append(z)
+    if (alpha == 1 or alpha == 3):
+        x_rot.append(cos*x - sin*z)
+        z_rot.append(sin*x + cos*z)
+        y_rot.append(y)
+    
+    return x_rot[0], y_rot[0], z_rot[0]
