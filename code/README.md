@@ -7,14 +7,14 @@ defined in the file `functions.py`.
 * [`validation.ipynb`](http://nbviewer.jupyter.org/github/pinga-lab/magnetization-rock-sample/blob/master/code/validation.ipynb): 
   generates all the results presented in the subsubsection **3.1.1 Validation test**.
 
-* [`pre_processing.ipynb`](http://nbviewer.jupyter.org/github/pinga-lab/magnetization-rock-sample/blob/fixing/code/pre_processing.ipynb): 
+* [`pre_processing.ipynb`](http://nbviewer.jupyter.org/github/pinga-lab/magnetization-rock-sample/blob/master/code/pre_processing.ipynb): 
   generates all the results presented in the subsubsection **3.1.2 Pre-processing errors**.
   
-* [`sensor_to_sample.ipynb`](http://nbviewer.jupyter.org/github/pinga-lab/magnetization-rock-sample/blob/fixing/code/sensor_to_sample.ipynb): 
+* [`sensor_to_sample.ipynb`](http://nbviewer.jupyter.org/github/pinga-lab/magnetization-rock-sample/blob/master/code/sensor_to_sample.ipynb): 
   generates all the results presented in the subsubsection **3.1.3 Sensor-to-sample distance**.
   
-* [`ferromanganese_crust_simulation.ipynb`](http://nbviewer.jupyter.org/github/pinga-lab/magnetization-rock-sample/blob/fixing/code/ferromanganese_crust_simulation.ipynb): 
+* [`ferromanganese_crust_simulation.ipynb`](http://nbviewer.jupyter.org/github/pinga-lab/magnetization-rock-sample/blob/master/code/ferromanganese_crust_simulation.ipynb): 
   generates all the results presented in the subsection **3.2 Marine ferro-manganese crust sample**.
   
-* [`application_real_data_PUC.ipynb`](http://nbviewer.jupyter.org/github/pinga-lab/magnetization-rock-sample/blob/fixing/code/application_real_data_PUC.ipynb): 
+* [`application_real_data_PUC.ipynb`](http://nbviewer.jupyter.org/github/pinga-lab/magnetization-rock-sample/blob/master/code/application_real_data_PUC.ipynb): 
   generates all the results presented in the section **4 Tentative application to real data produced by a synthetic sample**.
