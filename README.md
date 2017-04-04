@@ -17,9 +17,9 @@ de Janeiro, RJ, Brazil.*
 This paper has been published in 
 [**Geochemistry, Geophysics, Geosystems (G<sup>3</sup>)**](http://agupubs.onlinelibrary.wiley.com/hub/journal/10.1002/(ISSN)1525-2027).
 
-doi: [10.1002/2016GC006329](http://onlinelibrary.wiley.com/doi/10.1002/2016GC006329/abstract)
+doi: [10.1002/2016GC006329](https://doi.org/10.1002/2016GC006329)
 
-A PDF version is available at [pinga-lab.org/pdf/paper-magnetization-rock-sample-2016.pdf](http://www.pinga-lab.org/pdf/paper-magnetization-rock-sample-2016.pdf)
+A PDF version is available at [www.pinga-lab.org/papers/paper-magnetization-rock-sample-2016.html](http://www.pinga-lab.org/papers/paper-magnetization-rock-sample-2016.html)
 
 ## Abstract
 
