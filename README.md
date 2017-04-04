@@ -1,7 +1,11 @@
-#Estimating the magnetization distribution within rectangular rock samples
+# Estimating the magnetization distribution within rectangular rock samples
 
-[A. L. A. Reis] (http://www.pinga-lab.org/people/andre.html)<sup>1</sup>, [V. C. Oliveira Jr.](http://www.pinga-lab.org/people/oliveira-jr.html)<sup>1</sup>, E. Yokoyama<sup>2</sup>, 
-A. C. Bruno<sup>3</sup> and Pereira, J. M. B.<sup>3</sup>
+by 
+[A. L. A. Reis](http://www.pinga-lab.org/people/andre.html)<sup>1</sup>, 
+[V. C. Oliveira Jr.](http://www.pinga-lab.org/people/oliveira-jr.html)<sup>1</sup>, 
+E. Yokoyama<sup>2</sup>, 
+A. C. Bruno<sup>3</sup>, 
+and Pereira, J. M. B.<sup>3</sup>
 
 *<sup>1</sup>Department of Geophysics, Observatório Nacional, Rio de Janeiro, RJ, Brazil.*
 
@@ -10,11 +14,14 @@ A. C. Bruno<sup>3</sup> and Pereira, J. M. B.<sup>3</sup>
 *<sup>3</sup>Department of Physics, Pontifical Catholic University of Rio de Janeiro, Rio
 de Janeiro, RJ, Brazil.*
 
-> This paper has been submitted for publication in 
-> [**Geochemistry, Geophysics, Geosystems (G<sup>3</sup>)**]
-> (http://agupubs.onlinelibrary.wiley.com/agu/journal/10.1002/(ISSN)1525-2027/).
+This paper has been published in 
+[**Geochemistry, Geophysics, Geosystems (G<sup>3</sup>)**](http://agupubs.onlinelibrary.wiley.com/hub/journal/10.1002/(ISSN)1525-2027).
 
-####Abstract
+doi: [10.1002/2016GC006329](https://doi.org/10.1002/2016GC006329)
+
+A PDF version is available at [www.pinga-lab.org/papers/paper-magnetization-rock-sample-2016.html](http://www.pinga-lab.org/papers/paper-magnetization-rock-sample-2016.html)
+
+## Abstract
 
 Over the last decades, scanning magnetic microscopy techniques have 
 been increasingly used in paleomagnetism and rock magnetism. 
@@ -80,11 +87,8 @@ The values are in nT.*
 and estimated (blue and black dots) magnetization (a) intensity, 
 (b) inclination and (c) declination.*
 
-> This paper has been submitted for publication in 
-> [**Geochemistry, Geophysics, Geosystems (G<sup>3</sup>)**]
-> (http://agupubs.onlinelibrary.wiley.com/agu/journal/10.1002/(ISSN)1525-2027/).
 
-#### Reproducing the results
+## Reproducing the results
 
 You can download a copy of all the files in this repository by cloning the
 [git](https://git-scm.com/) repository:
@@ -102,13 +106,13 @@ See the `README.md` files in each directory for a full description.
 The calculations and figure generation are all run inside
 [Jupyter notebooks](http://jupyter.org/).
 You can view a static (non-executable) version of the notebooks in the
-[nbviewer]() webservice:
+[nbviewer](http://nbviewer.jupyter.org/) webservice:
 
 http://nbviewer.jupyter.org/github/pinga-lab/magnetization-rock-sample
 
 See sections below for instructions on executing the code.
 
-#### Setting up your environment
+### Setting up your environment
 
 You'll need a working Python **2.7** environment with all the standard
 scientific packages installed (numpy, scipy, matplotlib, etc).  The easiest
@@ -119,11 +123,10 @@ Make sure you get the **Python 2.7** version.
 You'll also need to install the [Fatiando a Terra](http://www.fatiando.org/) library
 from GitHub.
 We used a development version defined by the
-commit hash [09cd37da986114a68c57c6a611271fc6cd22bde4]
-(https://github.com/fatiando/fatiando/tree/09cd37da986114a68c57c6a611271fc6cd22bde4).
+commit hash [09cd37da986114a68c57c6a611271fc6cd22bde4](https://github.com/fatiando/fatiando/tree/09cd37da986114a68c57c6a611271fc6cd22bde4).
 See the install instructions on the website.
 
-#### Running the code
+### Running the code
 
 To execute the code in the Jupyter notebooks, you must first start the
 notebook server by going into the repository folder and running:
@@ -140,15 +143,13 @@ Executing text cells does nothing and executing code cells runs the code
 and produces it's output.
 To execute the whole notebook, run all cells in order.
 
-#### License
+## License
 
-All source code is made available under a [BSD 3-clause]
-(http://choosealicense.com/licenses/bsd-3-clause/) 
+All source code is made available under a [BSD 3-clause](http://choosealicense.com/licenses/bsd-3-clause/) 
 license.  You can freely
 use and modify the code, without warranty, so long as you provide attribution
 to the authors.  See `LICENSE.md` for the full license text.
 
 The manuscript text is not open source. The authors reserve the rights to the
-article content, which is currently submitted for publication in the
-[**Geochemistry, Geophysics, Geosystems (G<sup>3</sup>)**]
-(http://agupubs.onlinelibrary.wiley.com/agu/journal/10.1002/(ISSN)1525-2027/)
+article content, which is published in
+[**Geochemistry, Geophysics, Geosystems (G<sup>3</sup>)**](https://doi.org/10.1002/2016GC006329).
