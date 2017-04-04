@@ -1,5 +1,6 @@
 # Estimating the magnetization distribution within rectangular rock samples
 
+by 
 [A. L. A. Reis](http://www.pinga-lab.org/people/andre.html)<sup>1</sup>, 
 [V. C. Oliveira Jr.](http://www.pinga-lab.org/people/oliveira-jr.html)<sup>1</sup>, 
 E. Yokoyama<sup>2</sup>, 
@@ -14,11 +15,11 @@ and Pereira, J. M. B.<sup>3</sup>
 de Janeiro, RJ, Brazil.*
 
 This paper has been published in 
-[**Geochemistry, Geophysics, Geosystems (G<sup>3</sup>)**](https://doi.org/10.1002/2016GC006329).
+[**Geochemistry, Geophysics, Geosystems (G<sup>3</sup>)**](http://agupubs.onlinelibrary.wiley.com/hub/journal/10.1002/(ISSN)1525-2027).
 
-doi: [10.1002/2016GC006329](https://doi.org/10.1002/2016GC006329)
+doi: [10.1002/2016GC006329](http://onlinelibrary.wiley.com/doi/10.1002/2016GC006329/abstract)
 
-A PDF version is available at [pinga-lab.org/papers/paper-magnetization-rock-sample-2016.html](http://www.pinga-lab.org/papers/paper-magnetization-rock-sample-2016.html)
+A PDF version is available at [pinga-lab.org/pdf/paper-magnetization-rock-sample-2016.pdf](http://www.pinga-lab.org/pdf/paper-magnetization-rock-sample-2016.pdf)
 
 ## Abstract
 
